@@ -24,6 +24,10 @@ const AddPractice = () => {
         }));
     };
 
+    const handleSubmit = () => {
+
+    }
+
     return (
         <div className='p-4'>
             <h1 className='text-4xl font-bold mb-8'>Record Practice Metrics</h1>
@@ -60,6 +64,9 @@ const AddPractice = () => {
                 <p><strong>Formation:</strong> {selections.formation}</p>
                 <p><strong>Formation Variation:</strong> {selections.formationVariation}</p>
                 <p><strong>Backfield:</strong> {selections.backfield}</p>
+            </div>
+            <div>
+                {/* <button className="">Save</button> */}
             </div>
         </div>
     );
