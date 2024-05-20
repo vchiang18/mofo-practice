@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { PracticeProvider } from './context/PracticeContext';
 import AddPractice from './components/AddPractice';
+import PracticeList from './components/PracticeList';
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
       <div className="">
         <AddPractice />
       </div>
+      <PracticeList/>
     </PracticeProvider>
 
   );

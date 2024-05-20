@@ -14,8 +14,8 @@ export function PracticeProvider({ children }) {
             } catch (error) {
                 console.error("Failed to fetch practices", error);
             }
-        }
-
+        };
+        fetchPractices();
     }, []);
 
     const addPractice = async (practice) => {
