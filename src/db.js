@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 const db = new Dexie('PracticeDatabase');
 
 db.version(1).stores({
-    practices: '++id, period, practiceType, rep, offensivePersonnel, formation, formationVariation, backfield'
+    practices: '++id, offensivePersonnel, formation, formationVariation, backfield'
 })
 
 db.open().catch((err)=> {
@@ -11,3 +11,5 @@ db.open().catch((err)=> {
 });
 
 export default db;
+
+// period, practiceType, rep,

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
-const ButtonGroup = ({ fieldName, displayName, options, onSelectionChange }) => {
-  const [selectedValue, setSelectedValue] = useState(null);
+const ButtonGroup = ({ fieldName, displayName, options, onSelectionChange, value }) => {
 
-  const handleSelection = (value) => {
-    setSelectedValue(value);
-    onSelectionChange(fieldName, value);
+  const handleSelection = (option) => {
+    // setSelectedValue(option);
+    onSelectionChange(fieldName, option);
   };
 
   return (
@@ -15,7 +14,7 @@ const ButtonGroup = ({ fieldName, displayName, options, onSelectionChange }) => 
         {options.map((option, index) => (
           <button
             key={index}
-            className={`py-2 px-4 rounded ${selectedValue === option ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} hover:bg-blue-700`}
+            className={`py-2 px-4 rounded ${value === option ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} hover:bg-blue-700`}
             onClick={() => handleSelection(option)}
           >
             {option}
