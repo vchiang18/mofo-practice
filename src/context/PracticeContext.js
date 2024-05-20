@@ -1,5 +1,6 @@
 import React , { createContext , useContext , useEffect , useState } from 'react';
 import db from '../db';
+import { clear } from '@testing-library/user-event/dist/clear';
 
 const PracticeContext = createContext();
 
@@ -26,10 +27,31 @@ export function PracticeProvider({ children }) {
         } catch (error) {
             console.error("Failed to add practice", error);
         }
-    };
+
+    }
+
+    const deletePractice = async (id) => {
+        try {
+            await db.practices.delete(id);
+            const allPractices = await db.practices.toArray();
+            setPractices(allPractices);
+        } catch(error) {
+            console.error("Failed to delete practice: ", error)
+        }
+    }
+
+    const clearPractices = async () => {
+        try {
+            await db.practices.clear();
+            setPractices([]);
+        } catch(error) {
+            console.error("Failed to clear practices: ", error)
+        }
+    }
+
 
     return (
-        <PracticeContext.Provider value={{ practices, addPractice }}>
+        <PracticeContext.Provider value={{ practices, addPractice , deletePractice, clearPractices }}>
             {children}
         </PracticeContext.Provider>
     );

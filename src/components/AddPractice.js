@@ -8,7 +8,17 @@ const AddPractice = () => {
         formation: null,
         formationVariation: null,
         backfield: null,
+        motion: null,
+        fib: null,
+        formationFamily: null,
+        unbalanced: null
     });
+
+    // const [ practiceSettings, setPracticeSettings ] = useState({
+    //     period: null,
+    //     type: null,
+    //     rep: null
+    // })
 
     const { addPractice } = usePractices();
 
@@ -28,6 +38,10 @@ const AddPractice = () => {
             formation: null,
             formationVariation: null,
             backfield: null,
+            motion: null,
+            fib: null,
+            formationFamily: null,
+            unbalanced: null
         });
     };
 
@@ -63,6 +77,34 @@ const AddPractice = () => {
                     onSelectionChange={handleSelectionChange}
                     value={selections.backfield}
                 />
+                <ButtonGroup
+                    fieldName="motion"
+                    displayName="Motion"
+                    options={['Zip', 'Laser']}
+                    onSelectionChange={handleSelectionChange}
+                    value={selections.backfield}
+                />
+                <ButtonGroup
+                    fieldName="fib"
+                    displayName="FIB"
+                    options={['A', 'B', 'C']}
+                    onSelectionChange={handleSelectionChange}
+                    value={selections.backfield}
+                />
+                <ButtonGroup
+                    fieldName="formationFamily"
+                    displayName="Formation Family"
+                    options={['Compton', 'Houston', 'Nashville']}
+                    onSelectionChange={handleSelectionChange}
+                    value={selections.backfield}
+                />
+                <ButtonGroup
+                    fieldName="unbalanced"
+                    displayName="Unbalanced"
+                    options={['Yes', 'No']}
+                    onSelectionChange={handleSelectionChange}
+                    value={selections.backfield}
+                />
             </div>
 
             <div className="mt-8">
@@ -71,6 +113,11 @@ const AddPractice = () => {
                 <p><strong>Formation:</strong> {selections.formation}</p>
                 <p><strong>Formation Variation:</strong> {selections.formationVariation}</p>
                 <p><strong>Backfield:</strong> {selections.backfield}</p>
+                <p><strong>Motion:</strong> {selections.motion}</p>
+                <p><strong>FIB:</strong> {selections.fib}</p>
+                <p><strong>Form Family:</strong> {selections.formationFamily}</p>
+                <p><strong>Unbalanced:</strong> {selections.unbalanced}</p>
+
             </div>
 
             <div className="mt-4">
