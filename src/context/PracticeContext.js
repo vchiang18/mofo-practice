@@ -1,11 +1,16 @@
 import React , { createContext , useContext , useEffect , useState } from 'react';
 import db from '../db';
-import { clear } from '@testing-library/user-event/dist/clear';
+// import { clear } from '@testing-library/user-event/dist/clear';
 
 const PracticeContext = createContext();
 
 export function PracticeProvider({ children }) {
     const [practices, setPractices] = useState([]);
+    const [settings, setSettings ] = useState({
+        period: 1,
+        type: '',
+        rep: 1,
+    })
 
     useEffect(() => {
         const fetchPractices = async () => {
@@ -53,9 +58,16 @@ export function PracticeProvider({ children }) {
         }
     }
 
+    const updateSettings = (newSettings) => {
+        setSettings((prevSettings) => ({
+            ...prevSettings,
+            ...newSettings
+        }))
+    }
+
 
     return (
-        <PracticeContext.Provider value={{ practices, addPractice , deletePractice, clearPractices }}>
+        <PracticeContext.Provider value={{ practices, addPractice , deletePractice, clearPractices , settings , updateSettings }}>
             {children}
         </PracticeContext.Provider>
     );

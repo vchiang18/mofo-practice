@@ -15,11 +15,11 @@ const AddPractice = () => {
         formationFamily: null,
         unbalanced: null
     });
-    const [period, setPeriod] = useState(1);
-    const [practiceType, setPracticeType] = useState('');
-    const [rep, setRep] = useState(1);
+    // const [period, setPeriod] = useState(1);
+    // const [practiceType, setPracticeType] = useState('');
+    // const [rep, setRep] = useState(1);
 
-    const { addPractice } = usePractices();
+    const { settings, updateSettings, addPractice } = usePractices();
 
     const handleSelectionChange = (fieldName, value) => {
         setSelections((prevSelections) => ({
@@ -29,23 +29,31 @@ const AddPractice = () => {
     };
 
     const handlePeriodChange = (e) => {
-        setPeriod(e.target.value);
-        setRep(1);
-        setPracticeType('');
+        updateSettings({
+            period: e.target.value,
+            practiceType: '',
+            rep: 1,
+        })
     }
 
     const handlePracticeTypeChange = (e) => {
-        setPracticeType(e.target.value);
+        updateSettings({ practiceType: e.target.value })
     }
 
     const handleSave = () => {
-        setRep(prevRep => prevRep + 1);
+        updateSettings({rep: settings.rep + 1});
+
+        // updateSettings(prevRep => prevRep + 1);
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const settings = {period, practiceType, rep}
-        addPractice(selections, settings);
+        const settingsSelections = {
+            period: settings.period,
+            practiceType: settings.practiceType,
+            rep: settings.rep
+        }
+        addPractice(selections, settingsSelections);
         setSelections({
             offensivePersonnel: null,
             formation: null,
@@ -65,18 +73,20 @@ const AddPractice = () => {
                 <PracticeSettings
                     label="Period"
                     options={[1,2,3,4]}
-                    selectedValue={period}
+                    selectedValue={settings.period}
                     onChange={handlePeriodChange}
                 />
                 <PracticeSettings
                     label="Practice Type"
                     options={['','7x7', 'team', 'blitz']}
-                    selectedValue={practiceType}
+                    selectedValue={settings.practiceType}
                     onChange={handlePracticeTypeChange}
                 />
-                <RepCounter rep={rep}/>
+                <RepCounter rep={settings.rep}/>
             </div>
             <div className='p-4 w-5/6'>
+            <h2 className="text-3xl font-semibold leading-6 text-gray-900">All Practices</h2>
+
             <h1 className='text-3xl font-bold mb-8'>Record Practice Metrics</h1>
             <div className="flex flex-wrap justify-between">
                 <ButtonGroup
