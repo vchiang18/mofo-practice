@@ -19,9 +19,13 @@ export function PracticeProvider({ children }) {
         fetchPractices();
     }, []);
 
-    const addPractice = async (practice) => {
+    const addPractice = async (practice, settings) => {
+        const practiceData = {
+            ...practice,
+            ...settings
+        }
         try {
-            await db.practices.add(practice);
+            await db.practices.add(practiceData);
             const allPractices = await db.practices.toArray();
             setPractices(allPractices);
         } catch (error) {
