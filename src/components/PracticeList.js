@@ -8,8 +8,6 @@ function PracticeList() {
         return <div>No practices recorded.</div>
     }
 
-    const columns = Object.keys(practices[practices.length -1 ])
-
     return (
             <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
