@@ -17,7 +17,7 @@ function App() {
         <nav className="bg-gray-800 p-4">
           <div className="flex justify-left items-center space-x-4" >
           <div className="flex items-center" >
-            <img className="h-8 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Cal_logo.png"/>
+            <img className="h-8 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Cal_logo.png" alt="team logo"/>
           </div>
               <ul className="flex space-x-4">
                   <li>
