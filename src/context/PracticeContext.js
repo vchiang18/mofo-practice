@@ -1,6 +1,5 @@
 import React , { createContext , useContext , useEffect , useState } from 'react';
 import db from '../db';
-// import { clear } from '@testing-library/user-event/dist/clear';
 
 const PracticeContext = createContext();
 

@@ -42,8 +42,6 @@ const AddPractice = () => {
 
     const handleSave = () => {
         updateSettings({rep: settings.rep + 1});
-
-        // updateSettings(prevRep => prevRep + 1);
     }
 
     const handleSubmit = (e) => {
