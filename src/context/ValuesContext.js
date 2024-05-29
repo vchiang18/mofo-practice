@@ -10,7 +10,7 @@ const defaultValues = {
     formationVariation: ['Trips', 'Bunch', 'Spread'],
     backfield: ['Right', 'Left'],
     motion: ['Zip', 'Laser'],
-    fib: ['A','B', 'C'],
+    FIB: ['A','B', 'C'],
     formationFamily: ['Compton', 'Houston', 'Nashville'],
     unbalanced: ['Yes', 'No'],
     practiceType: ['7x7', 'Blitz', 'Team']
