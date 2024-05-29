@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState , useEffect } from 'react';
 import { ValuesProvider, useValues } from '../context/ValuesContext';
 
 const ColumnHeaders = ({onSelect}) => {
@@ -27,14 +27,19 @@ const ColumnHeaders = ({onSelect}) => {
 };
 
 const AddCustomValue = ({ selectedColumn}) => {
-    const { values, updateValues } = useValues();
+    const { values, updateValues , fetchValues } = useValues();
     const [ newValue, setNewValue ] = useState('');
 
-    const handleAddValue = (e) => {
+    useEffect(() => {
+        fetchValues();
+    }, []);
+
+    const handleAddValue = async (e) => {
         if(newValue.trim()){
             const setValues = [...values[selectedColumn], newValue];
             updateValues(selectedColumn, setValues);
             setNewValue('');
+            await fetchValues();
         }
     };
 
@@ -77,30 +82,6 @@ const AddCustomValue = ({ selectedColumn}) => {
 
             </div>
         </div>
-
-
-
-        // <div className="flex">
-        //     <div>
-        //         <h2 className="text-3xl font-semibold leading-6 text-gray-900 p-4">Update Custom Values</h2>
-        //         <h3 className="text-l p-4">{selectedColumn}</h3>
-        //         <input className="p-4"
-        //             type="text"
-        //             value={newValue}
-        //             onChange={(e) => setNewValue(e.target.value)}
-        //             onKeyDown={handleKeyDown}
-        //             placeholder={`Add new value to ${selectedColumn}`}
-        //         />
-        //         <button onClick={handleAddValue}
-        //             className="bg-blue-500 text-white px-4 py-2 rounded"
-        //             >Add</button>
-        //         <ul>
-        //             {values[selectedColumn].map((value, index) => (
-        //                 <li key={index}>{value} </li>
-        //             ))}
-        //         </ul>
-        //     </div>
-        // </div>
     );
 };
 

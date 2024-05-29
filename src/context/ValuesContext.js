@@ -19,22 +19,23 @@ const defaultValues = {
 export function ValuesProvider({children}) {
     const [values, setValues] = useState(defaultValues);
 
-    useEffect(() => {
-        const loadValues = async () => {
-            const storedValues = {};
-            const keys = Object.keys(defaultValues);
-            for (const key of keys) {
-                const value = await db.metricValues.get[key];
-                if(value){
-                    storedValues[key] = value.value;
-                } else {
-                    storedValues[key] = defaultValues[key];
-                }
+    const fetchValues = async () => {
+        const storedValues = {};
+        const keys = Object.keys(defaultValues);
+        for (const key of keys) {
+            const value = await db.metricValues.get(key);
+            if(value){
+                storedValues[key] = value.value;
+            } else {
+                storedValues[key] = defaultValues[key];
             }
-            // console.log('Loaded values from IndexedDB:', storedValues);
-            setValues(storedValues);
-        };
-        loadValues();
+        }
+        // console.log('Loaded values from IndexedDB:', storedValues);
+        setValues(storedValues);
+    };
+
+    useEffect(() => {
+        fetchValues();
     }, []);
 
     const updateValues = async(field, values) => {
@@ -46,7 +47,7 @@ export function ValuesProvider({children}) {
     };
 
     return (
-        <ValuesContext.Provider value={{values, updateValues}}>
+        <ValuesContext.Provider value={{values, updateValues , fetchValues}}>
             {children}
         </ValuesContext.Provider>
     );
