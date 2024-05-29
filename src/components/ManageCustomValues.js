@@ -10,7 +10,7 @@ const ColumnHeaders = ({onSelect}) => {
     }
 
     return (
-        <div className="mb-4 w-full md:w-1/5">
+        <div>
             <div className="flex flex-col space-y-2">
             {columns.map(column => (
                 <button
@@ -30,30 +30,77 @@ const AddCustomValue = ({ selectedColumn}) => {
     const { values, updateValues } = useValues();
     const [ newValue, setNewValue ] = useState('');
 
-    const handleAddValue = () => {
+    const handleAddValue = (e) => {
         if(newValue.trim()){
             const setValues = [...values[selectedColumn], newValue];
             updateValues(selectedColumn, setValues);
-            setNewValue();
+            setNewValue('');
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter'){
+            handleAddValue(e);
         }
     };
 
     return(
-        <div>
-            <h3>{selectedColumn}</h3>
-            <input
-                type="text"
-                value={newValue}
-                onChange={(e) => setNewValue(e.target.value)}
-                placeholder={`Add new value to ${selectedColumn}`}
-            />
-            <button onClick={handleAddValue}>Add</button>
-            <ul>
-                {values[selectedColumn].map((value, index) => (
-                    <li key={index}>{value} </li>
-                ))}
-            </ul>
+        <div className="flex justify-center">
+            <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center">
+                <h2 className="text-3xl leading-6 text-gray-900 mb-4">Update Custom Values</h2>
+                <h3 className="text-xl font-semibold mb-4">{selectedColumn}</h3>
+                <div className="mb-4">
+                    <input
+                        className="p-2 border border-gray-300 rounded mr-2"
+                        type="text"
+                        value={newValue}
+                        onChange={(e) => setNewValue(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        placeholder={`Add new value`}
+                    />
+                    <button
+                        onClick={handleAddValue}
+                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                    >
+                        Add
+                    </button>
+                </div>
+                <div className="flex flex-1 justify-center items-center">
+                    <ul className="space-y-2">
+                        {values[selectedColumn].map((value, index) => (
+                            <li key={index} className="p-2">
+                                {value}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+            </div>
         </div>
+
+
+
+        // <div className="flex">
+        //     <div>
+        //         <h2 className="text-3xl font-semibold leading-6 text-gray-900 p-4">Update Custom Values</h2>
+        //         <h3 className="text-l p-4">{selectedColumn}</h3>
+        //         <input className="p-4"
+        //             type="text"
+        //             value={newValue}
+        //             onChange={(e) => setNewValue(e.target.value)}
+        //             onKeyDown={handleKeyDown}
+        //             placeholder={`Add new value to ${selectedColumn}`}
+        //         />
+        //         <button onClick={handleAddValue}
+        //             className="bg-blue-500 text-white px-4 py-2 rounded"
+        //             >Add</button>
+        //         <ul>
+        //             {values[selectedColumn].map((value, index) => (
+        //                 <li key={index}>{value} </li>
+        //             ))}
+        //         </ul>
+        //     </div>
+        // </div>
     );
 };
 
@@ -62,9 +109,15 @@ const ManageCustomValues = () => {
 
     return (
         <ValuesProvider>
-            <div>
-                <ColumnHeaders onSelect={setSelectedColumn} />
-                {selectedColumn && <AddCustomValue selectedColumn={selectedColumn}/>}
+            <div className='flex'>
+                <div className="w-1/5 bg-gray-100 p-4 rounded-lg">
+                    <ColumnHeaders onSelect={setSelectedColumn} />
+                </div>
+                <div className="flex flex-1 justify-center items-center">
+                    <div>
+                        {selectedColumn && <AddCustomValue selectedColumn={selectedColumn}/>}
+                    </div>
+                </div>
             </div>
         </ValuesProvider>
 
