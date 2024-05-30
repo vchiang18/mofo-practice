@@ -2,7 +2,7 @@ import React , { useState , useEffect } from 'react';
 import { ValuesProvider, useValues } from '../context/ValuesContext';
 
 const ManageCustomValues = () => {
-    const { values, updateValues , fetchValues } = useValues();
+    const { values, updateValues , fetchValues , deleteValue } = useValues();
     const [ selectedColumn, setSelectedColumn ] = useState('')
     const [ newValue, setNewValue ] = useState('');
     const columns = Object.keys(values);
@@ -39,6 +39,11 @@ const ManageCustomValues = () => {
         if (e.key === 'Enter'){
             handleAddValue(e);
         }
+    };
+
+    const handleDeleteValue = async (valueToDelete) => {
+        // console.log('Deleting value:', valueToDelete);
+        await deleteValue(selectedColumn, valueToDelete);
     };
 
     return (
@@ -84,6 +89,12 @@ const ManageCustomValues = () => {
                             {selectedColumn && values[selectedColumn]?.map((value, index) => (
                                 <li key={index} className="p-2">
                                     {value}
+                                    <button
+                                        onClick={() => handleDeleteValue(value)}
+                                        className="ml-2 text-red-300 text-xs hover:text-red-600"
+                                    >
+                                        Delete
+                                    </button>
                                 </li>
                             ))}
                         </ul>

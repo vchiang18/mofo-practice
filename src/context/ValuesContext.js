@@ -20,7 +20,7 @@ export function ValuesProvider({children}) {
     const [values, setValues] = useState(defaultValues);
 
     const fetchValues = async () => {
-        const storedValues = {};
+        const storedValues = {...defaultValues};
         const keys = Object.keys(defaultValues);
         for (const key of keys) {
             const value = await db.metricValues.get(key);
@@ -39,6 +39,7 @@ export function ValuesProvider({children}) {
     }, []);
 
     const updateValues = async(field, values) => {
+        // console.log('Updating values:', { key: field, value: values });
         await db.metricValues.put({ key: field, value: values});
         setValues(prevValues => ({
             ...prevValues,
@@ -46,8 +47,23 @@ export function ValuesProvider({children}) {
         }));
     };
 
+    const deleteValue = async (field, valueToDelete) => {
+        try {
+            const updatedValues = values[field].filter(value => value !== valueToDelete);
+            // console.log('Filtered values: ', updatedValues);
+            await db.metricValues.put( {key: field, value: updatedValues});
+            setValues(prevValues => ({
+                ...prevValues,
+                [field]: updatedValues
+            }));
+
+        } catch(error) {
+            console.error("Failed to delete value: ", error)
+        }
+    }
+
     return (
-        <ValuesContext.Provider value={{values, updateValues , fetchValues}}>
+        <ValuesContext.Provider value={{values, updateValues , fetchValues, deleteValue}}>
             {children}
         </ValuesContext.Provider>
     );
