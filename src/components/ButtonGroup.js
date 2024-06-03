@@ -8,7 +8,7 @@ const ButtonGroup = ({ fieldName, displayName, options, onSelectionChange, value
   };
 
   return (
-    <div className="mb-4 w-full md:w-1/5 ">
+    <div className="mb-2">
       <h2 className="text-lg text-center font-semibold mb-2">{displayName}</h2>
       <div className="flex flex-col space-y-2">
         {options.map((option, index) => (

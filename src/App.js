@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { PracticeProvider } from './context/PracticeContext';
 import { ValuesProvider } from './context/ValuesContext';
-import AddPractice from './components/AddPractice';
+import PlayEntry from './components/PlayEntry';
 import PracticeList from './components/PracticeList';
 import ManageCustomValues from './components/ManageCustomValues';
 import { BrowserRouter, Routes, Route , NavLink } from "react-router-dom";
@@ -33,7 +33,7 @@ function App() {
           </div>
         </nav>
         <Routes>
-          <Route path="/" element={<AddPractice/>} />
+          <Route path="/" element={<PlayEntry/>} />
           <Route path="/practice-list" element={<PracticeList/>} />
           <Route path="/customize-values" element={<ManageCustomValues/>} />
         </Routes>
