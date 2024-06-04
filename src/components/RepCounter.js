@@ -1,13 +1,12 @@
-import React from 'react';
+import React from "react";
 
-const RepCounter = ({rep}) => {
-
-    return (
-        <div>
-            <label>Rep #</label>
-            <div>{rep}</div>
-        </div>
-    )
-}
+const RepCounter = ({ rep }) => {
+  return (
+    <div>
+      <label>Rep #</label>
+      {rep}
+    </div>
+  );
+};
 
 export default RepCounter;
