@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PracticeSettings from "./PracticeSettings";
 import RepCounter from "./RepCounter";
 import { usePractices } from "../context/PracticeContext";
-import { useNavigate } from "react-router-dom";
 
 const PlayEntry = () => {
   const [selections, setSelections] = useState({
@@ -16,18 +15,10 @@ const PlayEntry = () => {
     formationFamily: null,
     unbalanced: null,
   });
-  const [priorSelections, setPriorSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    fib: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
+  // const [period, setPeriod] = useState(1);
+  // const [practiceType, setPracticeType] = useState('');
+  // const [rep, setRep] = useState(1);
 
-  const navigate = useNavigate();
   const { settings, updateSettings, addPractice } = usePractices();
 
   const handleSelectionChange = (fieldName, value) => {
@@ -53,33 +44,13 @@ const PlayEntry = () => {
     updateSettings({ rep: settings.rep + 1 });
   };
 
-  useEffect(() => {
-    console.log("prior selections updated: ", priorSelections);
-  }, [priorSelections]);
-
-  const handleCancel = () => {
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      fib: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPriorSelections({ ...selections });
     const settingsSelections = {
       period: settings.period,
       practiceType: settings.practiceType,
       rep: settings.rep,
     };
-    // console.log("selections on submit: ", selections);
-    // console.log("prior selections: ", priorSelections);
     addPractice(selections, settingsSelections);
     setSelections({
       offensivePersonnel: null,
@@ -92,13 +63,6 @@ const PlayEntry = () => {
       unbalanced: null,
     });
     handleSave();
-    // navigate("/play-list");
-  };
-
-  const handleReset = () => {
-    if (priorSelections) {
-      setSelections(priorSelections);
-    }
   };
 
   return (
@@ -106,7 +70,7 @@ const PlayEntry = () => {
       <div className="flex flex-wrap justify-between">
         <PracticeSettings
           label="Period"
-          options={[1, 2, 3, 4, 5, 6, 7, 8]}
+          options={[1, 2, 3, 4]}
           selectedValue={settings.period}
           onChange={handlePeriodChange}
         />
@@ -180,14 +144,14 @@ const PlayEntry = () => {
           </div>
           <div className="mt-4 flex justify-end space-x-2">
             <button
-              onClick={handleReset}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
+              //   onClick={}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
             >
               Repeat
             </button>
             <button
-              onClick={handleCancel}
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              //   onClick={}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
             >
               Cancel
             </button>
