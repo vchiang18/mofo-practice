@@ -11,7 +11,7 @@ const ManageCustomValues = () => {
 
   useEffect(() => {
     fetchValues();
-  }, []);
+  }, [fetchValues]);
 
   const formatKeyName = (key) => {
     return key
