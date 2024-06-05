@@ -2,7 +2,7 @@ import React from "react";
 import { usePractices } from "../context/PracticeContext";
 
 function PlayList() {
-  const { practices, clearPractices } = usePractices();
+  const { practices } = usePractices();
 
   if (practices.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
