@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const Nav = () => {
-  //   const [isOpen, setIsOpen] = useState(false);
-
-  //   const toggleMenu = () => {
-  //     setIsOpen(!isOpen);
-  //   };
   const [isPlayEntry, setIsPlayEntry] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const togglePage = () => {
-    setIsPlayEntry(!isPlayEntry);
-  };
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setIsPlayEntry(true);
+    } else if (location.pathname === "/play-list") {
+      setIsPlayEntry(false);
+    }
+  }, [location.pathname]);
 
   const handlePlayEntryClick = () => {
-    togglePage();
+    setIsPlayEntry(true);
     navigate("/");
   };
 
   const handlePlayListClick = () => {
-    togglePage();
+    setIsPlayEntry(false);
     navigate("/play-list");
   };
 
