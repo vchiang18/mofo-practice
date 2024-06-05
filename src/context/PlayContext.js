@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import db from "../db";
+import React, { createContext, useContext, useState } from "react";
 
 const PlayContext = createContext();
 

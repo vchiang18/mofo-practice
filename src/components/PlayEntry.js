@@ -32,7 +32,7 @@ const PlayEntry = () => {
   });
 
   const { playSelections, savePlaySelections } = usePlaySelections();
-  const { values, fetchValues } = useValues();
+  const { values } = useValues();
   const navigate = useNavigate();
   const { settings, updateSettings, addPractice } = usePractices();
 

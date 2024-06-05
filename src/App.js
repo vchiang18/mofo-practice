@@ -7,7 +7,7 @@ import PlayEntry from "./components/PlayEntry";
 import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
 import ManageCustomValues from "./components/ManageCustomValues";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
