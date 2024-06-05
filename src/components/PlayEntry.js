@@ -3,6 +3,7 @@ import ButtonGroup from "./ButtonGroup";
 import PracticeSettings from "./PracticeSettings";
 import RepCounter from "./RepCounter";
 import { usePractices } from "../context/PracticeContext";
+import { useValues } from "../context/ValuesContext";
 import { useNavigate } from "react-router-dom";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -27,6 +28,7 @@ const PlayEntry = () => {
     formationFamily: null,
     unbalanced: null,
   });
+  const { values, fetchValues } = useValues();
 
   const navigate = useNavigate();
   const { settings, updateSettings, addPractice } = usePractices();
@@ -54,9 +56,7 @@ const PlayEntry = () => {
     updateSettings({ rep: settings.rep + 1 });
   };
 
-  useEffect(() => {
-    console.log("prior selections updated: ", priorSelections);
-  }, [priorSelections]);
+  useEffect(() => {}, [priorSelections]);
 
   const handleCancel = () => {
     setSelections({
@@ -113,7 +113,7 @@ const PlayEntry = () => {
         />
         <PracticeSettings
           label="Practice Type"
-          options={["", "7x7", "team", "blitz"]}
+          options={values.practiceType}
           selectedValue={settings.practiceType}
           onChange={handlePracticeTypeChange}
         />
@@ -125,56 +125,56 @@ const PlayEntry = () => {
             <ButtonGroup
               fieldName="offensivePersonnel"
               displayName="OFF PERSONNEL"
-              options={["10", "11", "12", "21", "22"]}
+              options={values.offensivePersonnel}
               onSelectionChange={handleSelectionChange}
               value={selections.offensivePersonnel}
             />
             <ButtonGroup
               fieldName="formation"
               displayName="FORMATION"
-              options={["Spread Right", "Spread Left", "3x1", "2x2", "Empty"]}
+              options={values.formation}
               onSelectionChange={handleSelectionChange}
               value={selections.formation}
             />
             <ButtonGroup
               fieldName="formationVariation"
               displayName="FORM VAR"
-              options={["Right", "Left"]}
+              options={values.formationVariation}
               onSelectionChange={handleSelectionChange}
               value={selections.formationVariation}
             />
             <ButtonGroup
               fieldName="backfield"
               displayName="BACKFIELD"
-              options={["Left", "Middle", "Right"]}
+              options={values.backfield}
               onSelectionChange={handleSelectionChange}
               value={selections.backfield}
             />
             <ButtonGroup
               fieldName="motion"
               displayName="MOTION"
-              options={["Z-Fly", "H-Jet"]}
+              options={values.motion}
               onSelectionChange={handleSelectionChange}
               value={selections.motion}
             />
             <ButtonGroup
               fieldName="fib"
               displayName="FSL (FIB)"
-              options={["Field", "Boundary", "Home", "Away"]}
+              options={values.FIB}
               onSelectionChange={handleSelectionChange}
-              value={selections.fib}
+              value={selections.FIB}
             />
             <ButtonGroup
               fieldName="formationFamily"
               displayName="FORM FAM"
-              options={["Compton", "Houston", "Crunch", "Cab"]}
+              options={values.formationFamily}
               onSelectionChange={handleSelectionChange}
               value={selections.formationFamily}
             />
             <ButtonGroup
               fieldName="unbalanced"
               displayName="UNB"
-              options={["Yes", "No"]}
+              options={values.unbalanced}
               onSelectionChange={handleSelectionChange}
               value={selections.unbalanced}
             />

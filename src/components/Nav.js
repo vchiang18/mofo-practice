@@ -15,8 +15,17 @@ const Nav = () => {
     setIsPlayEntry(!isPlayEntry);
   };
 
-  const handleSettingsClick = () => {
+  const handlePlayEntryClick = () => {
     togglePage();
+    navigate("/");
+  };
+
+  const handlePlayListClick = () => {
+    togglePage();
+    navigate("/play-list");
+  };
+
+  const handleSettingsClick = () => {
     navigate("/customize-values");
   };
 
@@ -36,7 +45,7 @@ const Nav = () => {
             <NavLink
               to="/play-list"
               className="text-gray-300 hover:text-white"
-              onClick={handleSettingsClick}
+              onClick={handlePlayEntryClick}
             >
               Play List
             </NavLink>
@@ -44,7 +53,7 @@ const Nav = () => {
             <NavLink
               to="/"
               className="text-gray-300 hover:text-white"
-              onClick={handleSettingsClick}
+              onClick={handlePlayListClick}
             >
               Play Entry
             </NavLink>

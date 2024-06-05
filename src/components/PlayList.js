@@ -5,7 +5,7 @@ function PlayList() {
   const { practices, clearPractices } = usePractices();
 
   if (practices.length === 0) {
-    return <div>No practices recorded.</div>;
+    return <div className="p-4">No practices recorded.</div>;
   }
 
   return (
@@ -132,13 +132,6 @@ function PlayList() {
                 ))}
               </tbody>
             </table>
-            <button
-              type="button"
-              onClick={clearPractices}
-              className="block rounded-md bg-blue-500 text-white px-3 py-2 text-center text-smm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Clear Practices
-            </button>
           </div>
         </div>
       </div>

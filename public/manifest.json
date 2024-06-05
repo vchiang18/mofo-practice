@@ -8,14 +8,51 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/images/logo.png",
-      "sizes": "1024x1024",
+      "src": "/images/appicon-20@2x~ipad.png",
+      "sizes": "40x40",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/appicon-20~ipad.png",
+      "sizes": "60x60",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/appicon-29@2x~ipad.png",
+      "sizes": "58x58",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/appicon-29~ipad.png",
+      "sizes": "87x87",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/appicon-40@2x~ipad.png",
+      "sizes": "80x80",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/appicon-40~ipad.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/appicon-83.5@2x~ipad.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/play_store_512.png",
+      "sizes": "512x512",
       "type": "image/png"
     }
   ],
+
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff",
-  "description": "Track your practices with Modern Football Technology"
+  "description": "Track your practices with Modern Football Technology",
+  "orientation": "portrait"
 }
