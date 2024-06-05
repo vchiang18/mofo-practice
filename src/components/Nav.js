@@ -35,7 +35,9 @@ const Nav = () => {
         <div>
           <img
             className="h-8 w-auto"
-            src="https://upload.wikimedia.org/wikipedia/commons/0/03/Cal_logo.png"
+            src="/images/cal-yellow.svg"
+            // src="/images/cal-football.png"
+            // src="https://upload.wikimedia.org/wikipedia/commons/0/03/Cal_logo.png"
             alt="team logo"
           />
         </div>

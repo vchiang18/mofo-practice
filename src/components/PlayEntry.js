@@ -111,13 +111,15 @@ const PlayEntry = () => {
 
   return (
     <div className="p-4">
-      <div className="flex flex-wrap justify-between">
-        <PracticeSettings
-          label="Period"
-          options={[1, 2, 3, 4, 5, 6, 7, 8]}
-          selectedValue={settings.period}
-          onChange={handlePeriodChange}
-        />
+      <div className="flex flex-wrap items-center justify-center">
+        <div className="p-1">
+          <PracticeSettings
+            label="Period"
+            options={[1, 2, 3, 4, 5, 6, 7, 8]}
+            selectedValue={settings.period}
+            onChange={handlePeriodChange}
+          />
+        </div>
         <PracticeSettings
           label="Practice Type"
           options={values.practiceType}
@@ -129,6 +131,7 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-4 w-full">
           <div className="flex flex-wrap justify-between">
+            {/* <div className="flex-1 p-1"> */}
             <ButtonGroup
               fieldName="offensivePersonnel"
               displayName="OFF PERSONNEL"
@@ -136,6 +139,7 @@ const PlayEntry = () => {
               onSelectionChange={handleSelectionChange}
               value={selections.offensivePersonnel}
             />
+            {/* </div> */}
             <ButtonGroup
               fieldName="formation"
               displayName="FORMATION"
@@ -188,13 +192,6 @@ const PlayEntry = () => {
           </div>
           <div className="mt-4 flex justify-end space-x-2">
             <button
-              onClick={handleReset}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-              aria-label="Repeat"
-            >
-              <ArrowPathIcon className="w-6 h-6 text-white" />
-            </button>
-            <button
               onClick={handleCancel}
               className="bg-red-500 text-white px-4 py-2 rounded"
               aria-label="Cancel"
@@ -202,10 +199,17 @@ const PlayEntry = () => {
               <XMarkIcon className="w-6 h-6 text-white" />
             </button>
             <button
-              onClick={handleSubmit}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={handleReset}
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+              aria-label="Repeat"
             >
-              Save
+              <ArrowPathIcon className="w-6 h-6 text-white" />
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="bg-green-500 text-white px-4 py-2 rounded"
+            >
+              Enter
             </button>
           </div>
         </div>

@@ -1,7 +1,12 @@
-import React from 'react';
+import React from "react";
 
-const ButtonGroup = ({ fieldName, displayName, options, onSelectionChange, value }) => {
-
+const ButtonGroup = ({
+  fieldName,
+  displayName,
+  options,
+  onSelectionChange,
+  value,
+}) => {
   const handleSelection = (option) => {
     // setSelectedValue(option);
     onSelectionChange(fieldName, option);
@@ -9,12 +14,16 @@ const ButtonGroup = ({ fieldName, displayName, options, onSelectionChange, value
 
   return (
     <div className="mb-2">
-      <h2 className="text-lg text-center font-semibold mb-2">{displayName}</h2>
+      <h2 className="text-lg text-center mb-2">{displayName}</h2>
       <div className="flex flex-col space-y-2">
         {options.map((option, index) => (
           <button
             key={index}
-            className={`py-2 px-4 rounded mx-2 ${value === option ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'} hover:bg-blue-700`}
+            className={`py-2 px-4 rounded mx-2 ${
+              value === option
+                ? "bg-blue-500 text-white"
+                : "bg-blue-500 text-white"
+            } hover:bg-red-500`}
             onClick={() => handleSelection(option)}
           >
             {option}
