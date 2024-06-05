@@ -4,6 +4,7 @@ import PracticeSettings from "./PracticeSettings";
 import RepCounter from "./RepCounter";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
+import { usePlaySelections } from "../context/PlayContext";
 import { useNavigate } from "react-router-dom";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -18,6 +19,7 @@ const PlayEntry = () => {
     formationFamily: null,
     unbalanced: null,
   });
+
   const [priorSelections, setPriorSelections] = useState({
     offensivePersonnel: null,
     formation: null,
@@ -28,8 +30,9 @@ const PlayEntry = () => {
     formationFamily: null,
     unbalanced: null,
   });
-  const { values, fetchValues } = useValues();
 
+  const { playSelections, savePlaySelections } = usePlaySelections();
+  const { values, fetchValues } = useValues();
   const navigate = useNavigate();
   const { settings, updateSettings, addPractice } = usePractices();
 
@@ -56,7 +59,17 @@ const PlayEntry = () => {
     updateSettings({ rep: settings.rep + 1 });
   };
 
-  useEffect(() => {}, [priorSelections]);
+  useEffect(() => {
+    if (playSelections) {
+      setPriorSelections(playSelections);
+    }
+  }, [playSelections]);
+
+  const handleReset = () => {
+    if (priorSelections) {
+      setSelections(priorSelections);
+    }
+  };
 
   const handleCancel = () => {
     setSelections({
@@ -73,7 +86,7 @@ const PlayEntry = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setPriorSelections({ ...selections });
+    savePlaySelections(selections);
     const settingsSelections = {
       period: settings.period,
       practiceType: settings.practiceType,
@@ -94,12 +107,6 @@ const PlayEntry = () => {
     });
     handleSave();
     // navigate("/play-list");
-  };
-
-  const handleReset = () => {
-    if (priorSelections) {
-      setSelections(priorSelections);
-    }
   };
 
   return (

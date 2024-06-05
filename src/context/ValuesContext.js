@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import db from "../db";
 
 const ValuesContext = createContext();
-export const useValues = () => useContext(ValuesContext);
 
 const defaultValues = {
   offensivePersonnel: ["10", "11", "12", "21", "22"],
@@ -30,7 +29,6 @@ export function ValuesProvider({ children }) {
         storedValues[key] = defaultValues[key];
       }
     }
-    // console.log('Loaded values from IndexedDB:', storedValues);
     setValues(storedValues);
   };
 
@@ -39,7 +37,6 @@ export function ValuesProvider({ children }) {
   }, []);
 
   const updateValues = async (field, values) => {
-    // console.log('Updating values:', { key: field, value: values });
     await db.metricValues.put({ key: field, value: values });
     setValues((prevValues) => ({
       ...prevValues,
@@ -52,7 +49,6 @@ export function ValuesProvider({ children }) {
       const updatedValues = values[field].filter(
         (value) => value !== valueToDelete
       );
-      // console.log('Filtered values: ', updatedValues);
       await db.metricValues.put({ key: field, value: updatedValues });
       setValues((prevValues) => ({
         ...prevValues,
@@ -71,3 +67,5 @@ export function ValuesProvider({ children }) {
     </ValuesContext.Provider>
   );
 }
+
+export const useValues = () => useContext(ValuesContext);
