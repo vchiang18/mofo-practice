@@ -14,9 +14,13 @@ const ManageCustomValues = () => {
   }, [fetchValues]);
 
   const formatKeyName = (key) => {
-    return key
-      .replace(/([A-Z])/g, " $1")
-      .replace(/^./, (str) => str.toUpperCase());
+    if (key === "FIB") {
+      return "FSL (FIB)";
+    } else {
+      return key
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase());
+    }
   };
 
   if (!columns.length) {
@@ -51,7 +55,7 @@ const ManageCustomValues = () => {
     <ValuesProvider>
       <div className="flex min-h-screen">
         <div className="w-1/5 bg-gray-100 p-4 rounded-lg flex flex-col">
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col space-y-1 h-full">
             {columns.map((column) => (
               <span
                 key={column}
@@ -65,14 +69,15 @@ const ManageCustomValues = () => {
                 {formatKeyName(column)}
               </span>
             ))}
-            <div className="mt-6"></div>
-            <button
-              type="button"
-              onClick={clearPractices}
-              className="block rounded-md bg-blue-500 text-white mt-6 px-3 py-2 text-center text-smm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Clear Practices
-            </button>
+            <div className="mt-auto justify-end">
+              <button
+                type="button"
+                onClick={clearPractices}
+                className="block rounded-md bg-blue-500 text-white mt-6 px-3 py-2 text-center text-smm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Clear Practices
+              </button>
+            </div>
           </div>
         </div>
         <div className="flex flex-1 justify-center items-start p-4">

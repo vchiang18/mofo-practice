@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 const Nav = () => {
   const [isPlayEntry, setIsPlayEntry] = useState(true);
@@ -36,8 +36,6 @@ const Nav = () => {
           <img
             className="h-8 w-auto"
             src="/images/cal-yellow.svg"
-            // src="/images/cal-football.png"
-            // src="https://upload.wikimedia.org/wikipedia/commons/0/03/Cal_logo.png"
             alt="team logo"
           />
         </div>
@@ -78,7 +76,7 @@ const Nav = () => {
             ) : (
               <Bars3Icon className="w-6 h-6" />
             )} */}
-            <Bars3Icon className="w-6 h-6 text-white" />
+            <Cog6ToothIcon className="w-6 h-6 text-white" />
           </button>
         </div>
       </div>

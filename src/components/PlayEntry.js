@@ -111,7 +111,7 @@ const PlayEntry = () => {
 
   return (
     <div className="p-4">
-      <div className="flex flex-wrap items-center justify-center">
+      <div className="flex flex-wrap items-center justify-center gap-24">
         <div className="p-1">
           <PracticeSettings
             label="Period"
@@ -126,69 +126,82 @@ const PlayEntry = () => {
           selectedValue={settings.practiceType}
           onChange={handlePracticeTypeChange}
         />
-        <RepCounter rep={settings.rep} />
       </div>
       <div className="flex flex-wrap">
         <div className="p-4 w-full">
           <div className="flex flex-wrap justify-between">
-            {/* <div className="flex-1 p-1"> */}
-            <ButtonGroup
-              fieldName="offensivePersonnel"
-              displayName="OFF PERSONNEL"
-              options={values.offensivePersonnel}
-              onSelectionChange={handleSelectionChange}
-              value={selections.offensivePersonnel}
-            />
-            {/* </div> */}
-            <ButtonGroup
-              fieldName="formation"
-              displayName="FORMATION"
-              options={values.formation}
-              onSelectionChange={handleSelectionChange}
-              value={selections.formation}
-            />
-            <ButtonGroup
-              fieldName="formationVariation"
-              displayName="FORM VAR"
-              options={values.formationVariation}
-              onSelectionChange={handleSelectionChange}
-              value={selections.formationVariation}
-            />
-            <ButtonGroup
-              fieldName="backfield"
-              displayName="BACKFIELD"
-              options={values.backfield}
-              onSelectionChange={handleSelectionChange}
-              value={selections.backfield}
-            />
-            <ButtonGroup
-              fieldName="motion"
-              displayName="MOTION"
-              options={values.motion}
-              onSelectionChange={handleSelectionChange}
-              value={selections.motion}
-            />
-            <ButtonGroup
-              fieldName="fib"
-              displayName="FSL (FIB)"
-              options={values.FIB}
-              onSelectionChange={handleSelectionChange}
-              value={selections.FIB}
-            />
-            <ButtonGroup
-              fieldName="formationFamily"
-              displayName="FORM FAM"
-              options={values.formationFamily}
-              onSelectionChange={handleSelectionChange}
-              value={selections.formationFamily}
-            />
-            <ButtonGroup
-              fieldName="unbalanced"
-              displayName="UNB"
-              options={values.unbalanced}
-              onSelectionChange={handleSelectionChange}
-              value={selections.unbalanced}
-            />
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="offensivePersonnel"
+                displayName="OFF PERSONNEL"
+                options={values.offensivePersonnel}
+                onSelectionChange={handleSelectionChange}
+                value={selections.offensivePersonnel}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="formation"
+                displayName="FORMATION"
+                options={values.formation}
+                onSelectionChange={handleSelectionChange}
+                value={selections.formation}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="formationVariation"
+                displayName="FORM VAR"
+                options={values.formationVariation}
+                onSelectionChange={handleSelectionChange}
+                value={selections.formationVariation}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="backfield"
+                displayName="BACKFIELD"
+                options={values.backfield}
+                onSelectionChange={handleSelectionChange}
+                value={selections.backfield}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="motion"
+                displayName="MOTION"
+                options={values.motion}
+                onSelectionChange={handleSelectionChange}
+                value={selections.motion}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="FIB"
+                displayName="FSL (FIB)"
+                options={values.FIB}
+                onSelectionChange={handleSelectionChange}
+                value={selections.FIB}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="formationFamily"
+                displayName="FORM FAM"
+                options={values.formationFamily}
+                onSelectionChange={handleSelectionChange}
+                value={selections.formationFamily}
+              />
+            </div>
+            <div className="flex-1 p-1">
+              <ButtonGroup
+                fieldName="unbalanced"
+                displayName="UNB"
+                options={values.unbalanced}
+                onSelectionChange={handleSelectionChange}
+                value={selections.unbalanced}
+              />
+            </div>
           </div>
           <div className="mt-4 flex justify-end space-x-2">
             <button

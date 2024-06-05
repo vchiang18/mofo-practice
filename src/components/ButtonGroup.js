@@ -21,9 +21,9 @@ const ButtonGroup = ({
             key={index}
             className={`py-2 px-4 rounded mx-2 ${
               value === option
-                ? "bg-blue-500 text-white"
-                : "bg-blue-500 text-white"
-            } hover:bg-red-500`}
+                ? "bg-red-400 text-white"
+                : "bg-blue-700 text-white"
+            } hover:bg-red-200`}
             onClick={() => handleSelection(option)}
           >
             {option}
