@@ -106,7 +106,7 @@ const PlayEntry = () => {
       unbalanced: null,
     });
     handleSave();
-    navigate("/play-list");
+    // navigate("/play-list");
   };
 
   return (
