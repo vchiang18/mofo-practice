@@ -58,24 +58,10 @@ const Nav = () => {
               Play Entry
             </NavLink>
           )}
-
-          {/* <NavLink to="/" className="text-gray-300 hover:text-white">
-            Play Entry
-          </NavLink>
-          <NavLink to="/play-list" className="text-gray-300 hover:text-white">
-            Play List
-          </NavLink> */}
-
           <button
-            // onClick={toggleMenu}
             onClick={handleSettingsClick}
             className="text-gray-300 hover:text-white focus:outline-none"
           >
-            {/* {isOpen ? (
-              <XMarkIcon className="w-6 h-6" />
-            ) : (
-              <Bars3Icon className="w-6 h-6" />
-            )} */}
             <Cog6ToothIcon className="w-6 h-6 text-white" />
           </button>
         </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ButtonGroup from "./ButtonGroup";
+import PlayList from "./PlayList";
 import PracticeSettings from "./PracticeSettings";
-import RepCounter from "./RepCounter";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
 import { usePlaySelections } from "../context/PlayContext";
@@ -15,7 +15,7 @@ const PlayEntry = () => {
     formationVariation: null,
     backfield: null,
     motion: null,
-    fib: null,
+    FIB: null,
     formationFamily: null,
     unbalanced: null,
   });
@@ -26,7 +26,7 @@ const PlayEntry = () => {
     formationVariation: null,
     backfield: null,
     motion: null,
-    fib: null,
+    FIB: null,
     formationFamily: null,
     unbalanced: null,
   });
@@ -34,7 +34,7 @@ const PlayEntry = () => {
   const { playSelections, savePlaySelections } = usePlaySelections();
   const { values } = useValues();
   const navigate = useNavigate();
-  const { settings, updateSettings, addPractice } = usePractices();
+  const { settings, updateSettings, addPractice, practices } = usePractices();
 
   const handleSelectionChange = (fieldName, value) => {
     setSelections((prevSelections) => ({
@@ -59,6 +59,16 @@ const PlayEntry = () => {
     updateSettings({ rep: settings.rep + 1 });
   };
 
+  // useEffect(() => {
+  //   console.log("Practices updated:", practices);
+  // }, [practices]);
+
+  useEffect(() => {
+    const sortedPractices = [...practices].sort((a, b) => b.id - a.id); // Sort in descending order
+    const limitedPractices = sortedPractices.slice(0, 10); // Take the last 10 practices
+    console.log("Last 10 Practices (Descending):", limitedPractices);
+  }, [practices]);
+
   useEffect(() => {
     if (playSelections) {
       setPriorSelections(playSelections);
@@ -78,7 +88,7 @@ const PlayEntry = () => {
       formationVariation: null,
       backfield: null,
       motion: null,
-      fib: null,
+      FIB: null,
       formationFamily: null,
       unbalanced: null,
     });
@@ -101,7 +111,7 @@ const PlayEntry = () => {
       formationVariation: null,
       backfield: null,
       motion: null,
-      fib: null,
+      FIB: null,
       formationFamily: null,
       unbalanced: null,
     });
@@ -227,6 +237,7 @@ const PlayEntry = () => {
           </div>
         </div>
       </div>
+      <PlayList limit={10} sortOrder="desc" />
     </div>
   );
 };

@@ -1,12 +1,18 @@
 import React from "react";
 import { usePractices } from "../context/PracticeContext";
 
-function PlayList() {
+function PlayList({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
 
   if (practices.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
+
+  const displayedPractices = limit ? practices.slice(-limit) : practices;
+
+  const sortedPractices = [...displayedPractices].sort((a, b) =>
+    sortOrder === "asc" ? a.id - b.id : b.id - a.id
+  );
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -90,7 +96,7 @@ function PlayList() {
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {practices.map((practice) => (
+                {sortedPractices.map((practice) => (
                   <tr
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
@@ -120,7 +126,7 @@ function PlayList() {
                       {practice.motion}
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.fib}
+                      {practice.FIB}
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.formationFamily}
