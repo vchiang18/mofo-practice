@@ -59,15 +59,6 @@ const PlayEntry = () => {
     updateSettings({ rep: settings.rep + 1 });
   };
 
-  // useEffect(() => {
-  //   console.log("Practices updated:", practices);
-  // }, [practices]);
-
-  useEffect(() => {
-    const sortedPractices = [...practices].sort((a, b) => b.id - a.id); // Sort in descending order
-    const limitedPractices = sortedPractices.slice(0, 10); // Take the last 10 practices
-  }, [practices]);
-
   useEffect(() => {
     if (playSelections) {
       setPriorSelections(playSelections);
