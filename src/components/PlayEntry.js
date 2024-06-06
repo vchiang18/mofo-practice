@@ -5,7 +5,6 @@ import PracticeSettings from "./PracticeSettings";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
 import { usePlaySelections } from "../context/PlayContext";
-import { useNavigate } from "react-router-dom";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const PlayEntry = () => {
@@ -33,7 +32,6 @@ const PlayEntry = () => {
 
   const { playSelections, savePlaySelections } = usePlaySelections();
   const { values } = useValues();
-  const navigate = useNavigate();
   const { settings, updateSettings, addPractice } = usePractices();
 
   const handleSelectionChange = (fieldName, value) => {
@@ -106,7 +104,6 @@ const PlayEntry = () => {
       unbalanced: null,
     });
     handleSave();
-    // navigate("/play-list");
   };
 
   return (
