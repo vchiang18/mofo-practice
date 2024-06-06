@@ -21,35 +21,35 @@ const Nav = () => {
           />
         </div>
 
-        <div className="space-x-4 ml-auto">
+        <div className="space-x-4 ml-auto items-center">
           {location.pathname === "/" && (
-            <>
+            <div className="flex items-center space-x-2">
               <NavLink
                 to="/play-list"
                 className="text-gray-300 hover:text-white"
               >
                 Play List
               </NavLink>
-              <button
+              <span
                 onClick={handleSettingsClick}
                 className="text-gray-300 hover:text-white focus:outline-none"
               >
                 <Cog6ToothIcon className="w-6 h-6 text-white" />
-              </button>
-            </>
+              </span>
+            </div>
           )}
           {location.pathname === "/play-list" && (
-            <>
+            <div className="flex items-center space-x-2">
               <NavLink to="/" className="text-gray-300 hover:text-white">
                 Play Entry
               </NavLink>
-              <button
+              <span
                 onClick={handleSettingsClick}
                 className="text-gray-300 hover:text-white focus:outline-none"
               >
                 <Cog6ToothIcon className="w-6 h-6 text-white" />
-              </button>
-            </>
+              </span>
+            </div>
           )}
           {location.pathname === "/customize-values" && (
             <>
