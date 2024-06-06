@@ -34,7 +34,7 @@ const PlayEntry = () => {
   const { playSelections, savePlaySelections } = usePlaySelections();
   const { values } = useValues();
   const navigate = useNavigate();
-  const { settings, updateSettings, addPractice, practices } = usePractices();
+  const { settings, updateSettings, addPractice } = usePractices();
 
   const handleSelectionChange = (fieldName, value) => {
     setSelections((prevSelections) => ({
