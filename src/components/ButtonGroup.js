@@ -8,8 +8,8 @@ const ButtonGroup = ({
   value,
 }) => {
   const handleSelection = (option) => {
-    // setSelectedValue(option);
-    onSelectionChange(fieldName, option);
+    const newValue = value === option ? null : option;
+    onSelectionChange(fieldName, newValue);
   };
 
   return (
