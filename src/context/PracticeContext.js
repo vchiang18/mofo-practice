@@ -9,6 +9,7 @@ export function PracticeProvider({ children }) {
     period: 1,
     type: "",
     rep: 1,
+    situation: "",
   });
 
   useEffect(() => {

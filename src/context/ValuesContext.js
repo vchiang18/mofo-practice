@@ -13,10 +13,28 @@ const defaultValues = {
   formationFamily: ["Compton", "Houston", "Crunch", "Cab"],
   unbalanced: ["Yes", "No"],
   practiceType: ["7x7", "Blitz", "Team"],
+  period: [1, 2, 3, 4, 5, 6, 7, 8],
+  situation: ["A", "B", "C"],
 };
 
 export function ValuesProvider({ children }) {
   const [values, setValues] = useState(defaultValues);
+  const [periodPairings, setPeriodPairings] = useState([]);
+
+  const addOrUpdatePairing = (period, practiceType) => {
+    setPeriodPairings((prevPairings) => {
+      const existingPairingIndex = prevPairings.findIndex(
+        (pairing) => pairing.period === period
+      );
+      if (existingPairingIndex !== -1) {
+        const updatedPairings = [...prevPairings];
+        updatedPairings[existingPairingIndex] = { period, practiceType };
+        return updatedPairings;
+      } else {
+        return [...prevPairings, { period, practiceType }];
+      }
+    });
+  };
 
   const fetchValues = async () => {
     const storedValues = { ...defaultValues };
@@ -61,7 +79,14 @@ export function ValuesProvider({ children }) {
 
   return (
     <ValuesContext.Provider
-      value={{ values, updateValues, fetchValues, deleteValue }}
+      value={{
+        values,
+        updateValues,
+        fetchValues,
+        deleteValue,
+        periodPairings,
+        addOrUpdatePairing,
+      }}
     >
       {children}
     </ValuesContext.Provider>

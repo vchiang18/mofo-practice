@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ValuesProvider, useValues } from "../context/ValuesContext";
 import { usePractices } from "../context/PracticeContext";
+import PeriodTypeSelector from "./PeriodTypeSelector";
 
 const ManageCustomValues = () => {
   const { values, updateValues, fetchValues, deleteValue } = useValues();
   const [selectedColumn, setSelectedColumn] = useState("");
   const [newValue, setNewValue] = useState("");
+  const [displayPeriodType, setDisplayPeriodType] = useState(false);
   const columns = Object.keys(values);
   const { clearPractices } = usePractices();
 
@@ -15,7 +17,7 @@ const ManageCustomValues = () => {
 
   const formatKeyName = (key) => {
     if (key === "FIB") {
-      return "FSL (FIB)";
+      return "FSL(FIB)";
     } else {
       return key
         .replace(/([A-Z])/g, " $1")
@@ -27,8 +29,13 @@ const ManageCustomValues = () => {
     return <div>No columns available</div>;
   }
 
+  const handleDisplayPeriodType = () => {
+    console.log(displayPeriodType);
+    setDisplayPeriodType((prev) => !prev);
+  };
   const handleSelectColumn = (column) => {
     setSelectedColumn(column);
+    setDisplayPeriodType(false);
   };
 
   const handleAddValue = async (e) => {
@@ -47,7 +54,6 @@ const ManageCustomValues = () => {
   };
 
   const handleDeleteValue = async (valueToDelete) => {
-    // console.log('Deleting value:', valueToDelete);
     await deleteValue(selectedColumn, valueToDelete);
   };
 
@@ -72,6 +78,15 @@ const ManageCustomValues = () => {
             <div className="mt-auto justify-end">
               <button
                 type="button"
+                className="block rounded-md bg-blue-500 text-white mt-6 px-3 py-2 text-center text-smm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={handleDisplayPeriodType}
+              >
+                Set Period + Type
+              </button>
+            </div>
+            <div className="mt-auto justify-end">
+              <button
+                type="button"
                 onClick={clearPractices}
                 className="block rounded-md bg-blue-500 text-white mt-6 px-3 py-2 text-center text-smm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
@@ -81,7 +96,9 @@ const ManageCustomValues = () => {
           </div>
         </div>
         <div className="flex flex-1 justify-center items-start p-4">
-          {selectedColumn && (
+          {displayPeriodType ? (
+            <PeriodTypeSelector />
+          ) : selectedColumn ? (
             <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-start">
               <div className="mb-4">
                 <input
@@ -100,27 +117,27 @@ const ManageCustomValues = () => {
                 </button>
               </div>
               <div className="flex flex-1">
-                {selectedColumn && (
-                  <table>
-                    <tbody>
-                      {values[selectedColumn]?.map((value, index) => (
-                        <tr>
-                          <td key={index} className="p-2">
-                            {value}
-                          </td>
-                          <td
-                            onClick={() => handleDeleteValue(value)}
-                            className="ml-2 text-red-300 text-xs hover:text-red-600"
-                          >
-                            Delete
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
+                <table>
+                  <tbody>
+                    {values[selectedColumn]?.map((value, index) => (
+                      <tr key={index}>
+                        <td className="p-2">{value}</td>
+                        <td
+                          onClick={() => handleDeleteValue(value)}
+                          className="ml-2 text-red-300 text-xs hover:text-red-600 cursor-pointer"
+                        >
+                          Delete
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
+          ) : (
+            <p>
+              Select a column to display its values or set a period and type.
+            </p>
           )}
         </div>
       </div>

@@ -4,6 +4,7 @@ import PlayList from "./PlayList";
 import PracticeSettings from "./PracticeSettings";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
+import PracticeHeader from "./PracticeHeader";
 import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -51,6 +52,10 @@ const PlayEntry = () => {
 
   const handlePracticeTypeChange = (e) => {
     updateSettings({ practiceType: e.target.value });
+  };
+
+  const handleSituationChange = (e) => {
+    updateSettings({ situation: e.target.value });
   };
 
   const handleSave = () => {
@@ -108,11 +113,13 @@ const PlayEntry = () => {
 
   return (
     <div className="p-4">
+      <PracticeHeader />
       <div className="flex flex-wrap items-center justify-center gap-24">
         <div className="p-1">
           <PracticeSettings
             label="Period"
-            options={[1, 2, 3, 4, 5, 6, 7, 8]}
+            options={values.period}
+            // options={[1, 2, 3, 4, 5, 6, 7, 8]}
             selectedValue={settings.period}
             onChange={handlePeriodChange}
           />
@@ -122,6 +129,12 @@ const PlayEntry = () => {
           options={values.practiceType}
           selectedValue={settings.practiceType}
           onChange={handlePracticeTypeChange}
+        />
+        <PracticeSettings
+          label="Situation"
+          options={values.situation}
+          selectedValue={settings.situation}
+          onChange={handleSituationChange}
         />
       </div>
       <div className="flex flex-wrap">

@@ -20,7 +20,9 @@ const Nav = () => {
             alt="team logo"
           />
         </div>
-
+        {/* <NavLink to="/test" className="text-white p-4">
+          Test
+        </NavLink> */}
         <div className="space-x-4 ml-auto items-center">
           {location.pathname === "/" && (
             <div className="flex items-center space-x-2">
