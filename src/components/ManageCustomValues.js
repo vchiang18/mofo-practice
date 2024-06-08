@@ -30,7 +30,6 @@ const ManageCustomValues = () => {
   }
 
   const handleDisplayPeriodType = () => {
-    console.log(displayPeriodType);
     setDisplayPeriodType((prev) => !prev);
   };
   const handleSelectColumn = (column) => {

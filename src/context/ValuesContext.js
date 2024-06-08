@@ -21,17 +21,21 @@ export function ValuesProvider({ children }) {
   const [values, setValues] = useState(defaultValues);
   const [periodPairings, setPeriodPairings] = useState([]);
 
-  const addOrUpdatePairing = (period, practiceType) => {
+  const addOrUpdatePairing = (period, practiceType, situation) => {
     setPeriodPairings((prevPairings) => {
       const existingPairingIndex = prevPairings.findIndex(
         (pairing) => pairing.period === period
       );
       if (existingPairingIndex !== -1) {
         const updatedPairings = [...prevPairings];
-        updatedPairings[existingPairingIndex] = { period, practiceType };
+        updatedPairings[existingPairingIndex] = {
+          period,
+          practiceType,
+          situation,
+        };
         return updatedPairings;
       } else {
-        return [...prevPairings, { period, practiceType }];
+        return [...prevPairings, { period, practiceType, situation }];
       }
     });
   };
