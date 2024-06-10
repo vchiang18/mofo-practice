@@ -14,31 +14,11 @@ const defaultValues = {
   unbalanced: ["BLANK", "X"],
   practiceType: ["7x7", "Blitz", "Team"],
   period: [1, 2, 3, 4, 5, 6, 7, 8],
-  situation: ["A", "B", "C"],
+  situation: ["None", "A", "B", "C"],
 };
 
 export function ValuesProvider({ children }) {
   const [values, setValues] = useState(defaultValues);
-  const [periodPairings, setPeriodPairings] = useState([]);
-
-  const addOrUpdatePairing = (period, practiceType, situation) => {
-    setPeriodPairings((prevPairings) => {
-      const existingPairingIndex = prevPairings.findIndex(
-        (pairing) => pairing.period === period
-      );
-      if (existingPairingIndex !== -1) {
-        const updatedPairings = [...prevPairings];
-        updatedPairings[existingPairingIndex] = {
-          period,
-          practiceType,
-          situation,
-        };
-        return updatedPairings;
-      } else {
-        return [...prevPairings, { period, practiceType, situation }];
-      }
-    });
-  };
 
   const fetchValues = async () => {
     const storedValues = { ...defaultValues };
@@ -88,8 +68,8 @@ export function ValuesProvider({ children }) {
         updateValues,
         fetchValues,
         deleteValue,
-        periodPairings,
-        addOrUpdatePairing,
+        // periodPairings,
+        // addOrUpdatePairing,
       }}
     >
       {children}

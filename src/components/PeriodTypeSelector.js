@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useValues } from "../context/ValuesContext";
+import { usePeriodPairings } from "../context/PeriodPairingsContext";
 
 const PeriodTypeSelector = () => {
-  const { values, periodPairings, addOrUpdatePairing } = useValues();
+  const { values, fetchValues } = useValues();
+  const { addOrUpdatePairing, periodPairings } = usePeriodPairings();
   const [period, setPeriod] = useState(values.period[0]);
   const [practiceType, setPracticeType] = useState(values.practiceType[0]);
   const [situation, setSituation] = useState(values.situation[0]);
+
+  useEffect(() => {
+    fetchValues();
+  }, [fetchValues]);
 
   const handlePeriodChange = (e) => {
     setPeriod(Number(e.target.value));
