@@ -140,7 +140,7 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-4 w-full">
           <div className="flex flex-wrap justify-between">
-            <div className="flex-1 p-1">
+            <div className="w-[163px]">
               <ButtonGroup
                 fieldName="offensivePersonnel"
                 displayName="OFF PERSONNEL"
@@ -149,7 +149,7 @@ const PlayEntry = () => {
                 value={selections.offensivePersonnel}
               />
             </div>
-            <div className="flex-1 p-1">
+            <div className="w-[284px]">
               <ButtonGroup
                 fieldName="formation"
                 displayName="FORMATION"
@@ -158,7 +158,7 @@ const PlayEntry = () => {
                 value={selections.formation}
               />
             </div>
-            <div className="flex-1 p-1">
+            <div className="w-[163px]">
               <ButtonGroup
                 fieldName="formationVariation"
                 displayName="FORM VAR"
@@ -167,7 +167,7 @@ const PlayEntry = () => {
                 value={selections.formationVariation}
               />
             </div>
-            <div className="flex-1 p-1">
+            <div className="w-[163px]">
               <ButtonGroup
                 fieldName="backfield"
                 displayName="BACKFIELD"
@@ -176,7 +176,7 @@ const PlayEntry = () => {
                 value={selections.backfield}
               />
             </div>
-            <div className="flex-1 p-1">
+            <div className="w-[163px]">
               <ButtonGroup
                 fieldName="motion"
                 displayName="MOTION"
@@ -185,7 +185,7 @@ const PlayEntry = () => {
                 value={selections.motion}
               />
             </div>
-            <div className="flex-1 p-1">
+            <div className="w-[163px]">
               <ButtonGroup
                 fieldName="FIB"
                 displayName="FSL (FIB)"
@@ -194,7 +194,7 @@ const PlayEntry = () => {
                 value={selections.FIB}
               />
             </div>
-            <div className="flex-1 p-1">
+            {/* <div className="w-[163px] h-[73.72px]">
               <ButtonGroup
                 fieldName="formationFamily"
                 displayName="FORM FAM"
@@ -202,8 +202,8 @@ const PlayEntry = () => {
                 onSelectionChange={handleSelectionChange}
                 value={selections.formationFamily}
               />
-            </div>
-            <div className="flex-1 p-1">
+            </div> */}
+            <div className="w-[163px]">
               <ButtonGroup
                 fieldName="unbalanced"
                 displayName="UNB"
@@ -237,7 +237,9 @@ const PlayEntry = () => {
           </div>
         </div>
       </div>
-      <PlayList limit={10} sortOrder="desc" />
+      <div className="w-full mt-4">
+        <PlayList limit={10} sortOrder="desc" />
+      </div>
     </div>
   );
 };

@@ -14,12 +14,12 @@ const ButtonGroup = ({
 
   return (
     <div className="mb-2">
-      <h2 className="text-lg text-center mb-2">{displayName}</h2>
-      <div className="flex flex-col space-y-2">
+      <h2 className="text-lg mb-2 pl-2">{displayName}</h2>
+      <div className="flex flex-col mb-2 space-y-2 font-bold">
         {options.map((option, index) => (
           <button
             key={index}
-            className={`py-2 px-4 rounded mx-2 ${
+            className={`py-2 px-4 rounded mx-2  h-[73.72px] ${
               value === option
                 ? "bg-gold-gradient"
                 : "bg-blue-gradient text-white"
