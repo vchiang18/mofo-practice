@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import SettingsDrawer from "./SettingsDrawers";
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Nav = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-calBlue p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex-grow">
           {/* <img
@@ -20,51 +20,45 @@ const Nav = () => {
             alt="team logo"
           /> */}
         </div>
-        {/* <NavLink to="/test" className="text-white p-4">
-          Test
-        </NavLink> */}
         <div className="space-x-4 ml-auto items-center">
           {location.pathname === "/" && (
             <div className="flex items-center space-x-2">
               <NavLink
                 to="/play-list"
-                className="text-gray-300 hover:text-white"
+                className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY LIST
               </NavLink>
-              <span
-                onClick={handleSettingsClick}
-                className="text-gray-300 hover:text-white focus:outline-none"
-              >
-                <Cog6ToothIcon className="w-6 h-6 text-white" />
-              </span>
+              <SettingsDrawer />
             </div>
           )}
           {location.pathname === "/play-list" && (
             <div className="flex items-center space-x-2">
-              <NavLink to="/" className="text-gray-300 hover:text-white">
+              <NavLink
+                to="/"
+                className="text-gray-300 hover:text-white whitespace-nowrap"
+              >
                 PLAY ENTRY
               </NavLink>
-              <span
-                onClick={handleSettingsClick}
-                className="text-gray-300 hover:text-white focus:outline-none"
-              >
-                <Cog6ToothIcon className="w-6 h-6 text-white" />
-              </span>
+              <SettingsDrawer />
             </div>
           )}
           {location.pathname === "/customize-values" && (
-            <>
-              <NavLink to="/" className="text-gray-300 hover:text-white">
+            <div className="flex items-center space-x-2">
+              <NavLink
+                to="/"
+                className="text-gray-300 hover:text-white whitespace-nowrap"
+              >
                 PLAY ENTRY
               </NavLink>
               <NavLink
                 to="/play-list"
-                className="text-gray-300 hover:text-white"
+                className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY LIST
               </NavLink>
-            </>
+              <SettingsDrawer />
+            </div>
           )}
         </div>
       </div>
