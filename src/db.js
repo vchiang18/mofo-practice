@@ -5,7 +5,7 @@ const db = new Dexie("PracticeDatabase");
 db.version(1).stores({
   practices:
     "++id, offensivePersonnel, formation, formationVariation, backfield, motion, fib, formationFamily, unbalanced , rep, period, practiceType ",
-  metricValues: "key",
+  metricValues: "key, value",
   periodPairings: "++id, [period+practiceType+situation]",
 });
 

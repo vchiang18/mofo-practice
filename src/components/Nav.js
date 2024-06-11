@@ -1,14 +1,9 @@
 import React from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import SettingsDrawer from "./SettingsDrawers";
 
 const Nav = () => {
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const handleSettingsClick = () => {
-    navigate("/customize-values");
-  };
 
   return (
     <nav className="bg-calBlue p-4">
@@ -20,6 +15,12 @@ const Nav = () => {
             alt="team logo"
           /> */}
         </div>
+        <NavLink
+          to="/test"
+          className="text-gray-300 hover:text-white whitespace-nowrap p-4"
+        >
+          Test
+        </NavLink>
         <div className="space-x-4 ml-auto items-center">
           {location.pathname === "/" && (
             <div className="flex items-center space-x-2">

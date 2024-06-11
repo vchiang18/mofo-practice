@@ -10,6 +10,7 @@ import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
 import ManageCustomValues from "./components/ManageCustomValues";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ValuesSettings from "./components/ValuesSettings";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
                       path="/customize-values"
                       element={<ManageCustomValues />}
                     />
-                    {/* <Route path="/test" element={<PracticeHeader />} /> */}
+                    <Route path="/test" element={<ValuesSettings />} />
                   </Routes>
                 </div>
               </HeaderProvider>

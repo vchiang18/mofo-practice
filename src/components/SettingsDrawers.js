@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
+import { usePractices } from "../context/PracticeContext";
 
 const SettingsDrawer = () => {
   const navigate = useNavigate();
+  const { clearPractices } = usePractices();
 
   const handleSettings = () => {
     navigate("/customize-values");
@@ -34,6 +36,9 @@ const SettingsDrawer = () => {
           </li>
           <li>
             <a>Sheets</a>
+          </li>
+          <li>
+            <a onClick={clearPractices}>Clear Practices</a>
           </li>
         </ul>
       </div>
