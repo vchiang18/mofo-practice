@@ -15,12 +15,12 @@ const Nav = () => {
             alt="team logo"
           /> */}
         </div>
-        <NavLink
+        {/* <NavLink
           to="/test"
           className="text-gray-300 hover:text-white whitespace-nowrap p-4"
         >
           Test
-        </NavLink>
+        </NavLink> */}
         <div className="space-x-4 ml-auto items-center">
           {location.pathname === "/" && (
             <div className="flex items-center space-x-2">
@@ -45,6 +45,23 @@ const Nav = () => {
             </div>
           )}
           {location.pathname === "/customize-values" && (
+            <div className="flex items-center space-x-2">
+              <NavLink
+                to="/"
+                className="text-gray-300 hover:text-white whitespace-nowrap"
+              >
+                PLAY ENTRY
+              </NavLink>
+              <NavLink
+                to="/play-list"
+                className="text-gray-300 hover:text-white whitespace-nowrap"
+              >
+                PLAY LIST
+              </NavLink>
+              <SettingsDrawer />
+            </div>
+          )}
+          {location.pathname === "/export-practices" && (
             <div className="flex items-center space-x-2">
               <NavLink
                 to="/"

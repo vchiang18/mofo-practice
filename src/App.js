@@ -10,7 +10,8 @@ import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
 import ManageCustomValues from "./components/ManageCustomValues";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ValuesSettings from "./components/ValuesSettings";
+import ExportPractices from "./components/ExportPractices";
+// import ValuesSettings from "./components/ValuesSettings";
 
 function App() {
   return (
@@ -29,7 +30,11 @@ function App() {
                       path="/customize-values"
                       element={<ManageCustomValues />}
                     />
-                    <Route path="/test" element={<ValuesSettings />} />
+                    <Route
+                      path="/export-practices"
+                      element={<ExportPractices />}
+                    />
+                    {/* <Route path="/test" element={<ExportPractices />} /> */}
                   </Routes>
                 </div>
               </HeaderProvider>

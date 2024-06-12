@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useValues } from "../context/ValuesContext";
-import PeriodTypeSelector from "./PeriodTypeSelector";
-import ColumnValues from "./ValuesColumn";
+import ValuesColumn from "./ColumnValues";
 
-const ValuesSettings = () => {
-  const { values, updateValues, fetchValues, deleteValue, addValue } =
-    useValues();
-  const columns = Object.keys(values);
+const ValueSettings = () => {
+  const { values, fetchValues, addValue, updateValues2 } = useValues();
 
   useEffect(() => {
     fetchValues();
-  }, [fetchValues]);
+  }, []); // Empty dependency array ensures this runs only once
+
+  useEffect(() => {
+    console.log(values); // Log values to check the structure and data
+  }, [values]); // Dependency array with values ensures this logs when values change
+
+  const columns = Object.keys(values);
 
   const formatKeyName = (key) => {
     if (key === "FIB") {
@@ -23,14 +26,12 @@ const ValuesSettings = () => {
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {columns.map((column) => (
-        <ColumnValues
+        <ValuesColumn
           key={column}
           column={formatKeyName(column)}
-          values={values[column] || []}
-          updateValues={updateValues}
-          //   deleteValue={deleteValue}
+          updateValues2={updateValues2}
           addValue={addValue}
         />
       ))}
@@ -38,7 +39,53 @@ const ValuesSettings = () => {
   );
 };
 
-export default ValuesSettings;
+export default ValueSettings;
+
+// import React, { useState, useEffect } from "react";
+// import { useValues } from "../context/ValuesContext";
+// import PeriodTypeSelector from "./PeriodTypeSelector";
+// import ColumnValues from "./ValuesColumn";
+
+// const ValuesSettings = () => {
+//   const { values, updateValues2, deleteValue2, addValue, fetchValues } =
+//     useValues();
+//   const columns = Object.keys(values);
+
+//   useEffect(() => {
+//     fetchValues();
+//   }, []);
+
+//   useEffect(() => {
+//     console.log(values);
+//   }, [values]);
+
+//   const formatKeyName = (key) => {
+//     if (key === "FIB") {
+//       return "FSL(FIB)";
+//     } else {
+//       return key
+//         .replace(/([A-Z])/g, " $1")
+//         .replace(/^./, (str) => str.toUpperCase());
+//     }
+//   };
+
+//   return (
+//     <div className="flex gap-4">
+//       {columns.map((column) => (
+//         <ColumnValues
+//           key={column}
+//           column={formatKeyName(column)}
+//           values={values[column] || []}
+//           updateValues={updateValues2}
+//           //   deleteValue={deleteValue2}
+//           addValue={addValue}
+//         />
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default ValuesSettings;
 
 {
   /* <table className="table-auto w-full">

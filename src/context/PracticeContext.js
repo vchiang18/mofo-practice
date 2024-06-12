@@ -48,6 +48,10 @@ export function PracticeProvider({ children }) {
     }
   };
 
+  async function fetchPracticesForExport() {
+    return await db.practices.toArray();
+  }
+
   const clearPractices = async () => {
     try {
       await db.practices.clear();
@@ -70,6 +74,7 @@ export function PracticeProvider({ children }) {
         practices,
         addPractice,
         deletePractice,
+        fetchPracticesForExport,
         clearPractices,
         settings,
         updateSettings,

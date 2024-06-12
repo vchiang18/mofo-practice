@@ -41,37 +41,31 @@ export function ValuesProvider({ children }) {
   const addValue = async (field, newValue) => {
     if (newValue.trim()) {
       const updatedValues = { ...values };
-      updatedValues[field] = [...(updatedValues[field] || []), newValue];
+      updatedValues[field] = [...(updatedValues[field] || []), newValue.trim()];
       await db.metricValues.put({ key: field, value: updatedValues[field] });
       setValues(updatedValues);
     }
   };
 
-  const updateValues = async (field, index, newValue) => {
+  const updateValues2 = async (field, index, newValue) => {
     const updatedValues = { ...values };
-
-    if (index === -1) {
-      // add new value
-      updatedValues[field] = [...(updatedValues[field] || []), newValue];
-    } else {
-      // update existing value
-      updatedValues[field][index] = newValue;
-    }
+    updatedValues[field][index] = newValue;
+    setValues(updatedValues);
 
     await db.metricValues.put({ key: field, value: updatedValues[field] });
     setValues(updatedValues);
   };
 
   // update values with old settings
-  // const updateValues = async (field, values) => {
-  //   await db.metricValues.put({ key: field, value: values });
-  //   setValues((prevValues) => ({
-  //     ...prevValues,
-  //     [field]: values,
-  //   }));
-  // };
+  const updateValues = async (field, values) => {
+    await db.metricValues.put({ key: field, value: values });
+    setValues((prevValues) => ({
+      ...prevValues,
+      [field]: values,
+    }));
+  };
 
-  const deleteValue = async (field, index) => {
+  const deleteValue2 = async (field, index) => {
     const updatedValues = { ...values };
     updatedValues[field].splice(index, 1);
 
@@ -80,20 +74,20 @@ export function ValuesProvider({ children }) {
   };
 
   // delete value with old settings
-  // const deleteValue = async (field, valueToDelete) => {
-  //   try {
-  //     const updatedValues = values[field].filter(
-  //       (value) => value !== valueToDelete
-  //     );
-  //     await db.metricValues.put({ key: field, value: updatedValues });
-  //     setValues((prevValues) => ({
-  //       ...prevValues,
-  //       [field]: updatedValues,
-  //     }));
-  //   } catch (error) {
-  //     console.error("Failed to delete value: ", error);
-  //   }
-  // };
+  const deleteValue = async (field, valueToDelete) => {
+    try {
+      const updatedValues = values[field].filter(
+        (value) => value !== valueToDelete
+      );
+      await db.metricValues.put({ key: field, value: updatedValues });
+      setValues((prevValues) => ({
+        ...prevValues,
+        [field]: updatedValues,
+      }));
+    } catch (error) {
+      console.error("Failed to delete value: ", error);
+    }
+  };
 
   return (
     <ValuesContext.Provider
@@ -103,6 +97,8 @@ export function ValuesProvider({ children }) {
         fetchValues,
         deleteValue,
         addValue,
+        updateValues2,
+        deleteValue2,
       }}
     >
       {children}

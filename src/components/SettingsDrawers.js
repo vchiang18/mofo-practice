@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { usePractices } from "../context/PracticeContext";
+import ExportPractices from "./ExportPractices";
 
 const SettingsDrawer = () => {
   const navigate = useNavigate();
@@ -9,6 +10,10 @@ const SettingsDrawer = () => {
 
   const handleSettings = () => {
     navigate("/customize-values");
+  };
+
+  const handleExport = () => {
+    navigate("/export-practices");
   };
 
   return (
@@ -30,7 +35,6 @@ const SettingsDrawer = () => {
           className="drawer-overlay"
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-          {/* Sidebar content here */}
           <li>
             <a onClick={handleSettings}>Settings (Customize Values)</a>
           </li>
@@ -39,6 +43,9 @@ const SettingsDrawer = () => {
           </li>
           <li>
             <a onClick={clearPractices}>Clear Practices</a>
+          </li>
+          <li>
+            <a onClick={handleExport}>Export Practices</a>
           </li>
         </ul>
       </div>
