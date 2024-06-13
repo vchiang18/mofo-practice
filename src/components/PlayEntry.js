@@ -91,8 +91,11 @@ const PlayEntry = () => {
     e.preventDefault();
     savePlaySelections(selections);
     const settingsSelections = {
+      practiceNo: settings.practiceNo,
+      practiceDate: settings.practiceDate,
       period: settings.period,
       practiceType: settings.practiceType,
+      situation: settings.situation,
       rep: settings.rep,
     };
 

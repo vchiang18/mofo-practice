@@ -10,7 +10,7 @@ const defaultValues = {
   backfield: ["GUN", "PISTOL", "RIGHT", "LEFT"],
   motion: ["ZIP", "RIP", "LIP", "Z-JET"],
   FIB: ["X", "BLANK"],
-  formationFamily: ["Compton", "Houston", "Crunch", "Cab"],
+  formationFamily: ["COMPTON", "HOUSTON", "CRUNCH", "CAB"],
   unbalanced: ["BLANK", "X"],
   practiceType: ["7x7", "Blitz", "Team"],
   period: [1, 2, 3, 4, 5, 6, 7, 8],

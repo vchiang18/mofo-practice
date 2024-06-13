@@ -36,10 +36,7 @@ const SettingsDrawer = () => {
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
           <li>
-            <a onClick={handleSettings}>Settings (Customize Values)</a>
-          </li>
-          <li>
-            <a>Sheets</a>
+            <a onClick={handleSettings}>Settings</a>
           </li>
           <li>
             <a onClick={clearPractices}>Clear Practices</a>

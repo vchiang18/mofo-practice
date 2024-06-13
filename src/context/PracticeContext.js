@@ -6,6 +6,8 @@ const PracticeContext = createContext();
 export function PracticeProvider({ children }) {
   const [practices, setPractices] = useState([]);
   const [settings, setSettings] = useState({
+    practiceNo: "",
+    practiceDate: "",
     period: 1,
     type: "",
     rep: 1,
