@@ -12,9 +12,9 @@ const defaultValues = {
   FIB: ["X", "BLANK"],
   formationFamily: ["COMPTON", "HOUSTON", "CRUNCH", "CAB"],
   unbalanced: ["BLANK", "X"],
-  practiceType: ["7x7", "Blitz", "Team"],
+  practiceType: ["NONE", "7x7", "Blitz", "Team"],
   period: [1, 2, 3, 4, 5, 6, 7, 8],
-  situation: ["None", "A", "B", "C"],
+  situation: ["NONE", "A", "B", "C"],
 };
 
 export function ValuesProvider({ children }) {

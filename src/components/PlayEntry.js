@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayList from "./PlayList";
-import PracticeSettings from "./PracticeSettings";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
-import PracticeHeader from "./PracticeHeader";
+// import PracticeHeader from "./PracticeHeader";
 import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -115,29 +114,8 @@ const PlayEntry = () => {
 
   return (
     <div className="p-4">
-      <PracticeHeader />
-      <div className="flex flex-wrap items-center justify-center gap-24">
-        {/* <div className="p-1">
-          <PracticeSettings
-            label="Period"
-            options={values.period}
-            selectedValue={settings.period}
-            onChange={handlePeriodChange}
-          />
-        </div>
-        <PracticeSettings
-          label="Practice Type"
-          options={values.practiceType}
-          selectedValue={settings.practiceType}
-          onChange={handlePracticeTypeChange}
-        />
-        <PracticeSettings
-          label="Situation"
-          options={values.situation}
-          selectedValue={settings.situation}
-          onChange={handleSituationChange}
-        /> */}
-      </div>
+      {/* <PracticeHeader /> */}
+      <div className="flex flex-wrap items-center justify-center gap-24"></div>
       <div className="flex flex-wrap">
         <div className="p-4 w-full">
           <div className="flex flex-wrap justify-between">
