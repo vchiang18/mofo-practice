@@ -95,8 +95,7 @@ const PlayEntry = () => {
       practiceType: settings.practiceType,
       rep: settings.rep,
     };
-    // console.log("selections on submit: ", selections);
-    // console.log("prior selections: ", priorSelections);
+
     addPractice(selections, settingsSelections);
     setSelections({
       offensivePersonnel: null,
@@ -119,7 +118,6 @@ const PlayEntry = () => {
           <PracticeSettings
             label="Period"
             options={values.period}
-            // options={[1, 2, 3, 4, 5, 6, 7, 8]}
             selectedValue={settings.period}
             onChange={handlePeriodChange}
           />
@@ -194,7 +192,7 @@ const PlayEntry = () => {
                 value={selections.FIB}
               />
             </div>
-            {/* <div className="w-[163px] h-[73.72px]">
+            <div className="w-[163px] h-[73.72px]">
               <ButtonGroup
                 fieldName="formationFamily"
                 displayName="FORM FAM"
@@ -202,7 +200,7 @@ const PlayEntry = () => {
                 onSelectionChange={handleSelectionChange}
                 value={selections.formationFamily}
               />
-            </div> */}
+            </div>
             <div className="w-[163px]">
               <ButtonGroup
                 fieldName="unbalanced"

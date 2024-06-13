@@ -29,6 +29,24 @@ function PlayList({ limit = 0, sortOrder = "asc" }) {
                     scope="col"
                     className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
                   >
+                    Period
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                  >
+                    Practice Type
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                  >
+                    Situation
+                  </th>
+                  <th
+                    scope="col"
+                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                  >
                     Rep
                   </th>
                   <th
@@ -87,6 +105,15 @@ function PlayList({ limit = 0, sortOrder = "asc" }) {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
+                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                      {practice.period}
+                    </td>
+                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                      {practice.practiceType}
+                    </td>
+                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                      {practice.situation}
+                    </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.rep}
                     </td>

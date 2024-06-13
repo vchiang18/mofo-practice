@@ -12,6 +12,7 @@ import ManageCustomValues from "./components/ManageCustomValues";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ExportPractices from "./components/ExportPractices";
 // import ValuesSettings from "./components/ValuesSettings";
+import SheetsView from "./components/SheetsView";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
                       path="/export-practices"
                       element={<ExportPractices />}
                     />
-                    {/* <Route path="/test" element={<ExportPractices />} /> */}
+                    <Route path="/test" element={<SheetsView />} />
                   </Routes>
                 </div>
               </HeaderProvider>
