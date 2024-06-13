@@ -1,18 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
 
 const PracticeHeader = () => {
-  const { headings, updateHeadings, settings, updateSettings } = usePractices();
+  const { settings, updateSettings } = usePractices();
   const { values } = useValues();
 
   const handlePracticeNoChange = (e) => {
-    updateHeadings({ practiceNo: e.target.value });
+    updateSettings({ practiceNo: e.target.value });
   };
 
   const handlePracticeDateChange = (e) => {
-    updateHeadings({ practiceDate: e.target.value });
+    updateSettings({ practiceDate: e.target.value });
   };
+
+  // useEffect(() => {
+  //   console.log(settings.practiceNo);
+  // }, [settings.practiceNo]);
 
   const handlePeriodChange = (e) => {
     updateSettings({
@@ -54,7 +58,7 @@ const PracticeHeader = () => {
           </label>
           <input
             type="text"
-            value={headings.practiceNo || ""}
+            value={settings.practiceNo || ""}
             onChange={handlePracticeNoChange}
             placeholder="#"
             className="w-10"
@@ -65,7 +69,7 @@ const PracticeHeader = () => {
           <input
             label="Date"
             type="date"
-            value={headings.practiceDate || ""}
+            value={settings.practiceDate || ""}
             onChange={handlePracticeDateChange}
           />
         </div>

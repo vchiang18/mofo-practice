@@ -1,7 +1,11 @@
 import React from "react";
 import { usePractices } from "../context/PracticeContext";
 
-function PlayList({ limit = 0, sortOrder = "asc" }) {
+function PlayList({
+  limit = 0,
+  sortOrder = "asc",
+  showAdditionalColumns = true,
+}) {
   const { practices } = usePractices();
 
   if (practices.length === 0) {
@@ -14,6 +18,19 @@ function PlayList({ limit = 0, sortOrder = "asc" }) {
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date)) {
+      return "";
+    } else {
+      return date.toLocaleDateString("en-US", {
+        month: "2-digit",
+        day: "2-digit",
+        year: "numeric",
+      });
+    }
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -25,6 +42,22 @@ function PlayList({ limit = 0, sortOrder = "asc" }) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
+                  {showAdditionalColumns && (
+                    <>
+                      <th
+                        scope="col"
+                        className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                      >
+                        Practice No
+                      </th>
+                      <th
+                        scope="col"
+                        className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                      >
+                        Date
+                      </th>
+                    </>
+                  )}
                   <th
                     scope="col"
                     className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
@@ -105,6 +138,16 @@ function PlayList({ limit = 0, sortOrder = "asc" }) {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
+                    {showAdditionalColumns && (
+                      <>
+                        <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                          {practice.practiceNo}
+                        </td>
+                        <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                          {formatDate(practice.practiceDate)}
+                        </td>
+                      </>
+                    )}
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.period}
                     </td>

@@ -41,22 +41,6 @@ const PlayEntry = () => {
     }));
   };
 
-  const handlePeriodChange = (e) => {
-    updateSettings({
-      period: e.target.value,
-      practiceType: "",
-      rep: 1,
-    });
-  };
-
-  const handlePracticeTypeChange = (e) => {
-    updateSettings({ practiceType: e.target.value });
-  };
-
-  const handleSituationChange = (e) => {
-    updateSettings({ situation: e.target.value });
-  };
-
   const handleSave = () => {
     updateSettings({ rep: settings.rep + 1 });
   };
@@ -97,6 +81,7 @@ const PlayEntry = () => {
       situation: settings.situation,
       rep: settings.rep,
     };
+    console.log("settingsSelections: ", settingsSelections);
 
     addPractice(selections, settingsSelections);
     setSelections({
@@ -217,7 +202,7 @@ const PlayEntry = () => {
         </div>
       </div>
       <div className="w-full mt-4">
-        <PlayList limit={10} sortOrder="desc" />
+        <PlayList limit={10} sortOrder="desc" showAdditionalColumns={false} />
       </div>
     </div>
   );
