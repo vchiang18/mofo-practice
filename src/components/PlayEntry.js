@@ -114,7 +114,7 @@ const PlayEntry = () => {
     <div className="p-4">
       <PracticeHeader />
       <div className="flex flex-wrap items-center justify-center gap-24">
-        <div className="p-1">
+        {/* <div className="p-1">
           <PracticeSettings
             label="Period"
             options={values.period}
@@ -133,7 +133,7 @@ const PlayEntry = () => {
           options={values.situation}
           selectedValue={settings.situation}
           onChange={handleSituationChange}
-        />
+        /> */}
       </div>
       <div className="flex flex-wrap">
         <div className="p-4 w-full">

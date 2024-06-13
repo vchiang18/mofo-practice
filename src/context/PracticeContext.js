@@ -11,6 +11,10 @@ export function PracticeProvider({ children }) {
     rep: 1,
     situation: "",
   });
+  const [headings, setHeadings] = useState({
+    practiceNo: "",
+    practiceDate: null,
+  });
 
   useEffect(() => {
     const fetchPractices = async () => {
@@ -68,6 +72,13 @@ export function PracticeProvider({ children }) {
     }));
   };
 
+  const updateHeadings = (newHeadings) => {
+    setHeadings((prevHeadings) => ({
+      ...prevHeadings,
+      ...newHeadings,
+    }));
+  };
+
   return (
     <PracticeContext.Provider
       value={{
@@ -78,6 +89,8 @@ export function PracticeProvider({ children }) {
         clearPractices,
         settings,
         updateSettings,
+        headings,
+        updateHeadings,
       }}
     >
       {children}
