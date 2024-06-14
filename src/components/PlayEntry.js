@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ButtonGroup from "./ButtonGroup";
-import PlayList from "./PlayList";
+import PlayListPreview from "./PlayListPreview";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
-// import PracticeHeader from "./PracticeHeader";
 import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -202,7 +201,11 @@ const PlayEntry = () => {
         </div>
       </div>
       <div className="w-full mt-4">
-        <PlayList limit={10} sortOrder="desc" showAdditionalColumns={false} />
+        <PlayListPreview
+          limit={10}
+          sortOrder="desc"
+          showAdditionalColumns={false}
+        />
       </div>
     </div>
   );
