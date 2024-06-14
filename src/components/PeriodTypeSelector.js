@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useValues } from "../context/ValuesContext";
-import { usePeriodPairings } from "../context/PeriodPairingsContext";
+import { usePeriodPairings } from "../context/xPeriodPairingsContext";
 
 const PeriodTypeSelector = () => {
   const { values, fetchValues } = useValues();
