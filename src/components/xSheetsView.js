@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { usePeriodPairings } from "../context/xPeriodPairingsContext";
 import SheetCard from "./SheetCard";
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
 

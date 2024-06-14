@@ -4,9 +4,9 @@
 import React from "react";
 
 const SheetCard = ({ period, practiceType, situation }) => {
-  const handleSelection = (period, practiceType, situation) => {
-    // go to play entry w selections
-  };
+  // const handleSelection = (period, practiceType, situation) => {
+  //   // go to play entry w selections
+  // };
 
   return (
     // <div

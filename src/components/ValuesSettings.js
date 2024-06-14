@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { useValues } from "../context/ValuesContext";
-import ValuesColumn from "./ColumnValues";
+import ValuesColumn from "./ValuesColumn";
 
 const ValueSettings = () => {
   const { values, fetchValues, addValue, updateValues2 } = useValues();
 
   useEffect(() => {
     fetchValues();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []);
 
   useEffect(() => {
-    console.log(values); // Log values to check the structure and data
-  }, [values]); // Dependency array with values ensures this logs when values change
+    console.log(values);
+  }, [values]);
 
   const columns = Object.keys(values);
 

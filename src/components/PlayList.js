@@ -100,12 +100,6 @@ function PlayList() {
                     scope="col"
                     className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
                   >
-                    ID
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                  >
                     #
                   </th>
                   <th
@@ -214,9 +208,6 @@ function PlayList() {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.id}
-                    </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {index + 1}
                     </td>
