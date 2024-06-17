@@ -14,18 +14,12 @@ function PlayList() {
       const existingIndex = prevSortConfig.findIndex(
         (config) => config.key === key
       );
-      // console.log("existing index: ", existingIndex);
 
       if (existingIndex >= 0) {
         const newSortConfig = [...prevSortConfig];
-        // console.log("initial newSortConfig: ", newSortConfig);
         newSortConfig[existingIndex].direction =
           newSortConfig[existingIndex].direction === "asc" ? "desc" : "asc";
 
-        // console.log(
-        //   "updated direction: ",
-        //   newSortConfig[existingIndex].direction
-        // );
         console.log("updated newSortConfig: ", newSortConfig);
 
         return newSortConfig;
@@ -76,12 +70,31 @@ function PlayList() {
     }
   };
 
+  const formatKeyName = (key) => {
+    if (key === "FIB") {
+      return "FSL(FIB)";
+    } else {
+      return key
+        .replace(/([A-Z])/g, " $1")
+        .replace(/^./, (str) => str.toUpperCase());
+    }
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="flex sm:items-center justify-center">
         <div className="flex items-center justify-center p-4">
-          <span className="mr-4 text-xs">sort selections</span>
-          <button onClick={handleClearSort} className="mr-4 text-xs">
+          <span className="mr-4 text-xs">Sort Selections: </span>
+
+          <div className="mr-4 text-xs">
+            {sortConfig.map((config, index) => (
+              <div key={index}>{formatKeyName(config.key)},</div>
+            ))}
+          </div>
+          <button
+            onClick={handleClearSort}
+            className="mr-4 py-1 px-1 text-xs rounded bg-blue-gradient text-white"
+          >
             Clear Sort
           </button>
         </div>
