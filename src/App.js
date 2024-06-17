@@ -9,7 +9,6 @@ import Nav from "./components/Nav";
 import ManageCustomValues from "./components/ManageCustomValues";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ExportPractices from "./components/ExportPractices";
-import PlayListSort from "./components/PlayListSort";
 import ValueSettings from "./components/ValuesSettings";
 
 function App() {

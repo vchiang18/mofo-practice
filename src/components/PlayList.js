@@ -1,54 +1,41 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { usePractices } from "../context/PracticeContext";
 
 function PlayList() {
   const { practices } = usePractices();
   const [sortConfig, setSortConfig] = useState([]);
 
-  const debounce = (func, delay) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  };
-
   // multiple sort
-  const handleSortChange = useCallback(
-    debounce((key) => {
-      setSortConfig((prevSortConfig) => {
-        console.log("clicked: ", key);
-        console.log("prev sort config: ", prevSortConfig);
+  const handleSortChange = (key) => {
+    setSortConfig((prevSortConfig) => {
+      // console.log("clicked: ", key);
+      // console.log("prev sort config: ", prevSortConfig);
 
-        const existingIndex = prevSortConfig.findIndex(
-          (config) => config.key === key
-        );
-        console.log("existing index: ", existingIndex);
+      const existingIndex = prevSortConfig.findIndex(
+        (config) => config.key === key
+      );
+      // console.log("existing index: ", existingIndex);
 
-        if (existingIndex >= 0) {
-          const newSortConfig = [...prevSortConfig];
-          console.log("initial newSortConfig: ", newSortConfig);
-          newSortConfig[existingIndex].direction =
-            newSortConfig[existingIndex].direction === "asc" ? "desc" : "asc";
+      if (existingIndex >= 0) {
+        const newSortConfig = [...prevSortConfig];
+        // console.log("initial newSortConfig: ", newSortConfig);
+        newSortConfig[existingIndex].direction =
+          newSortConfig[existingIndex].direction === "asc" ? "desc" : "asc";
 
-          console.log(
-            "updated direction: ",
-            newSortConfig[existingIndex].direction
-          );
-          console.log("updated newSortConfig: ", newSortConfig);
+        // console.log(
+        //   "updated direction: ",
+        //   newSortConfig[existingIndex].direction
+        // );
+        console.log("updated newSortConfig: ", newSortConfig);
 
-          return newSortConfig;
-        } else {
-          const newSortConfig = [...prevSortConfig, { key, direction: "asc" }];
-          console.log("new sort config: ", newSortConfig);
-          return newSortConfig;
-        }
-      });
-    }, 100),
-    []
-  );
+        return newSortConfig;
+      } else {
+        const newSortConfig = [...prevSortConfig, { key, direction: "asc" }];
+        console.log("new sort config: ", newSortConfig);
+        return newSortConfig;
+      }
+    });
+  };
 
   if (practices.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
@@ -72,6 +59,10 @@ function PlayList() {
 
   const sortedPractices = getSortedPractices(practices);
 
+  const handleClearSort = () => {
+    setSortConfig([]);
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     if (isNaN(date)) {
@@ -87,8 +78,13 @@ function PlayList() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8">
-      <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto p-4"></div>
+      <div className="flex sm:items-center justify-center">
+        <div className="flex items-center justify-center p-4">
+          <span className="mr-4 text-xs">sort selections</span>
+          <button onClick={handleClearSort} className="mr-4 text-xs">
+            Clear Sort
+          </button>
+        </div>
       </div>
       <div className="flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

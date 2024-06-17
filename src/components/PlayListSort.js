@@ -1,80 +1,41 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { usePractices } from "../context/PracticeContext";
 
 function PlayListSort() {
   const { practices } = usePractices();
   const [sortConfig, setSortConfig] = useState([]);
 
-  // // single sort
-  // const handleSortChange = (key) => {
-  //   console.log("clicked: ", key);
-  //   setSortConfig((prevSortConfig) => {
-  //     console.log("prevSortConfig: ", prevSortConfig);
-  //     let direction = "asc";
-  //     if (prevSortConfig.key === key && prevSortConfig.direction === "asc") {
-  //       direction = "desc";
-  //     }
-  //     return { key, direction };
-  //   });
-  // };
-
-  // const getSortedPractices = (practices) => {
-  //   if (!sortConfig.key) return practices;
-
-  //   return [...practices].sort((a, b) => {
-  //     const aValue = a[sortConfig.key] ?? "";
-  //     const bValue = b[sortConfig.key] ?? "";
-
-  //     if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
-  //     if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
-  //     return 0;
-  //   });
-  // };
-
-  const debounce = (func, delay) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  };
-
   // multiple sort
-  const handleSortChange = useCallback(
-    debounce((key) => {
-      setSortConfig((prevSortConfig) => {
-        console.log("clicked: ", key);
-        console.log("prev sort config: ", prevSortConfig);
+  const handleSortChange = () => {
+    setSortConfig((prevSortConfig) => {
+      console.log("clicked: ", key);
+      console.log("prev sort config: ", prevSortConfig);
 
-        const existingIndex = prevSortConfig.findIndex(
-          (config) => config.key === key
+      const existingIndex = prevSortConfig.findIndex(
+        (config) => config.key === key
+      );
+      console.log("existing index: ", existingIndex);
+
+      if (existingIndex >= 0) {
+        const newSortConfig = [...prevSortConfig];
+        console.log("initial newSortConfig: ", newSortConfig);
+        newSortConfig[existingIndex].direction =
+          newSortConfig[existingIndex].direction === "asc" ? "desc" : "asc";
+
+        console.log(
+          "updated direction: ",
+          newSortConfig[existingIndex].direction
         );
-        console.log("existing index: ", existingIndex);
+        console.log("updated newSortConfig: ", newSortConfig);
 
-        if (existingIndex >= 0) {
-          const newSortConfig = [...prevSortConfig];
-          console.log("initial newSortConfig: ", newSortConfig);
-          newSortConfig[existingIndex].direction =
-            newSortConfig[existingIndex].direction === "asc" ? "desc" : "asc";
-
-          console.log(
-            "updated direction: ",
-            newSortConfig[existingIndex].direction
-          );
-          console.log("updated newSortConfig: ", newSortConfig);
-
-          return newSortConfig;
-        } else {
-          const newSortConfig = [...prevSortConfig, { key, direction: "asc" }];
-          console.log("new sort config: ", newSortConfig);
-          return newSortConfig;
-        }
-      });
-    }, 100),
-    []
-  );
+        return newSortConfig;
+      } else {
+        const newSortConfig = [...prevSortConfig, { key, direction: "asc" }];
+        console.log("new sort config: ", newSortConfig);
+        return newSortConfig;
+      }
+    });
+  };
 
   if (practices.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
@@ -114,7 +75,10 @@ function PlayListSort() {
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
-        <div className="sm:flex-auto p-4"></div>
+        <div className="sm:flex-auto p-4">
+          {/* <span>sort selections</span>
+          <button>clear selections</button> */}
+        </div>
       </div>
       <div className="flow-root">
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

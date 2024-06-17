@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
@@ -17,7 +17,7 @@ root.render(
 serviceWorkerRegistration.register();
 
 // Requests persistent storage
-if ('storage' in navigator && 'persist' in navigator.storage) {
+if ("storage" in navigator && "persist" in navigator.storage) {
   navigator.storage.persist().then((granted) => {
     if (granted) {
       console.log("Storage will not be cleared except by explicit user action");
