@@ -67,10 +67,13 @@ export function ValuesProvider({ children }) {
 
   const deleteValue2 = async (field, index) => {
     const updatedValues = { ...values };
-    updatedValues[field].splice(index, 1);
-
-    await db.metricValues.put({ key: field, value: updatedValues[field] });
-    setValues(updatedValues);
+    try {
+      updatedValues[field].splice(index, 1);
+      await db.metricValues.put({ key: field, value: updatedValues[field] });
+      setValues(updatedValues);
+    } catch (error) {
+      console.error("Failed to delete value: ", error);
+    }
   };
 
   // delete value with old settings

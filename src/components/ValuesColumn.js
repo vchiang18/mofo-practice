@@ -32,7 +32,7 @@ const ValuesColumn = ({ column, columnKey, updateValues2, deleteValue2 }) => {
             onClick={() => deleteValue2(columnKey, index)}
             className="text-red-500"
           >
-            <XMarkIcon className="w-4 h-4" />
+            <XMarkIcon className="w-4 h-4 mr-2" />
           </button>
         </div>
       ))}
