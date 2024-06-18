@@ -23,17 +23,22 @@ const ValueSettings = () => {
   };
 
   return (
-    <div className="flex flex-wrap space-x-4 space-y-4">
-      {Object.keys(values).map((columnKey) => (
-        <ValuesColumn
-          key={columnKey}
-          column={formatKeyName(columnKey)}
-          columnKey={columnKey}
-          updateValues2={updateValues2}
-          deleteValue2={deleteValue2}
-          addValue={addValue}
-        />
-      ))}
+    <div className="p-4">
+      <div className="flex justify-center mb-4">
+        <h1 className="text-lg font-bold">Settings</h1>
+      </div>
+      <div className="flex flex-wrap space-x-4 space-y-4">
+        {Object.keys(values).map((columnKey) => (
+          <ValuesColumn
+            key={columnKey}
+            column={formatKeyName(columnKey)}
+            columnKey={columnKey}
+            updateValues2={updateValues2}
+            deleteValue2={deleteValue2}
+            addValue={addValue}
+          />
+        ))}
+      </div>
     </div>
   );
 };
