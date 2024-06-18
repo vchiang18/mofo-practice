@@ -21,11 +21,8 @@ function App() {
               <Routes>
                 <Route path="/" element={<PlayEntry />} />
                 <Route path="/play-list" element={<PlayList />} />
-                <Route
-                  path="/customize-values"
-                  element={<ManageCustomValues />}
-                />
-                <Route path="/test" element={<ValueSettings />} />
+                <Route path="/customize-values" element={<ValueSettings />} />
+                <Route path="/test" element={<ManageCustomValues />} />
               </Routes>
             </div>
           </PlayProvider>
