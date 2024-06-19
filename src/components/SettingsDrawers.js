@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+import React, { useState } from "react";
+import { useGoogleLogin } from "@react-oauth/google";
 import { gapi } from "gapi-script";
+import { useGapi } from "../App.js";
 import { usePractices } from "../context/PracticeContext.js";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
+import { generateFileName } from "../utils.js";
 
 async function convertToCSV(fetchPracticesForExport, columnOrder) {
   const practices = await fetchPracticesForExport();
+
   if (practices.length === 0) return "";
 
   const headers = columnOrder;
@@ -20,43 +23,43 @@ async function convertToCSV(fetchPracticesForExport, columnOrder) {
   return csvRows.join("\n");
 }
 
-// const uploadToGoogleDrive = async (token, csvContent) => {
-//   const oauth2Client = new gapi.auth.OAuth2();
-//   oauth2Client.setCredentials({ access_token: token });
-//   const drive = gapi.client.drive({
-//     version: "v3",
-//     auth: oauth2Client,
-//   });
+const uploadToGoogleDrive = async (token, csvContent) => {
+  gapi.client.setToken({ access_token: token });
+  const fileName = generateFileName();
 
-//   // const token = tokenClient.currentUser.get().getAuthResponse().access_token;
-//   // gapi.client.setToken({ access_token: token });
+  const fileMetadata = {
+    name: fileName,
+    mimeType: "text/csv",
+  };
 
-//   const fileMetadata = {
-//     name: "practices.csv",
-//     mimeType: "application/vnd.google-apps.spreadsheet",
-//   };
+  const form = new FormData();
+  form.append(
+    "metadata",
+    new Blob([JSON.stringify(fileMetadata)], { type: "application/json" })
+  );
+  form.append("file", new Blob([csvContent], { type: "text/csv" }));
 
-//   const media = {
-//     mimeType: "text/csv",
-//     body: csvContent,
-//   };
+  try {
+    const response = await fetch(
+      "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&convert",
+      {
+        method: "POST",
+        headers: new Headers({ Authorization: "Bearer " + token }),
+        body: form,
+      }
+    );
 
-//   try {
-//     const response = await gapi.client.drive.files.create({
-//       resource: fileMetadata,
-//       media: media,
-//       fields: "id",
-//     });
-//     console.log("file id:", response.result.id);
-//   } catch (error) {
-//     console.error("Error uploading file:", error);
-//   }
-// };
+    const result = await response.json();
+  } catch (error) {
+    console.error("Error uploading file:", error);
+  }
+};
 
 const SettingsDrawer = () => {
   const { fetchPracticesForExport } = usePractices();
   const navigate = useNavigate();
   const { clearPractices } = usePractices();
+  const gapi = useGapi();
   const [dialog, setDialog] = useState({
     message: "",
     isLoading: false,
@@ -82,26 +85,32 @@ const SettingsDrawer = () => {
 
   const handleDownloadCSV = async () => {
     const csvContent = await convertToCSV(fetchPracticesForExport, columnOrder);
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const download = new Blob([csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.setAttribute("download", "practices.csv");
+    link.href = URL.createObjectURL(download);
+    const fileName = generateFileName();
+    link.setAttribute("download", fileName);
     document.body.appendChild(link);
     link.click();
+
     document.body.removeChild(link);
+    URL.revokeObjectURL(URL.createObjectURL(download));
   };
 
-  // const handleUploadToGDrive = useGoogleLogin({
-  //   onSuccess: async (tokenResponse) => {
-  //     const csvContent = await convertToCSV(
-  //       fetchPracticesForExport,
-  //       columnOrder
-  //     );
-  //     await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
-  //   },
-  //   onError: (errorResponse) => console.error("Login Failed:", errorResponse),
-  //   scope: "https://www.googleapis.com/auth/drive.file",
-  // });
+  const handleUploadToGDrive = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      const csvContent = await convertToCSV(
+        fetchPracticesForExport,
+        columnOrder
+      );
+      await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
+    },
+    onError: (errorResponse) => console.error("Login Failed:", errorResponse),
+    scope: "https://www.googleapis.com/auth/drive.file",
+  });
 
   const handleDialog = (message, isLoading) => {
     setDialog({
@@ -130,8 +139,6 @@ const SettingsDrawer = () => {
   };
 
   return (
-    // <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-    // </GoogleOAuthProvider>
     <div className="drawer drawer-end">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
@@ -159,9 +166,9 @@ const SettingsDrawer = () => {
           <li>
             <a onClick={handleDownloadCSV}>Export Practices CSV</a>
           </li>
-          {/* <li>
+          <li>
             <a onClick={handleUploadToGDrive}>Export Practices to GDrive</a>
-          </li> */}
+          </li>
         </ul>
         {dialog.isLoading && (
           <DeleteDialog
