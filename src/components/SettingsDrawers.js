@@ -40,7 +40,7 @@ const uploadToGoogleDrive = async (token, csvContent) => {
   form.append("file", new Blob([csvContent], { type: "text/csv" }));
 
   try {
-    const response = await fetch(
+    await fetch(
       "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&convert",
       {
         method: "POST",
@@ -57,7 +57,6 @@ const SettingsDrawer = () => {
   const { fetchPracticesForExport } = usePractices();
   const navigate = useNavigate();
   const { clearPractices } = usePractices();
-  const gapi = useGapi();
   const [dialog, setDialog] = useState({
     message: "",
     isLoading: false,
