@@ -3,12 +3,7 @@ import { useValues } from "../context/ValuesContext";
 import ValuesColumn from "./ValuesColumn";
 
 const ValueSettings = () => {
-  const { values, fetchValues, addValue, updateValues2, deleteValue2 } =
-    useValues();
-
-  useEffect(() => {
-    fetchValues();
-  }, []);
+  const { values, addValue, updateValues2, deleteValue2 } = useValues();
 
   useEffect(() => {}, [values]);
 

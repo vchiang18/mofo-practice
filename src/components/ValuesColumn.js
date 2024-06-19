@@ -4,11 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const ValuesColumn = ({ column, columnKey, updateValues2, deleteValue2 }) => {
   const [newValue, setNewValue] = useState("");
-  const { values, addValue, fetchValues } = useValues();
-
-  useEffect(() => {
-    fetchValues();
-  }, []);
+  const { values, addValue } = useValues();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && newValue.trim() !== "") {
