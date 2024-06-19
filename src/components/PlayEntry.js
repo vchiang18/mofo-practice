@@ -98,12 +98,12 @@ const PlayEntry = () => {
 
   return (
     <div className="p-4">
-      {/* <PracticeHeader /> */}
       <div className="flex flex-wrap items-center justify-center gap-24"></div>
       <div className="flex flex-wrap">
-        <div className="p-4 w-full">
-          <div className="flex flex-wrap justify-between">
-            <div className="w-[163px]">
+        <div className="p-2 w-full">
+          <div className="flex flex-nowrap justify-between">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="offensivePersonnel"
                 displayName="OFF PERSONNEL"
@@ -112,7 +112,8 @@ const PlayEntry = () => {
                 value={selections.offensivePersonnel}
               />
             </div>
-            <div className="w-[284px]">
+            {/* <div className="w-[284px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="formation"
                 displayName="FORMATION"
@@ -121,7 +122,8 @@ const PlayEntry = () => {
                 value={selections.formation}
               />
             </div>
-            <div className="w-[163px]">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="formationVariation"
                 displayName="FORM VAR"
@@ -130,7 +132,8 @@ const PlayEntry = () => {
                 value={selections.formationVariation}
               />
             </div>
-            <div className="w-[163px]">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="backfield"
                 displayName="BACKFIELD"
@@ -139,7 +142,8 @@ const PlayEntry = () => {
                 value={selections.backfield}
               />
             </div>
-            <div className="w-[163px]">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="motion"
                 displayName="MOTION"
@@ -148,7 +152,8 @@ const PlayEntry = () => {
                 value={selections.motion}
               />
             </div>
-            <div className="w-[163px]">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="FIB"
                 displayName="FSL (FIB)"
@@ -157,7 +162,8 @@ const PlayEntry = () => {
                 value={selections.FIB}
               />
             </div>
-            <div className="w-[163px] h-[73.72px]">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="formationFamily"
                 displayName="FORM FAM"
@@ -166,7 +172,8 @@ const PlayEntry = () => {
                 value={selections.formationFamily}
               />
             </div>
-            <div className="w-[163px]">
+            {/* <div className="w-[163px]"> */}
+            <div className="flex-grow">
               <ButtonGroup
                 fieldName="unbalanced"
                 displayName="UNB"

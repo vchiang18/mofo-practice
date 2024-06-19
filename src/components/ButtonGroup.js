@@ -19,7 +19,7 @@ const ButtonGroup = ({
         {options.map((option, index) => (
           <button
             key={index}
-            className={`py-2 px-4 rounded mx-2  h-[73.72px] ${
+            className={`py-2 px-4 rounded mx-2 min-h-[73.72px]  ${
               value === option
                 ? "bg-gold-gradient"
                 : "bg-blue-gradient text-white"
