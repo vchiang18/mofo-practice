@@ -48,8 +48,6 @@ const uploadToGoogleDrive = async (token, csvContent) => {
         body: form,
       }
     );
-
-    const result = await response.json();
   } catch (error) {
     console.error("Error uploading file:", error);
   }
@@ -130,7 +128,7 @@ const SettingsDrawer = () => {
   const handleDialogConfirmation = (answer) => {
     if (answer) {
       console.log("Clear practices confirmed");
-      // clearPractices();
+      clearPractices();
       handleDialog("", false);
     } else {
       console.log("Cancel clear practices");
@@ -158,16 +156,18 @@ const SettingsDrawer = () => {
         ></label>
         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
           <li>
-            <a onClick={handleSettings}>Settings</a>
+            <button onClick={handleSettings}>Settings</button>
           </li>
           <li>
-            <a onClick={handleClearClick}>Clear Practices</a>
+            <button onClick={handleClearClick}>Clear Practices</button>
           </li>
           <li>
-            <a onClick={handleDownloadCSV}>Export Practices CSV</a>
+            <button onClick={handleDownloadCSV}>Export Practices CSV</button>
           </li>
           <li>
-            <a onClick={handleUploadToGDrive}>Export Practices to GDrive</a>
+            <button onClick={handleUploadToGDrive}>
+              Export Practices to GDrive
+            </button>
           </li>
         </ul>
         {dialog.isLoading && (
