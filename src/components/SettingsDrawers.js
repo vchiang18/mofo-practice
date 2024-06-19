@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { gapi } from "gapi-script";
-import { useGapi } from "../App.js";
 import { usePractices } from "../context/PracticeContext.js";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";

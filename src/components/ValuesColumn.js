@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useValues } from "../context/ValuesContext";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
