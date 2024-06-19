@@ -7,7 +7,6 @@ import { UserProvider } from "./context/UserContext";
 import PlayEntry from "./components/PlayEntry";
 import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
-import ManageCustomValues from "./components/ManageCustomValues";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ValueSettings from "./components/ValuesSettings";
 import { gapi } from "gapi-script";

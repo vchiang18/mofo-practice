@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useUsers } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
   const [stripeCustomerId, setStripeCustomerId] = useState("");
-  const { user, saveUser } = useUsers();
+  const { saveUser } = useUsers();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
