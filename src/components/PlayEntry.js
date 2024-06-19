@@ -152,7 +152,6 @@ const PlayEntry = () => {
                 value={selections.motion}
               />
             </div>
-            {/* <div className="w-[163px]"> */}
             <div className="flex-grow">
               <ButtonGroup
                 fieldName="FIB"
@@ -162,7 +161,6 @@ const PlayEntry = () => {
                 value={selections.FIB}
               />
             </div>
-            {/* <div className="w-[163px]"> */}
             <div className="flex-grow">
               <ButtonGroup
                 fieldName="formationFamily"
@@ -172,7 +170,6 @@ const PlayEntry = () => {
                 value={selections.formationFamily}
               />
             </div>
-            {/* <div className="w-[163px]"> */}
             <div className="flex-grow">
               <ButtonGroup
                 fieldName="unbalanced"

@@ -14,7 +14,7 @@ const ButtonGroup = ({
 
   return (
     <div className="mb-2">
-      <h2 className="text-lg text-center mb-2 pl-2">{displayName}</h2>
+      <h2 className="text-center mb-2 pl-2 flex-wrap">{displayName}</h2>
       <div className="flex flex-col mb-2 space-y-2 font-bold">
         {options.map((option, index) => (
           <button

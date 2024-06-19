@@ -3,6 +3,7 @@ import "./App.css";
 import { PracticeProvider } from "./context/PracticeContext";
 import { ValuesProvider } from "./context/ValuesContext";
 import { PlayProvider } from "./context/PlayContext";
+import { UserProvider } from "./context/UserContext";
 import PlayEntry from "./components/PlayEntry";
 import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
@@ -10,6 +11,7 @@ import ManageCustomValues from "./components/ManageCustomValues";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ValueSettings from "./components/ValuesSettings";
 import { gapi } from "gapi-script";
+import Login from "./components/Login";
 
 const GapiContext = createContext();
 
@@ -44,17 +46,22 @@ function App() {
       <PracticeProvider>
         <ValuesProvider>
           <PlayProvider>
-            <GapiContext.Provider value={gapi}>
-              <div>
-                {<Nav />}
-                <Routes>
-                  <Route path="/" element={<PlayEntry />} />
-                  <Route path="/play-list" element={<PlayList />} />
-                  <Route path="/customize-values" element={<ValueSettings />} />
-                  <Route path="/test" element={<ManageCustomValues />} />
-                </Routes>
-              </div>
-            </GapiContext.Provider>
+            <UserProvider>
+              <GapiContext.Provider value={gapi}>
+                <div>
+                  {<Nav />}
+                  <Routes>
+                    <Route path="/" element={<PlayEntry />} />
+                    <Route path="/play-list" element={<PlayList />} />
+                    <Route
+                      path="/customize-values"
+                      element={<ValueSettings />}
+                    />
+                    <Route path="/test" element={<Login />} />
+                  </Routes>
+                </div>
+              </GapiContext.Provider>
+            </UserProvider>
           </PlayProvider>
         </ValuesProvider>
       </PracticeProvider>
