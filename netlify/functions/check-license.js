@@ -10,12 +10,6 @@ exports.handler = async (event, context) => {
     statusCode: 200,
     body: JSON.stringify({ data }),
   };
-
-  // const subs = await stripe.subscriptions;
-  // console.log("subs: ", subs);
-  // return {
-  //   statusCode: 200,
-  // body: JSON.stringify({ subs }),
 };
 
 // try {

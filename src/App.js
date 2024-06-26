@@ -3,7 +3,7 @@ import "./App.css";
 import { PracticeProvider } from "./context/PracticeContext";
 import { ValuesProvider } from "./context/ValuesContext";
 import { PlayProvider } from "./context/PlayContext";
-import { UserProvider } from "./context/UserContext";
+import { UserProvider } from "./context/SubscriptionContext";
 import PlayEntry from "./components/PlayEntry";
 import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
