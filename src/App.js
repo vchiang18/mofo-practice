@@ -11,6 +11,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ValueSettings from "./components/ValuesSettings";
 import { gapi } from "gapi-script";
 import Login from "./components/Login";
+import store from "=../redux/store";
+import { Provider } from "react-redux";
 
 const GapiContext = createContext();
 
@@ -41,6 +43,7 @@ function App() {
   }, []);
 
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <PracticeProvider>
         <ValuesProvider>
@@ -65,6 +68,7 @@ function App() {
         </ValuesProvider>
       </PracticeProvider>
     </BrowserRouter>
+    </Provider>
   );
 }
 
