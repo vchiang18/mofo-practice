@@ -1,15 +1,25 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const subId = JSON.parse(localStorage.getItem("subId"));
 
 exports.handler = async (event, context) => {
-  const data = await (async () => {
-    const subs = await stripe.subscriptions.list();
-    return subs;
-  })();
+  try {
+    var data = await (async () => {
+      const sub = await stripe.subscriptions.retrieve(subId);
+      const isActive = sub.status === "active";
+      return isActive;
+  })();}
+  catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ data }),
+    body: data,
   };
+
 };
 
 // try {
