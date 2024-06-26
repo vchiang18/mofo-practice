@@ -26,4 +26,4 @@
 //     })
 // });
 
-// export const {useGetCustomerQuery} = stripeApi;
+// export const {useGetCustomerQuery, useGetSubscriptionsQuery, useGetSubItemsQuery} = stripeApi;
