@@ -11,6 +11,7 @@ export function SubscriptionProvider({ children }) {
         const subData = await db.user.toArray();
         if (subData.length > 0) {
           setSubId(subData[0]);
+          localStorage.setItem("subId", subData[0]);
         }
       } catch (error) {
         console.error("Failed to fetch user", error);
