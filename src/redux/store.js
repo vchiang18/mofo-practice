@@ -1,4 +1,4 @@
- import {confugureStore} from '@reduxjs/toolkit';   // import configureStore from redux toolkit
+ import {configureStore} from '@reduxjs/toolkit';   // import configureStore from redux toolkit
  import {stripeApi} from './api/stripe';   // import the API slice
 
  export default configureStore({

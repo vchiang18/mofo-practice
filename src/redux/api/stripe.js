@@ -26,4 +26,4 @@ export const stripeApi = createAPI({
     })
 });
 
-export const {useGetCustomerQuery} = stripeApi;
+export const {useGetCustomerQuery, useGetSubscriptionsQuery, useGetSubItemsQuery} = stripeApi;
