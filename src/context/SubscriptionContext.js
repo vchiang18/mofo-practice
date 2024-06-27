@@ -6,7 +6,7 @@ export function SubscriptionProvider({ children }) {
   const [subId, setSubId] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchSubId = async () => {
       try {
         const subData = await db.user.toArray();
         if (subData.length > 0) {
@@ -17,20 +17,24 @@ export function SubscriptionProvider({ children }) {
         console.error("Failed to fetch user", error);
       }
     };
-    fetchUser();
+    fetchSubId();
   }, []);
 
-  const saveUser = async (subData) => {
-    await db.user.clear();
-    await db.user.add(subData);
-    setUser(subData);
+  const saveSubId = async (subId) => {
+    try {
+      await db.subscription.clear();
+      await db.subscription.add({ subId });
+      setSubId(subId);
+    } catch (error) {
+      console.error("Failed to save subscription ID", error);
+    }
   };
 
   return (
-    <UserContext.Provider value={{ user, saveUser }}>
+    <SubscriptionContext.Provider value={{ subId, saveSubId }}>
       {children}
-    </UserContext.Provider>
+    </SubscriptionContext.Provider>
   );
 }
 
-export const useUsers = () => useContext(UserContext);
+export const useSubscriptions = () => useContext(SubscriptionContext);
