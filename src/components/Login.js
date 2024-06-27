@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSubscriptions } from "../context/SubscriptionContext";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [subId, setSubId] = useState("");
-  const { saveSubId } = useSubscriptions();
   const { isAuthenticated, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -28,7 +26,6 @@ const Login = () => {
       console.log("response: ", response);
       if (response.data.isActive) {
         localStorage.setItem("subId", subId);
-        // saveSubId(subId);
         setIsAuthenticated(true);
         console.log("isActive: ", isAuthenticated);
         navigate("/play-entry");
