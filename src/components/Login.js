@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSubscriptions } from "../context/SubscriptionContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [subId, setSubId] = useState("");
   const { saveSubId } = useSubscriptions();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
       // const response = await axios.post("/.netlify/functions/check-license", {
       const response = await axios.post(
+        // process.env.REACT_APP_CHECK_LICENSE_URL,
         "https://mofo-dev.netlify.app/.netlify/functions/check-license",
         {
           subId,
@@ -22,12 +25,19 @@ const Login = () => {
           },
         }
       );
+      console.log("first isAuthenticated: ", isAuthenticated);
       console.log("response: ", response);
       if (response.data.isActive) {
-        saveSubId(subId);
-        navigate("/");
+        localStorage.setItem("subId", subId);
+        // saveSubId(subId);
+        setIsAuthenticated(true);
+        console.log("isActive: ", isAuthenticated);
+        navigate("/play-entry");
       } else {
-        alert("Your license has expired.");
+        alert(
+          "Your license has expired. \nPlease renew your subscription to access the app."
+        );
+        setIsAuthenticated(false);
       }
     } catch (error) {
       console.error("Error checking license: ", error);
