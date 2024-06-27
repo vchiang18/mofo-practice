@@ -15,6 +15,11 @@ const Login = () => {
         "https://mofo-dev.netlify.app/.netlify/functions/check-license",
         {
           subId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       console.log("response: ", response);
