@@ -10,9 +10,13 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("/.netlify/functions/check-license", {
-        subId,
-      });
+      // const response = await axios.post("/.netlify/functions/check-license", {
+      const response = await axios.post(
+        "https://mofo-dev.netlify.app/.netlify/functions/check-license",
+        {
+          subId,
+        }
+      );
       console.log("response: ", response);
       if (response.data.isActive) {
         saveSubId(subId);

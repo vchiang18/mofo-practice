@@ -1,6 +1,19 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event, context) => {
+  const headers = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers,
+      body: "CORS preflight check successful",
+    };
+  }
+
   try {
     const { subId } = JSON.parse(event.body);
     const sub = await stripe.subscriptions.retrieve(subId);
