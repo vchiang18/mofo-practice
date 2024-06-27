@@ -16,14 +16,8 @@ const Nav = () => {
             alt="team logo"
           />
         </div>
-        {/* <NavLink
-          to="/test"
-          className="text-gray-300 hover:text-white whitespace-nowrap p-4"
-        >
-          Test
-        </NavLink> */}
         <div className="flex items-center justify-between w-full ml-4">
-          {location.pathname === "/" && (
+          {location.pathname === "/play-entry" && (
             <>
               <div className="flex-grow flex justify-center">
                 <PracticeHeader />
@@ -43,7 +37,7 @@ const Nav = () => {
             <>
               <div className="flex items-center justify-end space-x-2 ml-auto">
                 <NavLink
-                  to="/"
+                  to="/play-entry"
                   className="text-gray-300 hover:text-white whitespace-nowrap"
                 >
                   PLAY ENTRY
@@ -55,7 +49,7 @@ const Nav = () => {
           {location.pathname === "/customize-values" && (
             <div className="flex items-center justify-end space-x-2 ml-auto">
               <NavLink
-                to="/"
+                to="/play-entry"
                 className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY ENTRY
@@ -72,7 +66,7 @@ const Nav = () => {
           {location.pathname === "/export-practices" && (
             <div className="flex items-center justify-end space-x-2 ml-auto">
               <NavLink
-                to="/"
+                to="/play-entry"
                 className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY ENTRY

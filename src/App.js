@@ -7,10 +7,11 @@ import { SubscriptionProvider } from "./context/SubscriptionContext";
 import PlayEntry from "./components/PlayEntry";
 import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ValueSettings from "./components/ValuesSettings";
 import { gapi } from "gapi-script";
 import Login from "./components/Login";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 // import store from "=../redux/store";
 // import { Provider } from "react-redux";
 
@@ -18,6 +19,11 @@ const GapiContext = createContext();
 
 export const useGapi = () => {
   return useContext(GapiContext);
+};
+
+const PrivateRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/play-entry" />;
 };
 
 function App() {
@@ -44,30 +50,52 @@ function App() {
 
   return (
     // <Provider store={store}>
-    <BrowserRouter>
-      <PracticeProvider>
-        <ValuesProvider>
-          <PlayProvider>
-            <SubscriptionProvider>
-              <GapiContext.Provider value={gapi}>
-                <div>
-                  {<Nav />}
-                  <Routes>
-                    <Route path="/" element={<PlayEntry />} />
-                    <Route path="/play-list" element={<PlayList />} />
-                    <Route
-                      path="/customize-values"
-                      element={<ValueSettings />}
-                    />
-                    <Route path="/test" element={<Login />} />
-                  </Routes>
-                </div>
-              </GapiContext.Provider>
-            </SubscriptionProvider>
-          </PlayProvider>
-        </ValuesProvider>
-      </PracticeProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <PracticeProvider>
+          <ValuesProvider>
+            <PlayProvider>
+              <SubscriptionProvider>
+                <GapiContext.Provider value={gapi}>
+                  <div>
+                    <Nav />
+                    <Routes>
+                      <Route path="/" element={<Login />} />
+                      <Route
+                        path="/play-entry"
+                        element={
+                          <PrivateRoute>
+                            <PlayEntry />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route
+                        path="/play-list"
+                        element={
+                          <PrivateRoute>
+                            <PlayList />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route
+                        path="/customize-values"
+                        element={
+                          <PrivateRoute>
+                            <ValueSettings />
+                          </PrivateRoute>
+                        }
+                      />
+                      <Route path="/test" element={<Login />} />
+                    </Routes>
+                  </div>
+                </GapiContext.Provider>
+              </SubscriptionProvider>
+            </PlayProvider>
+          </ValuesProvider>
+        </PracticeProvider>
+      </BrowserRouter>
+    </AuthProvider>
+
     // </Provider>
   );
 }
