@@ -37,7 +37,7 @@ const Nav = () => {
             <>
               <div className="flex items-center justify-end space-x-2 ml-auto">
                 <NavLink
-                  to="/"
+                  to="/play-entry"
                   className="text-gray-300 hover:text-white whitespace-nowrap"
                 >
                   PLAY ENTRY
@@ -49,7 +49,7 @@ const Nav = () => {
           {location.pathname === "/customize-values" && (
             <div className="flex items-center justify-end space-x-2 ml-auto">
               <NavLink
-                to="/"
+                to="/play-entry"
                 className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY ENTRY
@@ -66,7 +66,7 @@ const Nav = () => {
           {location.pathname === "/export-practices" && (
             <div className="flex items-center justify-end space-x-2 ml-auto">
               <NavLink
-                to="/"
+                to="/play-entry"
                 className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY ENTRY

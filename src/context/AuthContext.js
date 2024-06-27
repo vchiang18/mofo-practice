@@ -6,6 +6,11 @@ const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const logout = () => {
+    localStorage.removeItem("subId");
+    setIsAuthenticated(false);
+  };
+
   useEffect(() => {
     const checkSubscriptionStatus = async () => {
       const subId = localStorage.getItem("subId");
@@ -21,9 +26,13 @@ export function AuthProvider({ children }) {
             }
           );
           setIsAuthenticated(response.data.isActive);
+          if (!response.data.isActive) {
+            localStorage.removeItem("subId");
+          }
         } catch (error) {
           console.error("Error checking license: ", error);
           setIsAuthenticated(false);
+          localStorage.removeItem("subId");
         }
       } else {
         setIsAuthenticated(false);
@@ -42,7 +51,9 @@ export function AuthProvider({ children }) {
   }, [isAuthenticated]);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

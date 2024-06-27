@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
 import { generateFileName } from "../utils.js";
+import { useAuth } from "../context/AuthContext.js";
 
 async function convertToCSV(fetchPracticesForExport, columnOrder) {
   const practices = await fetchPracticesForExport();
@@ -56,6 +57,7 @@ const SettingsDrawer = () => {
   const { fetchPracticesForExport } = usePractices();
   const navigate = useNavigate();
   const { clearPractices } = usePractices();
+  const { logout } = useAuth();
   const [dialog, setDialog] = useState({
     message: "",
     isLoading: false,
@@ -134,6 +136,11 @@ const SettingsDrawer = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <div className="drawer drawer-end">
       <input id="my-drawer" type="checkbox" className="drawer-toggle" />
@@ -166,6 +173,9 @@ const SettingsDrawer = () => {
             <button onClick={handleUploadToGDrive}>
               Export Practices to GDrive
             </button>
+          </li>
+          <li>
+            <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>
         {dialog.isLoading && (
