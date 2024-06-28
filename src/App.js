@@ -5,9 +5,10 @@ import { ValuesProvider } from "./context/ValuesContext";
 import { PlayProvider } from "./context/PlayContext";
 import { Navigate } from "react-router-dom";
 import { gapi } from "gapi-script";
-import store from "=../redux/store";
+import store from "./redux/store";
 import { Provider } from "react-redux";
-import Routes from "./routes/browserRouter";
+import Routes from "./routes/BrowserRouter";
+import AuthProvider from "./context/AuthContext";
 
 const GapiContext = createContext();
 
@@ -15,10 +16,6 @@ export const useGapi = () => {
   return useContext(GapiContext);
 };
 
-const PrivateRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to="/play-entry" />;
-};
 
 function App() {
   useEffect(() => {
@@ -43,19 +40,19 @@ function App() {
   }, []);
 
   return (
+    <AuthProvider>
     <Provider store={store}>
       <PracticeProvider>
         <ValuesProvider>
           <PlayProvider>
-            <UserProvider>
               <GapiContext.Provider value={gapi}>
                 <Routes />
               </GapiContext.Provider>
-            </UserProvider>
           </PlayProvider>
         </ValuesProvider>
       </PracticeProvider>
     </Provider>
+    </AuthProvider>
   );
 }
 

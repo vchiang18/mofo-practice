@@ -1,9 +1,9 @@
-import {createAPI} from '@reduxjs/toolkit/query/react';
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query';
 
 // Create an API slice
-export const stripeApi = createAPI({
-    reducerPath: 'netlifyAPI',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://netlify/'}),
+export const netlifyApi = createApi({
+    reducerPath: 'netlifyApi',
+    baseQuery: fetchBaseQuery({baseUrl: 'https://mofo-dev.netlify.app/.netlify/functions/'}),
     endpoints: (builder) => ({
         checkLiscense: builder.query({
             query: (data) => ({
@@ -14,4 +14,4 @@ export const stripeApi = createAPI({
     })
 });
 
-export const {useCheckBalanceQuery} = stripeApi;
+export const {useCheckBalanceQuery} = netlifyApi;

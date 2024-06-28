@@ -1,9 +1,10 @@
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext, useEffect, useMemo } from "react";
 import axios from "axios";
+//import { useGetLicenseQuery } from "../redux/api/netlify";
 
 const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const logout = () => {
@@ -16,6 +17,7 @@ export function AuthProvider({ children }) {
       const subId = localStorage.getItem("subId");
       if (subId) {
         try {
+          //const {data, error} = useGetLicenseQuery(subId);
           const response = await axios.post(
             "https://mofo-dev.netlify.app/.netlify/functions/check-license",
             { subId },
@@ -50,13 +52,24 @@ export function AuthProvider({ children }) {
     console.log("Auth context isAuthenticated: ", isAuthenticated);
   }, [isAuthenticated]);
 
+  const contextValue = useMemo(
+    () => ({
+      isAuthenticated,
+      setIsAuthenticated,
+      logout,
+    }),
+    [isAuthenticated]
+  )
+
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, logout }}
+      value={ contextValue }
     >
       {children}
     </AuthContext.Provider>
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
+}

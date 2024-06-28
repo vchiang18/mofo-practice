@@ -1,4 +1,4 @@
-import { createBrowserRouter} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter} from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import PlayEntry from "../components/PlayEntry";
 import PlayList from "../components/PlayList";
@@ -20,7 +20,7 @@ const Routes = () => {
             element: <PlayList />,
         },
         {
-            path:  '/test',
+            path:  '/login',
             element: <Login />,
         },
         {
@@ -52,7 +52,7 @@ const Routes = () => {
             ],
         },
     ]);
-    return <RouteProvider router={router} />;
+    return <RouterProvider router={router} />;
 };
 
 export default Routes;
