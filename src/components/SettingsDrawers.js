@@ -7,6 +7,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
 import { generateFileName } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
+import Popup from "./Popup.js";
 
 async function convertToCSV(fetchPracticesForExport, columnOrder) {
   const practices = await fetchPracticesForExport();
@@ -68,6 +69,7 @@ const SettingsDrawer = () => {
     message: "",
     isLoading: false,
   });
+  const [showPopup, setShowPopup] = useState(false);
 
   const columnOrder = [
     "id",
@@ -106,11 +108,16 @@ const SettingsDrawer = () => {
 
   const handleUploadToGDrive = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      const csvContent = await convertToCSV(
-        fetchPracticesForExport,
-        columnOrder
-      );
-      await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
+      try {
+        const csvContent = await convertToCSV(
+          fetchPracticesForExport,
+          columnOrder
+        );
+        await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
+        setShowPopup(true);
+      } catch (error) {
+        console.error("Upload failed: ", error);
+      }
     },
     onError: (errorResponse) => console.error("Login Failed:", errorResponse),
     scope: "https://www.googleapis.com/auth/drive.file",
@@ -186,6 +193,12 @@ const SettingsDrawer = () => {
           <DeleteDialog
             onDialog={handleDialogConfirmation}
             message={dialog.message}
+          />
+        )}
+        {showPopup && (
+          <Popup
+            message="CSV uploaded to GDrive"
+            onClose={() => setShowPopup(false)}
           />
         )}
       </div>
