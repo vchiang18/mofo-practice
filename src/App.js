@@ -3,11 +3,11 @@ import "./App.css";
 import { PracticeProvider } from "./context/PracticeContext";
 import { ValuesProvider } from "./context/ValuesContext";
 import { PlayProvider } from "./context/PlayContext";
-import { UserProvider } from "./context/SubscriptionContext";
+import { SubscriptionProvider } from "./context/SubscriptionContext";
 import PlayEntry from "./components/PlayEntry";
 import PlayList from "./components/PlayList";
 import Nav from "./components/Nav";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ValueSettings from "./components/ValuesSettings";
 import { gapi } from "gapi-script";
 import Login from "./components/Login";
@@ -18,6 +18,11 @@ const GapiContext = createContext();
 
 export const useGapi = () => {
   return useContext(GapiContext);
+};
+
+const PrivateRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/play-entry" />;
 };
 
 function App() {

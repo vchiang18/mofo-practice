@@ -1,36 +1,42 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 import db from "../db";
+
 const SubscriptionContext = createContext();
 
 export function SubscriptionProvider({ children }) {
   const [subId, setSubId] = useState(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchSubId = async () => {
       try {
-        const subData = await db.user.toArray();
+        const subData = await db.subscription.toArray();
         if (subData.length > 0) {
-          setSubId(subData[0]);
-          localStorage.setItem("subId", subData[0]);
+          setSubId(subData[0].stripeSubscriptionId);
+          localStorage.setItem("subId", subData[0].stripeSubscriptionId);
         }
       } catch (error) {
-        console.error("Failed to fetch user", error);
+        console.error("Failed to fetch subscription", error);
       }
     };
-    fetchUser();
+    fetchSubId();
   }, []);
 
-  const saveUser = async (subData) => {
-    await db.user.clear();
-    await db.user.add(subData);
-    setUser(subData);
+  const saveSubId = async (stripeSubscriptionId) => {
+    try {
+      await db.subscription.clear();
+      await db.subscription.add({ stripeSubscriptionId });
+      setSubId(stripeSubscriptionId);
+      localStorage.setItem("subId", stripeSubscriptionId);
+    } catch (error) {
+      console.error("Failed to save subscription ID", error);
+    }
   };
 
   return (
-    <UserContext.Provider value={{ user, saveUser }}>
+    <SubscriptionContext.Provider value={{ subId, saveSubId }}>
       {children}
-    </UserContext.Provider>
+    </SubscriptionContext.Provider>
   );
 }
 
-export const useUsers = () => useContext(UserContext);
+export const useSubscriptions = () => useContext(SubscriptionContext);
