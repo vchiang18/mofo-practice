@@ -170,15 +170,13 @@ const SettingsDrawer = () => {
             <button onClick={handleSettings}>Settings</button>
           </li>
           <li>
-            <button onClick={handleClearClick}>Clear Practices</button>
+            <button onClick={handleClearClick}>Clear Data</button>
           </li>
           <li>
-            <button onClick={handleDownloadCSV}>Export Practices CSV</button>
+            <button onClick={handleDownloadCSV}>Export to CSV</button>
           </li>
           <li>
-            <button onClick={handleUploadToGDrive}>
-              Export Practices to GDrive
-            </button>
+            <button onClick={handleUploadToGDrive}>Export to GDrive</button>
           </li>
           <li>
             <button onClick={handleLogout}>Logout</button>
