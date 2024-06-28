@@ -3,16 +3,11 @@ import "./App.css";
 import { PracticeProvider } from "./context/PracticeContext";
 import { ValuesProvider } from "./context/ValuesContext";
 import { PlayProvider } from "./context/PlayContext";
-import { SubscriptionProvider } from "./context/SubscriptionContext";
-import PlayEntry from "./components/PlayEntry";
-import PlayList from "./components/PlayList";
-import Nav from "./components/Nav";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import ValueSettings from "./components/ValuesSettings";
+import { Navigate } from "react-router-dom";
 import { gapi } from "gapi-script";
-import Login from "./components/Login";
 import store from "=../redux/store";
 import { Provider } from "react-redux";
+import Routes from "./routes/browserRouter";
 
 const GapiContext = createContext();
 
@@ -49,30 +44,17 @@ function App() {
 
   return (
     <Provider store={store}>
-    <BrowserRouter>
       <PracticeProvider>
         <ValuesProvider>
           <PlayProvider>
             <UserProvider>
               <GapiContext.Provider value={gapi}>
-                <div>
-                  {<Nav />}
-                  <Routes>
-                    <Route path="/" element={<PlayEntry />} />
-                    <Route path="/play-list" element={<PlayList />} />
-                    <Route
-                      path="/customize-values"
-                      element={<ValueSettings />}
-                    />
-                    <Route path="/test" element={<Login />} />
-                  </Routes>
-                </div>
+                <Routes />
               </GapiContext.Provider>
             </UserProvider>
           </PlayProvider>
         </ValuesProvider>
       </PracticeProvider>
-    </BrowserRouter>
     </Provider>
   );
 }
