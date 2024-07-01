@@ -6,3 +6,15 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+  [[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = """
+      default-src 'self' https://accounts.google.com https://apis.google.com;
+      connect-src 'self' https://mofo-dev.netlify.app;
+      font-src 'self' data:;
+      img-src 'self' data:;
+      script-src 'self' 'unsafe-inline';
+      style-src 'self' 'unsafe-inline';
+    """

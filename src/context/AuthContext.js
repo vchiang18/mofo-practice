@@ -19,7 +19,8 @@ export default function AuthProvider({ children }) {
         try {
           //const {data, error} = useGetLicenseQuery(subId);
           const response = await axios.post(
-            "https://mofo-dev.netlify.app/.netlify/functions/check-license",
+            // "https://mofo-dev.netlify.app/.netlify/functions/check-license",
+            "https://mofo-alpha.netlify.app/.netlify/functions/check-license",
             { subId },
             {
               headers: {

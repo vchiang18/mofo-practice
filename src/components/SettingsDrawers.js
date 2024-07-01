@@ -7,6 +7,7 @@ import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
 import { generateFileName } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
+import Popup from "./Popup.js";
 
 async function convertToCSV(fetchPracticesForExport, columnOrder) {
   const practices = await fetchPracticesForExport();
@@ -40,7 +41,7 @@ const uploadToGoogleDrive = async (token, csvContent) => {
   form.append("file", new Blob([csvContent], { type: "text/csv" }));
 
   try {
-    await fetch(
+    const response = await fetch(
       "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&convert",
       {
         method: "POST",
@@ -48,6 +49,12 @@ const uploadToGoogleDrive = async (token, csvContent) => {
         body: form,
       }
     );
+    if (!response.ok) {
+      throw new Error(`Error uploading file: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("File uploaded successfully: ", data);
   } catch (error) {
     console.error("Error uploading file:", error);
   }
@@ -62,6 +69,7 @@ const SettingsDrawer = () => {
     message: "",
     isLoading: false,
   });
+  const [showPopup, setShowPopup] = useState(false);
 
   const columnOrder = [
     "id",
@@ -100,11 +108,16 @@ const SettingsDrawer = () => {
 
   const handleUploadToGDrive = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
-      const csvContent = await convertToCSV(
-        fetchPracticesForExport,
-        columnOrder
-      );
-      await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
+      try {
+        const csvContent = await convertToCSV(
+          fetchPracticesForExport,
+          columnOrder
+        );
+        await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
+        setShowPopup(true);
+      } catch (error) {
+        console.error("Upload failed: ", error);
+      }
     },
     onError: (errorResponse) => console.error("Login Failed:", errorResponse),
     scope: "https://www.googleapis.com/auth/drive.file",
@@ -164,15 +177,13 @@ const SettingsDrawer = () => {
             <button onClick={handleSettings}>Settings</button>
           </li>
           <li>
-            <button onClick={handleClearClick}>Clear Practices</button>
+            <button onClick={handleClearClick}>Clear Data</button>
           </li>
           <li>
-            <button onClick={handleDownloadCSV}>Export Practices CSV</button>
+            <button onClick={handleDownloadCSV}>Export to CSV</button>
           </li>
           <li>
-            <button onClick={handleUploadToGDrive}>
-              Export Practices to GDrive
-            </button>
+            <button onClick={handleUploadToGDrive}>Export to GDrive</button>
           </li>
           <li>
             <button onClick={handleLogout}>Logout</button>
@@ -182,6 +193,12 @@ const SettingsDrawer = () => {
           <DeleteDialog
             onDialog={handleDialogConfirmation}
             message={dialog.message}
+          />
+        )}
+        {showPopup && (
+          <Popup
+            message="CSV uploaded to GDrive"
+            onClose={() => setShowPopup(false)}
           />
         )}
       </div>
