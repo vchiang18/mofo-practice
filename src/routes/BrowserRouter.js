@@ -12,34 +12,36 @@ const Routes = () => {
     const { isAuthenticated } = useAuth();
     const publicRoutes = [
         {
-            path: '/',
-            element: <PlayEntry />,
-        },
-        {
-            path: '/play-list',
-            element: <PlayList />,
-        },
-        {
-            path:  '/login',
+            path: "/",
             element: <Login />,
-        },
-        {
-            path: "/customize-values",
-            element: <ValueSettings />,
-        },
+        }
     ];
     const privateRoutes = [
         {
             path: '*',
             element: <ProtectedRoute />,
             children: [
-// put any routes that should be protected through login and liscense check here
+                {
+                    path: 'play-entry/',
+                    element: <PlayEntry />,
+                },
+                {
+                    path: 'play-list/',
+                    element: <PlayList />,
+                },
+                {
+                    path: "customize-values/",
+                    element: <ValueSettings />,
+                },
             ],
 
         }
     ];
     const notAuthRoutes = [
-        // eventually login and signup should go here as defaultes for the non auth redirect
+        {
+            path:  '/login',
+            element: <Login />,
+        },
     ];
     const router = createBrowserRouter([
         {
