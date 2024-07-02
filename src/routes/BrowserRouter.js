@@ -14,17 +14,17 @@ const Routes = () => {
         {
             path: "/",
             element: <Login />,
-        }
+        },{
+                    path: 'play-entry/',
+                    element: <PlayEntry />,
+                },
     ];
     const privateRoutes = [
         {
             path: '*',
             element: <ProtectedRoute />,
             children: [
-                {
-                    path: 'play-entry/',
-                    element: <PlayEntry />,
-                },
+
                 {
                     path: 'play-list/',
                     element: <PlayList />,
