@@ -14,42 +14,53 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/images/appicon-20@2x~ipad.png",
+      "src": "/images/40.png",
       "sizes": "40x40",
       "type": "image/png"
     },
     {
-      "src": "/images/appicon-20~ipad.png",
+      "src": "/images/60.png",
       "sizes": "60x60",
-      "type": "image/png"
+      "type": "image/png",
+      "platform": "ios"
     },
     {
-      "src": "/images/appicon-29@2x~ipad.png",
+      "src": "/images/58.png",
       "sizes": "58x58",
       "type": "image/png"
     },
     {
-      "src": "/images/appicon-29~ipad.png",
+      "src": "/images/87.png",
       "sizes": "87x87",
       "type": "image/png"
     },
     {
-      "src": "/images/appicon-40@2x~ipad.png",
+      "src": "/images/80.png",
       "sizes": "80x80",
       "type": "image/png"
     },
     {
-      "src": "/images/appicon-40~ipad.png",
+      "src": "/images/120.png",
       "sizes": "120x120",
       "type": "image/png"
     },
     {
-      "src": "/images/appicon-83.5@2x~ipad.png",
+      "src": "/images/167.png",
       "sizes": "167x167",
       "type": "image/png"
     },
     {
-      "src": "/images/play_store_512.png",
+      "src": "/images/192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

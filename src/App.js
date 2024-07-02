@@ -12,8 +12,6 @@ import ValueSettings from "./components/ValuesSettings";
 import { gapi } from "gapi-script";
 import Login from "./components/Login";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-// import store from "=../redux/store";
-// import { Provider } from "react-redux";
 
 const GapiContext = createContext();
 
