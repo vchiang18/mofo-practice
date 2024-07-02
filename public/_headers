@@ -1,4 +1,13 @@
 /*
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Embedder-Policy: require-corp
-  Content-Security-Policy: default-src 'self' https://accounts.google.com https://apis.google.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://accounts.google.com
+
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Content-Security-Policy:
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://accounts.google.com/gsi/client https://apis.google.com https://*.googleapis.com https://*.gstatic.com;
+    object-src 'none';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data:;
+    media-src 'self';
+    frame-src 'self' https://accounts.google.com https://apis.google.com;
+    font-src 'self';
+    connect-src 'self' https://accounts.google.com https://apis.google.com https://*.googleapis.com https://*.gstatic.com;

@@ -17,8 +17,7 @@ export function AuthProvider({ children }) {
       if (subId) {
         try {
           const response = await axios.post(
-            // "https://mofo-dev.netlify.app/.netlify/functions/check-license",
-            "https://mofo-alpha.netlify.app/.netlify/functions/check-license",
+            process.env.REACT_APP_CHECK_LICENSE_URL,
             { subId },
             {
               headers: {

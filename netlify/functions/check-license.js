@@ -26,6 +26,8 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ isActive }),
     };
   } catch (error) {
+    console.error("error: ", error);
+
     return {
       statusCode: 500,
       headers,
