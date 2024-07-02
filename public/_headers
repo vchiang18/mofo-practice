@@ -1,4 +1,6 @@
 /*
+
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
   Content-Security-Policy:
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://accounts.google.com/gsi/client https://apis.google.com https://*.googleapis.com https://*.gstatic.com;
