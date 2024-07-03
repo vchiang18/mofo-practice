@@ -1,5 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const autoSave = (state) => {
+    localStorage.setItem("fields", JSON.stringify(state.fields));
+    return state;
+};
 
 export const fieldsSlice = createSlice({
     name: "fields",
@@ -8,13 +12,22 @@ export const fieldsSlice = createSlice({
     },
     reducers: {
         addField: (state, action) => {
-            state.fields.push({name:action.payload, values:[""]});
+            state.fields.push({
+            name:action.payload,
+            values:[""],
+            accessor: action.payload.toLowerCase().split(" ").flatMap((x) => x.charAt(0).toUpperCase() + x.slice(1)).join(''),
+            multiselect: false,
+        });
+            autoSave(state);
         },
         removeField: (state, action) => {
             state.fields = state.fields.filter((field) => field.name !== action.payload);
+            autoSave(state);
         },
         changeFieldName: (state, action) => {
             state.fields[action.payload.index].name = action.payload.name
+            state.fields[action.payload.index].accessor = action.payload.name.toLowerCase().split(" ").flatMap((x) => x.charAt(0).toUpperCase()+ x.slice(1)).join('')
+            autoSave(state);
         },
         removeValue: (state, action) => {
             const field = state.fields[action.payload.index]
@@ -22,6 +35,7 @@ export const fieldsSlice = createSlice({
             if (field.values.length === 0) {
                 field.values.push("")
             }
+            autoSave(state);
         },
         changeValue: (state, action) => {
             const field = state.fields[action.payload.index]
@@ -31,6 +45,7 @@ export const fieldsSlice = createSlice({
             if (lastValue !== "") {
                 field.values.push("")
             }
+            autoSave(state);
         },
     },
 });
