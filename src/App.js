@@ -3,7 +3,6 @@ import "./App.css";
 import { PracticeProvider } from "./context/PracticeContext";
 import { ValuesProvider } from "./context/ValuesContext";
 import { PlayProvider } from "./context/PlayContext";
-import { Navigate } from "react-router-dom";
 import { gapi } from "gapi-script";
 import store from "./redux/store";
 import { Provider } from "react-redux";
