@@ -22,7 +22,7 @@ const Settings = () => {
 
   const handleSave = () => {
     localStorage.setItem("fields", JSON.stringify(fields));
-    setShowPopup(true);
+    // setShowPopup(true);
   };
 
   const handleNext = (e) => {
