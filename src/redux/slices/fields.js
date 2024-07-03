@@ -19,6 +19,9 @@ export const fieldsSlice = createSlice({
         removeValue: (state, action) => {
             const field = state.fields[action.payload.index]
             field.values.splice(action.payload.valIndex,1);
+            if (field.values.length === 0) {
+                field.values.push("")
+            }
         },
         changeValue: (state, action) => {
             const field = state.fields[action.payload.index]
