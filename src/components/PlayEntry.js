@@ -6,7 +6,10 @@ import { useValues } from "../context/ValuesContext";
 import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+
+
 const PlayEntry = () => {
+
   const [selections, setSelections] = useState({
     offensivePersonnel: null,
     formation: null,
@@ -102,6 +105,7 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
+
             {/* <div className="w-[163px]"> */}
             <div className="flex-grow">
               <ButtonGroup

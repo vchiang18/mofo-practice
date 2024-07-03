@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import ValueSettings from "../components/ValuesSettings";
 import { ProtectedRoute } from './Protected';
 import Layout from '../components/Layout';
+import Settings from '../components/Settings';
 
 
 const Routes = () => {
@@ -14,10 +15,22 @@ const Routes = () => {
         {
             path: "/",
             element: <Login />,
-        },{
+        },
+        {
+
+
                     path: 'play-entry/',
                     element: <PlayEntry />,
-                },
+        },
+        {
+            path: 'dev/',
+            children: [
+                {
+                    path: 'settings/',
+                    element: <Settings />,
+                }
+            ],
+        }
     ];
     const privateRoutes = [
         {
