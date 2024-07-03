@@ -7,10 +7,7 @@ import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector } from "react-redux";
 
-
-
 const PlayEntry = () => {
-
   const fields = useSelector((state) => state.fields.fields);
 
   const [selections, setSelections] = useState({
@@ -109,55 +106,51 @@ const PlayEntry = () => {
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
             {fields.map(({ name, values, accessor }, index) => {
-
               return (
                 <div className="flex-grow">
-              <ButtonGroup
-                fieldName={accessor}
-                displayName={name}
-                options={values.slice(0, -1)}
-                onSelectionChange={handleSelectionChange}
-                value={selections.offensivePersonnel}
-              />
-            </div>
-              )
-            }
-
-            )}
-
+                  <ButtonGroup
+                    fieldName={accessor}
+                    displayName={name}
+                    options={values.slice(0, -1)}
+                    onSelectionChange={handleSelectionChange}
+                    value={selections.offensivePersonnel}
+                  />
+                </div>
+              );
+            })}
+          </div>
 
           <div className="mt-4 flex justify-end space-x-2">
             <button
               onClick={handleCancel}
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="bg-red-500 h-10 text-white px-4 py-2 rounded"
               aria-label="Cancel"
             >
               <XMarkIcon className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={handleReset}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
+              className="bg-gray-500 h-10 text-white px-4 py-2 rounded"
               aria-label="Repeat"
             >
               <ArrowPathIcon className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={handleSubmit}
-              className="bg-green-500 text-white px-4 py-2 rounded"
+              className="bg-green-500 h-10 text-white px-4 py-2 rounded"
             >
               Enter
             </button>
           </div>
         </div>
+        <div className="w-full mt-4">
+          <PlayListPreview
+            limit={10}
+            sortOrder="desc"
+            showAdditionalColumns={false}
+          />
+        </div>
       </div>
-      <div className="w-full mt-4">
-        <PlayListPreview
-          limit={10}
-          sortOrder="desc"
-          showAdditionalColumns={false}
-        />
-      </div>
-    </div>
     </div>
   );
 };
