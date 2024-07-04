@@ -1,58 +1,73 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { RouterProvider, createBrowserRouter} from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import PlayEntry from "../components/PlayEntry";
 import PlayList from "../components/PlayList";
 import Login from "../components/Login";
 import ValueSettings from "../components/ValuesSettings";
-import { ProtectedRoute } from "./Protected";
-import Layout from "../components/Layout";
+import { ProtectedRoute } from './Protected';
+import Layout from '../components/Layout';
+import Settings from '../components/Settings';
+
 
 const Routes = () => {
-  const { isAuthenticated } = useAuth();
-  const publicRoutes = [
-    {
-      path: "/",
-      element: <Login />,
-    },
-  ];
-  const privateRoutes = [
-    {
-      path: "*",
-      element: <ProtectedRoute />,
-      children: [
+    const { isAuthenticated } = useAuth();
+    const publicRoutes = [
         {
-          path: "play-entry/",
-          element: <PlayEntry />,
+            path: "/",
+            element: <Login />,
         },
         {
-          path: "play-list/",
-          element: <PlayList />,
+
+
+                    path: 'play-entry/',
+                    element: <PlayEntry />,
         },
         {
-          path: "customize-values/",
-          element: <ValueSettings />,
+            path: 'dev/',
+            children: [
+                {
+                    path: 'settings/',
+                    element: <Settings />,
+                }
+            ],
+        }
+    ];
+    const privateRoutes = [
+        {
+            path: '*',
+            element: <ProtectedRoute />,
+            children: [
+
+                {
+                    path: 'play-list/',
+                    element: <PlayList />,
+                },
+                {
+                    path: "customize-values/",
+                    element: <ValueSettings />,
+                },
+            ],
+
+        }
+    ];
+    const notAuthRoutes = [
+        {
+            path:  '/',
+            element: <Login />,
         },
-      ],
-    },
-  ];
-  const notAuthRoutes = [
-    {
-      path: "/",
-      element: <Login />,
-    },
-  ];
-  const router = createBrowserRouter([
-    {
-      Component: Layout,
-      path: "/",
-      children: [
-        ...publicRoutes,
-        ...(!isAuthenticated ? notAuthRoutes : []),
-        ...privateRoutes,
-      ],
-    },
-  ]);
-  return <RouterProvider router={router} />;
+    ];
+    const router = createBrowserRouter([
+        {
+            Component: Layout,
+            path: '/',
+            children: [
+                ...publicRoutes,
+                ...(!isAuthenticated ? notAuthRoutes : []),
+                ...privateRoutes,
+            ],
+        },
+    ]);
+    return <RouterProvider router={router} />;
 };
 
 export default Routes;
