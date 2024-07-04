@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelection, removeSelection } from "../redux/slices/selections";
 
 const ButtonGroup = ({
   fieldName,
@@ -7,9 +9,23 @@ const ButtonGroup = ({
   onSelectionChange,
   value,
 }) => {
-  const handleSelection = (option) => {
-    const newValue = value === option ? null : option;
-    onSelectionChange(fieldName, newValue);
+  const dispatch = useDispatch();
+  const selections = useSelector((state) => state.selections.selections);
+
+  const handleSelection = (index) => {
+    try{
+    if (!selections[fieldName].includes(index)) {
+      dispatch(setSelection({ field: fieldName, value: index }));
+    }else{
+      dispatch(removeSelection({ field: fieldName, value: index }));
+    }
+  }catch(e){
+    if (!selections[fieldName]) {
+      dispatch(setSelection({ field: fieldName, value: index }));
+  }
+}
+    // const newValue = value === option ? null : option;
+    // onSelectionChange(fieldName, newValue);
   };
 
   return (
@@ -20,11 +36,11 @@ const ButtonGroup = ({
           <button
             key={index}
             className={`py-2 px-4 rounded mx-2 min-h-[73.72px]  ${
-              value === option
+              selections[fieldName].includes(index)
                 ? "bg-gold-gradient"
                 : "bg-blue-gradient text-white"
             } hover:bg-gold-gradient hover:text-black`}
-            onClick={() => handleSelection(option)}
+            onClick={() => handleSelection(index)}
           >
             {option}
           </button>
