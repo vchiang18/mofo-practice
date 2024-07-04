@@ -5,76 +5,64 @@ import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
 import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { clearSelections, copyPrev } from "../redux/slices/selections";
 
 const PlayEntry = () => {
+  const dispatch = useDispatch();
   const fields = useSelector((state) => state.fields.fields);
+  const selections = useSelector((state) => state.selections.selections);
 
-  const [selections, setSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    FIB: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
+  // const [selections, setSelections] = useState({
+  //   offensivePersonnel: null,
+  //   formation: null,
+  //   formationVariation: null,
+  //   backfield: null,
+  //   motion: null,
+  //   FIB: null,
+  //   formationFamily: null,
+  //   unbalanced: null,
+  // });
 
-  const [priorSelections, setPriorSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    FIB: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
+  const [priorSelections, setPriorSelections] = useState({...selections}
 
-  const { playSelections, savePlaySelections } = usePlaySelections();
-  const { values } = useValues();
+  );
+
+  // const { playSelections, savePlaySelections } = usePlaySelections();
+  // const { values } = useValues();
   const { settings, updateSettings, addPractice } = usePractices();
 
-  const handleSelectionChange = (fieldName, value) => {
-    setSelections((prevSelections) => ({
-      ...prevSelections,
-      [fieldName]: value,
-    }));
-  };
+  // const handleSelectionChange = (fieldName, value) => {
+  //   setSelections((prevSelections) => ({
+  //     ...prevSelections,
+  //     [fieldName]: value,
+  //   }));
+  // };
 
   const handleSave = () => {
     updateSettings({ rep: settings.rep + 1 });
+    setPriorSelections(selections);
   };
 
-  useEffect(() => {
-    if (playSelections) {
-      setPriorSelections(playSelections);
-    }
-  }, [playSelections]);
+  // useEffect(() => {
+  //   // if (selections) {
+  //   //   setPriorSelections(selections);
+  //   // }
+  // }, [selections]);
 
   const handleReset = () => {
-    if (priorSelections) {
-      setSelections(priorSelections);
-    }
+    dispatch(clearSelections());
+    dispatch(copyPrev(priorSelections));
+
   };
 
   const handleCancel = () => {
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      FIB: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
+    dispatch(clearSelections());
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    savePlaySelections(selections);
+    // e.preventDefault();
+    // savePlaySelections(selections);
     const settingsSelections = {
       practiceNo: settings.practiceNo,
       practiceDate: settings.practiceDate,
@@ -86,16 +74,7 @@ const PlayEntry = () => {
     console.log("settingsSelections: ", settingsSelections);
 
     addPractice(selections, settingsSelections);
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      FIB: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
+    dispatch(clearSelections());
     handleSave();
   };
 
@@ -112,7 +91,7 @@ const PlayEntry = () => {
                     fieldName={accessor}
                     displayName={name}
                     options={values.slice(0, -1)}
-                    onSelectionChange={handleSelectionChange}
+                    // onSelectionChange={handleSelectionChange}
                     value={selections.offensivePersonnel}
                   />
                 </div>

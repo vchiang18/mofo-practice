@@ -6,24 +6,22 @@ const ButtonGroup = ({
   fieldName,
   displayName,
   options,
-  onSelectionChange,
-  value,
 }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
 
   const handleSelection = (index) => {
     try{
-    if (!selections[fieldName].includes(index)) {
-      dispatch(setSelection({ field: fieldName, value: index }));
-    }else{
-      dispatch(removeSelection({ field: fieldName, value: index }));
+      if (!selections[fieldName].includes(index)) {
+        dispatch(setSelection({ field: fieldName, value: index }));
+      }else{
+        dispatch(removeSelection({ field: fieldName, value: index }));
+      }
+    }catch(e){
+      if (!selections[fieldName]) {
+        dispatch(setSelection({ field: fieldName, value: index }));
+      }
     }
-  }catch(e){
-    if (!selections[fieldName]) {
-      dispatch(setSelection({ field: fieldName, value: index }));
-  }
-}
     // const newValue = value === option ? null : option;
     // onSelectionChange(fieldName, newValue);
   };
@@ -36,7 +34,7 @@ const ButtonGroup = ({
           <button
             key={index}
             className={`py-2 px-4 rounded mx-2 min-h-[73.72px]  ${
-              selections[fieldName].includes(index)
+              selections[fieldName] && selections[fieldName].includes(index)
                 ? "bg-gold-gradient"
                 : "bg-blue-gradient text-white"
             } hover:bg-gold-gradient hover:text-black`}

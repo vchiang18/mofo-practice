@@ -1,8 +1,12 @@
 import React from "react";
 import { usePractices } from "../context/PracticeContext";
+import { useSelector } from "react-redux";
 
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
+
+  const fields = useSelector((state) => state.fields.fields);
+  const selections = useSelector((state) => state.selections.selections);
 
   if (practices.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
@@ -49,7 +53,17 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                   >
                     Rep
                   </th>
-                  <th
+                  {fields.map(({ name }) => (
+                      <th
+                        scope="col"
+                        className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                      >
+                        {name}
+                      </th>
+
+
+                  ))}
+                  {/* <th
                     scope="col"
                     className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
                   >
@@ -96,7 +110,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
                   >
                     Unbalanced
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -117,7 +131,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.rep}
                     </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                    {fields.map(({ value }) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                        {fields.values[1]}
+                        </td>
+
+                    ))}
+                    {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.offensivePersonnel}
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
@@ -140,7 +160,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.unbalanced}
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

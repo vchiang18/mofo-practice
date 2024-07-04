@@ -24,8 +24,11 @@ export const selectionsSlice = createSlice({
         clearSelections: (state) => {
             state.selections = {};
         },
+        copyPrev: (state, action) => {
+            state.selections = {...action.payload};
+        },
     },
 });
 
- export const { setSelection, clearSelections, removeSelection } = selectionsSlice.actions;
+ export const { setSelection, clearSelections, removeSelection, copyPrev } = selectionsSlice.actions;
  export default selectionsSlice.reducer;
