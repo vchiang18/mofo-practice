@@ -6,13 +6,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
 
   const fields = useSelector((state) => state.fields.fields);
-  const selections = useSelector((state) => state.selections.selections);
+  const plays = useSelector((state) => state.plays.plays);
 
-  if (practices.length === 0) {
+  if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
 
-  const displayedPractices = limit ? practices.slice(-limit) : practices;
+  const displayedPractices = limit ? plays.slice(-limit) : practices;
 
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
@@ -131,14 +131,14 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.rep}
                     </td>
-                    {fields.map(({ value }) => (
-                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                        {fields.values[1]}
-                        </td>
 
-                    ))}
-                    {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offensivePersonnel}
+                      {/* {Object.values(practice) ? Object.values(practice).map((val) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                        {val.join(", ")}
+                        </td>)) : null} */}
+
+                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                      {practice.offPersonnel.join(", ")}
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.formation}
@@ -160,7 +160,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.unbalanced}
-                    </td> */}
+                    </td>
                   </tr>
                 ))}
               </tbody>

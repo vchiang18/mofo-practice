@@ -1,44 +1,56 @@
 import React from "react";
-import { usePractices } from "../context/PracticeContext";
 import { useValues } from "../context/ValuesContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelection, setSingleSelection } from "../redux/slices/selections";
 
 const PracticeHeader = () => {
-  const { settings, updateSettings } = usePractices();
+  // const { settings, updateSettings } = usePractices();
   const { values } = useValues();
+  const dispatch = useDispatch();
 
-  const handlePracticeNoChange = (e) => {
-    updateSettings({ practiceNo: e.target.value });
+  const selections = useSelector((state) => state.selections.selections);
+
+  const handleSelection = ({target:{name, value}}) => {
+    dispatch(setSelection({ field: name, value: value }));
   };
 
-  const handlePracticeDateChange = (e) => {
-    updateSettings({ practiceDate: e.target.value });
+  const handleDropdownChange = ({target : {name, value}}) => {
+    dispatch(setSingleSelection({ field: name, value: value }));
   };
 
-  // useEffect(() => {
-  //   console.log(settings.practiceNo);
-  // }, [settings.practiceNo]);
+  // const handlePracticeNoChange = (e) => {
+  //   updateSettings({ practiceNo: e.target.value });
+  // };
 
-  const handlePeriodChange = (e) => {
-    updateSettings({
-      period: e.target.value,
-      practiceType: "",
-      rep: 1,
-    });
-  };
+  // const handlePracticeDateChange = (e) => {
+  //   updateSettings({ practiceDate: e.target.value });
+  // };
 
-  const handlePracticeTypeChange = (e) => {
-    updateSettings({ practiceType: e.target.value });
-  };
+  // // useEffect(() => {
+  // //   console.log(settings.practiceNo);
+  // // }, [settings.practiceNo]);
 
-  const handleSituationChange = (e) => {
-    updateSettings({ situation: e.target.value });
-  };
+  // const handlePeriodChange = (e) => {
+  //   updateSettings({
+  //     period: e.target.value,
+  //     practiceType: "",
+  //     rep: 1,
+  //   });
+  // };
 
-  const PracticeSettings = ({ label, options, selectedValue, onChange }) => {
+  // const handlePracticeTypeChange = (e) => {
+  //   updateSettings({ practiceType: e.target.value });
+  // };
+
+  // const handleSituationChange = (e) => {
+  //   updateSettings({ situation: e.target.value });
+  // };
+
+  const PracticeSettings = ({ label, options, selectedValue, onChange, name }) => {
     return (
       <div className="">
         <label>{label}</label>
-        <select value={selectedValue} onChange={onChange}>
+        <select value={selectedValue} onChange={onChange} name={name}>
           {options.map((option, index) => (
             <option key={index} value={option}>
               {option}
@@ -58,10 +70,11 @@ const PracticeHeader = () => {
           </label>
           <input
             type="text"
-            value={settings.practiceNo || ""}
-            onChange={handlePracticeNoChange}
+            value={selections.practiceNo ? selections.practiceNo: ""}
+            onChange={handleSelection}
             placeholder="#"
             className="w-10"
+            name="practiceNo"
           />
         </div>
         <div className="mx-4">
@@ -69,32 +82,36 @@ const PracticeHeader = () => {
           <input
             label="Date"
             type="date"
-            value={settings.practiceDate || ""}
-            onChange={handlePracticeDateChange}
+            value={selections.practiceDate ? selections.practiceDate:""}
+            onChange={handleSelection}
+            name="practiceDate"
           />
         </div>
         <div className="mx-4">
           <label className="block text-xs text-white mb-1">Period</label>
           <PracticeSettings
             options={values.period}
-            selectedValue={settings.period}
-            onChange={handlePeriodChange}
+            selectedValue={selections.period ? selections.period: ""}
+            onChange={handleDropdownChange}
+            name="period"
           />
         </div>
         <div className="mx-4">
           <label className="block text-xs text-white mb-1">Type</label>
           <PracticeSettings
             options={values.practiceType}
-            selectedValue={settings.practiceType}
-            onChange={handlePracticeTypeChange}
+            selectedValue={selections.practiceType ? selections.practiceType: ""}
+            onChange={handleDropdownChange}
+            name="practiceType"
           />
         </div>
         <div className="mx-4">
           <label className="block text-xs text-white mb-1">Situation</label>
           <PracticeSettings
             options={values.situation}
-            selectedValue={settings.situation}
-            onChange={handleSituationChange}
+            selectedValue={selections.situation ? selections.situation: ""}
+            onChange={handleDropdownChange}
+            name="situation"
           />
         </div>
       </div>

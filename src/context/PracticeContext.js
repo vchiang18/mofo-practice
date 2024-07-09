@@ -70,6 +70,7 @@ export function PracticeProvider({ children }) {
     }));
   };
 
+
   return (
     <PracticeContext.Provider
       value={{

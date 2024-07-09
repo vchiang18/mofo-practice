@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
 import { usePractices } from "../context/PracticeContext";
-import { useValues } from "../context/ValuesContext";
-import { usePlaySelections } from "../context/PlayContext";
+// import { useValues } from "../context/ValuesContext";
+// import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
 import { clearSelections, copyPrev } from "../redux/slices/selections";
+import { addPlay } from "../redux/slices/savedPlays";
+
 
 const PlayEntry = () => {
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const PlayEntry = () => {
 
   // const { playSelections, savePlaySelections } = usePlaySelections();
   // const { values } = useValues();
-  const { settings, updateSettings, addPractice } = usePractices();
+  const { settings, updateSettings } = usePractices();
 
   // const handleSelectionChange = (fieldName, value) => {
   //   setSelections((prevSelections) => ({
@@ -42,6 +44,7 @@ const PlayEntry = () => {
   const handleSave = () => {
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
+    dispatch(addPlay(selections));
   };
 
   // useEffect(() => {
@@ -60,22 +63,22 @@ const PlayEntry = () => {
     dispatch(clearSelections());
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     // e.preventDefault();
     // savePlaySelections(selections);
-    const settingsSelections = {
-      practiceNo: settings.practiceNo,
-      practiceDate: settings.practiceDate,
-      period: settings.period,
-      practiceType: settings.practiceType,
-      situation: settings.situation,
-      rep: settings.rep,
-    };
-    console.log("settingsSelections: ", settingsSelections);
+    // const settingsSelections = {
+    //   practiceNo: settings.practiceNo,
+    //   practiceDate: settings.practiceDate,
+    //   period: settings.period,
+    //   practiceType: settings.practiceType,
+    //   situation: settings.situation,
+    //   rep: settings.rep,
+    // };
+    // console.log("settingsSelections: ", settingsSelections);
 
-    addPractice(selections, settingsSelections);
-    dispatch(clearSelections());
+    // addPractice(selections, settingsSelections);
     handleSave();
+    dispatch(clearSelections());
   };
 
   return (
@@ -84,15 +87,15 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {fields.map(({ name, values, accessor }, index) => {
+            {fields.map(({ name, accessor }) => {
               return (
                 <div className="flex-grow">
                   <ButtonGroup
                     fieldName={accessor}
                     displayName={name}
-                    options={values.slice(0, -1)}
+                    // options={values.slice(0, -1)}
                     // onSelectionChange={handleSelectionChange}
-                    value={selections.offensivePersonnel}
+                    // value={selections.offensivePersonnel}
                   />
                 </div>
               );

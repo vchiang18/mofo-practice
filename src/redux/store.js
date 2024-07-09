@@ -2,11 +2,13 @@ import {configureStore} from '@reduxjs/toolkit';   // import configureStore from
 import {netlifyApi} from './api/netlify';   // import the API slice
 import fieldsReducer from './slices/fields';   // import the fields slice
 import selectionReducer from './slices/selections';   // import the selections slice
+import playsReducer from './slices/savedPlays';   // import the savedPlays slice
 
  export default configureStore({
     reducer : {
         fields: fieldsReducer,   // add the fields reducer to the store
         selections: selectionReducer,   // add the selections reducer to the store
+        plays: playsReducer,   // add the savedPlays reducer to the store
         [netlifyApi.reducerPath]: netlifyApi.reducer,   // add the reducer to the store
     },
     middleware: (getDefaultMiddleware) =>

@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const selectionsSlice = createSlice({
     name: "selections",
     initialState: {
-        selections: {},
+        selections: { rep: 1},
     },
     reducers: {
         setSelection: (state, action) => {
@@ -21,8 +21,21 @@ export const selectionsSlice = createSlice({
                 ].filter((value) => value !== action.payload.value);
             }
         },
+        setSingleSelection: (state, action) => {
+
+            state.selections[action.payload.field] = action.payload.value;
+
+        },
         clearSelections: (state) => {
-            state.selections = {};
+            var { practiceNo, practiceDate, period, practiceType, situation, rep, } = state.selections;
+            state.selections = {
+                practiceNo,
+                practiceDate,
+                period,
+                practiceType,
+                situation,
+                rep: rep++
+            };
         },
         copyPrev: (state, action) => {
             state.selections = {...action.payload};
@@ -30,5 +43,11 @@ export const selectionsSlice = createSlice({
     },
 });
 
- export const { setSelection, clearSelections, removeSelection, copyPrev } = selectionsSlice.actions;
+ export const {
+    setSelection,
+    clearSelections,
+    setSingleSelection,
+    removeSelection,
+    copyPrev,
+} = selectionsSlice.actions;
  export default selectionsSlice.reducer;
