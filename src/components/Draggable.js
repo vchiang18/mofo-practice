@@ -79,6 +79,7 @@ export default function Draggable(props) {
   );
 }
 
+// simple drag and drop with useEffect to manage render logic
 // import React, { useState, useRef, useEffect } from "react";
 
 // export default function Draggable(props) {
@@ -142,6 +143,7 @@ export default function Draggable(props) {
 //   );
 // }
 
+// original code
 // export default function Draggable (props) {
 //     const [dragging, setDragging] = useState(false)
 //     const [pos, setPos] = useState({x:0, y:0})
