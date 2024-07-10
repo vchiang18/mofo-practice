@@ -131,7 +131,7 @@ const SettingsDrawer = () => {
   };
 
   const handleSettings = () => {
-    navigate("/customize-values");
+    navigate("/settings");
   };
 
   const handleClearClick = (id) => {

@@ -46,7 +46,7 @@ const Nav = () => {
               </div>
             </>
           )}
-          {location.pathname === "/customize-values" && (
+          {location.pathname === "/settings" && (
             <div className="flex items-center justify-end space-x-2 ml-auto">
               <NavLink
                 to="/play-entry"
