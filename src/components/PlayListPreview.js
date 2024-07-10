@@ -1,14 +1,18 @@
 import React from "react";
 import { usePractices } from "../context/PracticeContext";
+import { useSelector } from "react-redux";
 
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
 
-  if (practices.length === 0) {
+  const fields = useSelector((state) => state.fields.fields);
+  const plays = useSelector((state) => state.plays.plays);
+
+  if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
 
-  const displayedPractices = limit ? practices.slice(-limit) : practices;
+  const displayedPractices = limit ? plays.slice(-limit) : practices;
 
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
@@ -49,7 +53,17 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                   >
                     Rep
                   </th>
-                  <th
+                  {fields.map(({ name }) => (
+                      <th
+                        scope="col"
+                        className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
+                      >
+                        {name}
+                      </th>
+
+
+                  ))}
+                  {/* <th
                     scope="col"
                     className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
                   >
@@ -96,7 +110,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
                   >
                     Unbalanced
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -117,8 +131,14 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.rep}
                     </td>
+
+                      {/* {Object.values(practice) ? Object.values(practice).map((val) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                        {val.join(", ")}
+                        </td>)) : null} */}
+
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offensivePersonnel}
+                      {practice.offPersonnel.join(", ")}
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.formation}

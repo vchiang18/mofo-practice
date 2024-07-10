@@ -8,7 +8,16 @@ const autoSave = (state) => {
 export const fieldsSlice = createSlice({
     name: "fields",
     initialState: localStorage.getItem("fields") ? { fields :JSON.parse(localStorage.getItem("fields"))} :{
-        fields: [],
+        fields: [
+            {name: "OFF Personnel", values: ["1", "11", "12", "21", "22", ""], accessor: "offPersonnel", multiselect: true},
+            {name: "Formation", values: ["SPREAD RT", "TREY", "TRIO", "TRIPS", ""], accessor: "formation", multiselect: false},
+            {name: "Formation Variation", values: ["OFF", "BLANK", "FLEX", ""], accessor: "formationVariation", multiselect: true},
+            {name: "Backfield", values: ["GUN", "PISTOL", "RIGHT", "LEFT", ""], accessor: "backfield", multiselect: false},
+            {name: "Motion", values: ["ZIP", "RIP", "LIP", "Z-JET", ""], accessor: "motion", multiselect: false},
+            {name: "FIB", values: ["X", "BLANK", ""], accessor: "fib", multiselect: false},
+            {name: "Formation Family", values: ["COMPTON", "HOUSTON", "CRUNCH", "CAB", ""], accessor: "formationFamily", multiselect: false},
+            {name: "Unbalanced", values: ["BLANK", "X", ""], accessor: "unbalanced", multiselect: false},
+        ],
     },
     reducers: {
         addField: (state, action) => {
