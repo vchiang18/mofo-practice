@@ -6,7 +6,7 @@ import Login from "../components/Login";
 import ValueSettings from "../components/ValuesSettings";
 import { ProtectedRoute } from './Protected';
 import Layout from '../components/Layout';
-import Settings from '../components/Settings';
+import Test from '../components/test';
 
 
 const Routes = () => {
@@ -26,8 +26,8 @@ const Routes = () => {
             path: 'dev/',
             children: [
                 {
-                    path: 'settings/',
-                    element: <Settings />,
+                    path: 'test/',
+                    element: <Test />,
                 }
             ],
         }
