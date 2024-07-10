@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const selectionsSlice = createSlice({
     name: "selections",
     initialState: {
-        selections: { rep: 1},
+        selections: { rep:1},
     },
     reducers: {
         setSelection: (state, action) => {
@@ -22,23 +22,27 @@ export const selectionsSlice = createSlice({
             }
         },
         setSingleSelection: (state, action) => {
+                state.selections[action.payload.field] = [action.payload.value];
 
-            state.selections[action.payload.field] = action.payload.value;
 
         },
         clearSelections: (state) => {
             var { practiceNo, practiceDate, period, practiceType, situation, rep, } = state.selections;
+            rep++;
             state.selections = {
                 practiceNo,
                 practiceDate,
                 period,
                 practiceType,
                 situation,
-                rep: rep++
+                rep: rep
             };
         },
         copyPrev: (state, action) => {
-            state.selections = {...action.payload};
+            state.selections = {...action.payload}
+            var {rep} = state.selections;
+            rep++;
+            state.selections.rep = rep;
         },
     },
 });

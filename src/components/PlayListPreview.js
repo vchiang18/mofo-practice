@@ -17,7 +17,6 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
-
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -119,7 +118,15 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                    {
+
+                    Object.entries(practice).filter(([a])=>(a !== "practiceNo" && a !== "practiceDate")).map(([_,val]) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                        {
+                        typeof val == 'object' ?val.join(", "): val
+                        }
+                      </td>))}
+                    {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.period}
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
@@ -132,10 +139,10 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                       {practice.rep}
                     </td>
 
-                      {/* {Object.values(practice) ? Object.values(practice).map((val) => (
+                      {Object.values(practice) ? Object.values(practice).map((val) => (
                       <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                         {val.join(", ")}
-                        </td>)) : null} */}
+                        </td>)) : null}
 
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.offPersonnel.join(", ")}
@@ -160,7 +167,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     </td>
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.unbalanced}
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
