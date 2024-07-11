@@ -17,6 +17,12 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
+  const filterCallBack = (a) => {
+    return a !== "practiceNo" && a !== "practiceDate";
+  }
+  const sortedCallback = (a, b) => {
+    return a.toString().localeCompare(b.toString());
+  }
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -28,7 +34,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th
+                  {/* <th
                     scope="col"
                     className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
                   >
@@ -51,8 +57,8 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
                   >
                     Rep
-                  </th>
-                  {fields.map(({ name }) => (
+                  </th> */}
+                  {Object.keys(plays[0]).filter(filterCallBack).sort().map((name) => (
                       <th
                         scope="col"
                         className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
@@ -120,7 +126,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                   >
                     {
 
-                    Object.entries(practice).filter(([a])=>(a !== "practiceNo" && a !== "practiceDate")).map(([_,val]) => (
+                    Object.entries(practice).filter(([a])=>(filterCallBack(a))).sort(([a],[b])=>sortedCallback(a,b)).map(([_,val]) => (
                       <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                         {
                         typeof val == 'object' ?val.join(", "): val
