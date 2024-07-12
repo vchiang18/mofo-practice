@@ -5,26 +5,39 @@ import { setSelection, removeSelection } from "../redux/slices/selections";
 const ButtonGroup = ({
   fieldName,
   displayName,
+  multiselect,
 }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
   const field = useSelector((state) => state.fields.fields).find((obj)=>(obj.accessor === fieldName));
 
   const handleSelection = (name) => {
-    try{
-      if (!selections[fieldName].includes(name)) {
-        dispatch(setSelection({ field: fieldName, value: name }));
-      }else{
+    if (multiselect){
+      try{
+            if (!selections[fieldName].includes(name)) {
+              dispatch(setSelection({ field: fieldName, value: name }));
+            }else{
+              dispatch(removeSelection({ field: fieldName, value: name }));
+            }
+          }catch(e){
+            if (!selections[fieldName]) {
+              dispatch(setSelection({ field: fieldName, value: name }));
+            }
+          }
+    }else{
+      try{
+        if (selections[fieldName] === name){
         dispatch(removeSelection({ field: fieldName, value: name }));
+      }else{
+      dispatch(setSelection({ field: fieldName, value: name}));
       }
-    }catch(e){
-      if (!selections[fieldName]) {
-        dispatch(setSelection({ field: fieldName, value: name }));
-      }
+    }catch (e){
+      dispatch(setSelection({ field: fieldName, value: name}));
     }
-    // const newValue = value === option ? null : option;
-    // onSelectionChange(fieldName, newValue);
-  };
+
+
+  }
+};
 
   return (
     <div className="mb-2">

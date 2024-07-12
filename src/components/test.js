@@ -17,7 +17,8 @@ export default function Test() {
             key={index}
             className="p-2"
             >
-              <Draggable component={<h1>{item}</h1>}
+              <Draggable
+              component={<h1>{item}</h1>}
               index={index}
               callBack={setData}
               />

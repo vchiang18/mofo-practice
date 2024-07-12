@@ -56,9 +56,14 @@ export const fieldsSlice = createSlice({
             }
             autoSave(state);
         },
+        swapIndex: (state, action) => {
+            const { index, newIndex } = action.payload;
+            let fields = state.fields;
+            [fields[index], fields[newIndex]] = [fields[newIndex], fields[index]];
+        },
     },
 });
 
-export const { addField, removeField, changeFieldName, removeValue, changeValue } = fieldsSlice.actions;
+export const { addField, removeField, changeFieldName, removeValue, changeValue, swapIndex } = fieldsSlice.actions;
 
 export default fieldsSlice.reducer;
