@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
 
-  const fields = useSelector((state) => state.fields.fields);
+
   const plays = useSelector((state) => state.plays.plays);
 
   if (plays.length === 0) {

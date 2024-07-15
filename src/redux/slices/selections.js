@@ -44,6 +44,13 @@ export const selectionsSlice = createSlice({
             rep++;
             state.selections.rep = rep;
         },
+        finalize: (state, {payload: {fields}}) =>{
+            for (let name of fields){
+                if (!state.selections[name]){
+                    state.selections[name] = [""]
+                }
+            }
+        },
     },
 });
 
@@ -53,5 +60,6 @@ export const selectionsSlice = createSlice({
     setSingleSelection,
     removeSelection,
     copyPrev,
+    finalize,
 } = selectionsSlice.actions;
  export default selectionsSlice.reducer;

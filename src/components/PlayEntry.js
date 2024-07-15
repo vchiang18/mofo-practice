@@ -6,7 +6,7 @@ import { usePractices } from "../context/PracticeContext";
 // import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
-import { clearSelections, copyPrev } from "../redux/slices/selections";
+import { clearSelections, copyPrev, finalize } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
 
 
@@ -14,6 +14,7 @@ const PlayEntry = () => {
   const dispatch = useDispatch();
   const fields = useSelector((state) => state.fields.fields);
   const selections = useSelector((state) => state.selections.selections);
+  const names = fields.map((x) => x.name)
 
   // const [selections, setSelections] = useState({
   //   offensivePersonnel: null,
@@ -42,8 +43,10 @@ const PlayEntry = () => {
   // };
 
   const handleSave = () => {
+    console.log(names)
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
+    dispatch(finalize({fields: names}))
     dispatch(addPlay(selections));
   };
 
