@@ -51,7 +51,7 @@ const Routes = () => {
   ];
   const notAuthRoutes = [
     {
-      path: "/login",
+      path: "/",
       element: <Login />,
     },
   ];
