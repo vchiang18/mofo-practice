@@ -91,7 +91,7 @@ const PracticeHeader = () => {
           <label className="block text-xs text-white mb-1">Period</label>
           <PracticeSettings
             options={values.period}
-            selectedValue={selections.period ? selections.period: ""}
+            selectedValue={selections.period ? selections.period[0]: ""}
             onChange={handleDropdownChange}
             name="period"
           />
@@ -100,7 +100,7 @@ const PracticeHeader = () => {
           <label className="block text-xs text-white mb-1">Type</label>
           <PracticeSettings
             options={values.practiceType}
-            selectedValue={selections.practiceType ? selections.practiceType: ""}
+            selectedValue={selections.practiceType ? selections.practiceType[0]: ""}
             onChange={handleDropdownChange}
             name="practiceType"
           />
@@ -109,7 +109,7 @@ const PracticeHeader = () => {
           <label className="block text-xs text-white mb-1">Situation</label>
           <PracticeSettings
             options={values.situation}
-            selectedValue={selections.situation ? selections.situation: ""}
+            selectedValue={selections.situation ? selections.situation[0]: ""}
             onChange={handleDropdownChange}
             name="situation"
           />
