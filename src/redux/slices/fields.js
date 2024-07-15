@@ -56,9 +56,22 @@ export const fieldsSlice = createSlice({
             }
             autoSave(state);
         },
+        toggleMutliselect: (state, action) => {
+            const target = action.payload.index
+            const multi = state.fields[target].multiselect
+            state.fields[target].multiselect = !multi
+            autoSave(state)
+        }
     },
 });
 
-export const { addField, removeField, changeFieldName, removeValue, changeValue } = fieldsSlice.actions;
+export const {
+    addField,
+    removeField,
+    changeFieldName,
+    removeValue,
+    changeValue,
+    toggleMutliselect,
+} = fieldsSlice.actions;
 
 export default fieldsSlice.reducer;

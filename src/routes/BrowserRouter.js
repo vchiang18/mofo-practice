@@ -24,7 +24,7 @@ const Routes = () => {
       children: [
         {
           path: "customize-values/",
-          element: <ValueSettings />,
+          element: <Settings />,
         },
         // {
         //     path: 'settings/',
