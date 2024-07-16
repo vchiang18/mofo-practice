@@ -5,26 +5,31 @@ import { useSelector } from "react-redux";
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
 
+  const {fields, headers} = useSelector((state)=> state.fields)
   const plays = useSelector((state) => state.plays.plays);
 
   const sortedCallback = (a, b) => {
     return a.toString().localeCompare(b.toString());
   }
-  const filterCallBack = (a) => {
-    return a !== "practiceNo" && a !== "practiceDate";
-  }
   if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
-  console.log(plays)
+  const createLabelsAndAccessors = (arr1, arr2) =>{
+    const labels = (arr1.map(({name}) => name).concat(arr2.map(({label}) => label))).sort(sortedCallback)
+    const accessors = (arr1.map(({accessor})=> accessor).concat(arr2.map(({name})=>name))).sort(sortedCallback)
+    labels.push('Rep')
+    accessors.push('rep')
+    return [labels, accessors]
+  }
 
-  const labels = Array.from(Object.keys(plays[0])).filter(filterCallBack).sort(sortedCallback)
+
 
   const displayedPractices = limit ? plays.slice(-limit) : practices;
 
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
+  const [labels, accessors] = createLabelsAndAccessors(fields, headers)
 
 
   return (
@@ -38,15 +43,14 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  {labels.filter(filterCallBack).map((name) => (
+                  {labels.map((name) => (
                       <th
+                      key={`th${name}`}
                         scope="col"
                         className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
                       >
                         {name}
                       </th>
-
-
                   ))}
                 </tr>
               </thead>
@@ -56,10 +60,9 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                    {
-
-                    labels.map((name) => (
-                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                    {accessors.map((name) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900"
+                      key={`${name}${practice.id}`}>
                         {
                         typeof practice[name] == 'object' ? practice[name].join(", "): practice[name]
                         }

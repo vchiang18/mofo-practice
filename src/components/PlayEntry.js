@@ -69,7 +69,8 @@ const PlayEntry = () => {
           <div className="flex flex-nowrap justify-between">
             {fields.map(({ name, accessor, multiselect }) => {
               return (
-                <div className="flex-grow">
+                <div className="flex-grow"
+                key={accessor}>
                   <ButtonGroup
                     fieldName={accessor}
                     displayName={name}
