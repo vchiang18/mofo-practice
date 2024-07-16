@@ -16,11 +16,14 @@ const PracticeHeader = () => {
   const handleDropdownChange = ({target : {name, value}}) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
+  console.log('select', selections)
 
-  const PracticeSettings = ({ label, options, selectedValue, onChange, name }) => {
+  const PracticeSettings = ({options, selectedValue, onChange, name }) => {
+    if (!selectedValue){
+      dispatch(setSingleSelection({field: name, value: options[0]}))
+    }
     return (
       <div className="">
-        <label>{label}</label>
         <select value={selectedValue} onChange={onChange} name={name}>
           {options.map((option, index) => (
             <option key={index} value={option}>
@@ -61,8 +64,7 @@ const PracticeHeader = () => {
         </div>
         {headerFields.map(({name, values, label}) => {
           return (
-            <div className="mx-4"
-            key={label}>
+            <div className="mx-4" key={label}>
               <label className="block text-xs text-white mb-1">{label}</label>
               <PracticeSettings
               options={values}

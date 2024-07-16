@@ -22,7 +22,7 @@ export const selectionsSlice = createSlice({
             }
         },
         setSingleSelection: (state, action) => {
-                state.selections[action.payload.field] = [action.payload.value];
+                state.selections[action.payload.field] = action.payload.value;
         },
         clearSelections: (state) => {
             var { practiceNo, practiceDate, period, practiceType, situation, rep, } = state.selections;
