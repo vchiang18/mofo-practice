@@ -14,7 +14,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
-
+  const createLabelsAndAccessors = (arr1, arr2) =>{
+    const labels = (arr1.map(({name}) => name).concat(arr2.map(({label}) => label))).sort(sortedCallback)
+    const accessors = (arr1.map(({accessor})=> accessor).concat(arr2.map(({name})=>name))).sort(sortedCallback)
+    labels.push('Rep')
+    accessors.push('rep')
+    return [labels, accessors]
+  }
 
 
 
@@ -23,10 +29,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
-  const labels = (fields.map(({name}) => name).concat(headers.map(({label}) => label))).sort(sortedCallback)
-  labels.push('Rep')
-  const accessors = (fields.map(({accessor})=> accessor).concat(headers.map(({name})=>name))).sort(sortedCallback)
-  accessors.push('rep')
+  const [labels, accessors] = createLabelsAndAccessors(fields, headers)
 
 
   return (
