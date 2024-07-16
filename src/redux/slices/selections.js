@@ -23,8 +23,6 @@ export const selectionsSlice = createSlice({
         },
         setSingleSelection: (state, action) => {
                 state.selections[action.payload.field] = [action.payload.value];
-
-
         },
         clearSelections: (state) => {
             var { practiceNo, practiceDate, period, practiceType, situation, rep, } = state.selections;
@@ -47,9 +45,10 @@ export const selectionsSlice = createSlice({
         finalize: (state, {payload: {fields}}) =>{
             for (let name of fields){
                 if (!state.selections[name]){
-                    state.selections[name] = [""]
+                    state.selections[name]=name
                 }
             }
+            console.log('state', state.selections)
         },
     },
 });

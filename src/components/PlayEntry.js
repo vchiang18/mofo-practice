@@ -43,10 +43,10 @@ const PlayEntry = () => {
   // };
 
   const handleSave = () => {
-    console.log(names)
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
     dispatch(finalize({fields: names}))
+    console.log("select", selections)
     dispatch(addPlay(selections));
   };
 
@@ -92,7 +92,8 @@ const PlayEntry = () => {
           <div className="flex flex-nowrap justify-between">
             {fields.map(({ name, accessor }) => {
               return (
-                <div className="flex-grow">
+                <div className="flex-grow"
+                key={accessor}>
                   <ButtonGroup
                     fieldName={accessor}
                     displayName={name}

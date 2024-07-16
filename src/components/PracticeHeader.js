@@ -1,5 +1,4 @@
 import React from "react";
-import { useValues } from "../context/ValuesContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelection, setSingleSelection } from "../redux/slices/selections";
 
@@ -17,7 +16,6 @@ const PracticeHeader = () => {
   const handleDropdownChange = ({target : {name, value}}) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
-  console.log("headers", headerFields)
 
   // const handlePracticeNoChange = (e) => {
   //   updateSettings({ practiceNo: e.target.value });
@@ -90,10 +88,9 @@ const PracticeHeader = () => {
           />
         </div>
         {headerFields.map(({name, values, label}) => {
-          console.log(name)
-          console.log(values)
           return (
-            <div className="mx-4">
+            <div className="mx-4"
+            key={label}>
               <label className="block text-xs text-white mb-1">{label}</label>
               <PracticeSettings
               options={values}
