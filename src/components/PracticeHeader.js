@@ -5,10 +5,10 @@ import { setSelection, setSingleSelection } from "../redux/slices/selections";
 
 const PracticeHeader = () => {
   // const { settings, updateSettings } = usePractices();
-  const { values } = useValues();
   const dispatch = useDispatch();
 
   const selections = useSelector((state) => state.selections.selections);
+  const headerFields = useSelector((state) => state.fields.headers)
 
   const handleSelection = ({target:{name, value}}) => {
     dispatch(setSelection({ field: name, value: value }));
@@ -17,6 +17,7 @@ const PracticeHeader = () => {
   const handleDropdownChange = ({target : {name, value}}) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
+  console.log("headers", headerFields)
 
   // const handlePracticeNoChange = (e) => {
   //   updateSettings({ practiceNo: e.target.value });
@@ -59,6 +60,7 @@ const PracticeHeader = () => {
         </select>
       </div>
     );
+
   };
 
   return (
@@ -87,11 +89,26 @@ const PracticeHeader = () => {
             name="practiceDate"
           />
         </div>
-        <div className="mx-4">
+        {headerFields.map(({name, values, label}) => {
+          console.log(name)
+          console.log(values)
+          return (
+            <div className="mx-4">
+              <label className="block text-xs text-white mb-1">{label}</label>
+              <PracticeSettings
+              options={values}
+              selectedValue={selections[name]}
+              onChange={handleDropdownChange}
+              name={name}
+              />
+            </div>
+          )
+        })}
+        {/* <div className="mx-4">
           <label className="block text-xs text-white mb-1">Period</label>
           <PracticeSettings
             options={values.period}
-            selectedValue={selections.period ? selections.period: ""}
+            selectedValue={selections.period ? selections.period[0]: ""}
             onChange={handleDropdownChange}
             name="period"
           />
@@ -100,7 +117,7 @@ const PracticeHeader = () => {
           <label className="block text-xs text-white mb-1">Type</label>
           <PracticeSettings
             options={values.practiceType}
-            selectedValue={selections.practiceType ? selections.practiceType: ""}
+            selectedValue={selections.practiceType ? selections.practiceType[0]: ""}
             onChange={handleDropdownChange}
             name="practiceType"
           />
@@ -109,11 +126,11 @@ const PracticeHeader = () => {
           <label className="block text-xs text-white mb-1">Situation</label>
           <PracticeSettings
             options={values.situation}
-            selectedValue={selections.situation ? selections.situation: ""}
+            selectedValue={selections.situation ? selections.situation[0]: ""}
             onChange={handleDropdownChange}
             name="situation"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -43,6 +43,7 @@ const PlayEntry = () => {
   // };
 
   const handleSave = () => {
+    console.log(names)
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
     dispatch(finalize({fields: names}))
