@@ -8,12 +8,28 @@ import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
 import { clearSelections, copyPrev } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
+import { swapIndex } from "../redux/slices/fields";
 
 
 const PlayEntry = () => {
   const dispatch = useDispatch();
   const fields = useSelector((state) => state.fields.fields);
   const selections = useSelector((state) => state.selections.selections);
+
+  const drag = (ev, index) => {
+    ev.dataTransfer.setData("index",index);
+  };
+
+  const allowDrop = (ev) => {
+    ev.preventDefault();
+  };
+
+  const drop = (ev, index) => {
+    ev.preventDefault();
+    let id = index;
+    let newIndex = ev.dataTransfer.getData("index");
+    dispatch(swapIndex({ index: id, newIndex: newIndex }));
+  }
 
   // const [selections, setSelections] = useState({
   //   offensivePersonnel: null,
@@ -87,10 +103,24 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {fields.map(({ name, accessor }) => {
+            {fields.map(({ name, accessor, multiselect }, index) => {
+              let thisDrag = (ev) => {
+                drag(ev, index);
+              }
+              let thisDrop = (ev) => {
+                drop(ev, index);
+              }
               return (
-                <div className="flex-grow">
+                <div
+                    draggable="true"
+                    key={index}
+                    onDragStart={thisDrag}
+                    onDrop={thisDrop}
+                    onDragOver={allowDrop}
+                    className="flex-grow">
+
                   <ButtonGroup
+                  multiselect={multiselect}
                     fieldName={accessor}
                     displayName={name}
                     // options={values.slice(0, -1)}

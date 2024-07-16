@@ -3,7 +3,9 @@ import  React, { useRef, useState } from 'react'
 
 export default function Draggable (props) {
 
-
+    const drag = (ev) => {
+        ev.dataTransfer.setData("index", props.index);
+    }
 
     const allowDrop = (ev) => {
         ev.preventDefault();
@@ -11,29 +13,27 @@ export default function Draggable (props) {
 
     const drop =(ev) => {
         ev.preventDefault();
-        let id = ev.target.index
-        console.log(ev.target.children[0])
-        console.log("indexs", id, props.index)
+        let id = ev.target.parentElement.attributes.index.value
+        let newIndex = ev.dataTransfer.getData("index")
         props.callBack((prev) => {
-            [prev[id], prev[props.index]] = [prev[props.index], prev[id]]
+            [prev[id], prev[newIndex]] = [prev[newIndex], prev[id]]
             return [...prev]
         })
 
       }
     return (
-      <>
-      <h1>Dragging and Dropping</h1>
-      <div
-          draggable='true'
-          className='w-1/2 h-1/2 bg-blue-500'
-          onDrop={drop}
-          onDragOver={allowDrop}>
 
+      <div
+        onDragStart={drag}
+          draggable='true'
+          className='bg-blue-500'
+          onDrop={drop}
+          onDragOver={allowDrop}
+          index={props.index}>
           {props.component}
       </div>
 
 
-      </>
     )
 
 
