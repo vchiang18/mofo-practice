@@ -62,6 +62,11 @@ export const fieldsSlice = createSlice({
             }
             autoSave(state);
         },
+        swapIndex: (state, action) => {
+            const { index, newIndex } = action.payload;
+            let fields = state.fields;
+            [fields[index], fields[newIndex]] = [fields[newIndex], fields[index]];
+        },
         toggleMutliselect: (state, action) => {
             const target = action.payload.index
             const multi = state.fields[target].multiselect
@@ -76,7 +81,7 @@ export const {
     removeField,
     changeFieldName,
     removeValue,
-    changeValue,
+    changeValue, swapIndex,
     toggleMutliselect,
 } = fieldsSlice.actions;
 
