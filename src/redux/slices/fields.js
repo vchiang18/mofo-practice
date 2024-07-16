@@ -1,24 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const autoSave = (state) => {
-    localStorage.setItem("fields", JSON.stringify(state.fields));
+    localStorage.setItem("fields", JSON.stringify(state));
     return state;
 };
+const initialState = localStorage.getItem("fields") ? JSON.parse(localStorage.getItem("fields")) :{
+    fields: [
+        {name: "OFF Personnel", values: ["1", "11", "12", "21", "22", ""], accessor: "offPersonnel", multiselect: true},
+        {name: "Formation", values: ["SPREAD RT", "TREY", "TRIO", "TRIPS", ""], accessor: "formation", multiselect: false},
+        {name: "Formation Variation", values: ["OFF", "BLANK", "FLEX", ""], accessor: "formationVariation", multiselect: true},
+        {name: "Backfield", values: ["GUN", "PISTOL", "RIGHT", "LEFT", ""], accessor: "backfield", multiselect: false},
+        {name: "Motion", values: ["ZIP", "RIP", "LIP", "Z-JET", ""], accessor: "motion", multiselect: false},
+        {name: "FIB", values: ["X", "BLANK", ""], accessor: "fib", multiselect: false},
+        {name: "Formation Family", values: ["COMPTON", "HOUSTON", "CRUNCH", "CAB", ""], accessor: "formationFamily", multiselect: false},
+        {name: "Unbalanced", values: ["BLANK", "X", ""], accessor: "unbalanced", multiselect: false},
+    ],
+    headers :[
+        {name: 'period',  values: [1,2,3,4,5,6,7,8], label:'Period'},
+        {name: 'type', values: ['None', '7x7', 'Blitz'], label: 'Type'},
+        {name: 'situation', values: ['None', 'A', 'B', 'C'], label: 'Situation'}
+    ]
+}
 
 export const fieldsSlice = createSlice({
     name: "fields",
-    initialState: localStorage.getItem("fields") ? { fields :JSON.parse(localStorage.getItem("fields"))} :{
-        fields: [
-            {name: "OFF Personnel", values: ["1", "11", "12", "21", "22", ""], accessor: "offPersonnel", multiselect: true},
-            {name: "Formation", values: ["SPREAD RT", "TREY", "TRIO", "TRIPS", ""], accessor: "formation", multiselect: false},
-            {name: "Formation Variation", values: ["OFF", "BLANK", "FLEX", ""], accessor: "formationVariation", multiselect: true},
-            {name: "Backfield", values: ["GUN", "PISTOL", "RIGHT", "LEFT", ""], accessor: "backfield", multiselect: false},
-            {name: "Motion", values: ["ZIP", "RIP", "LIP", "Z-JET", ""], accessor: "motion", multiselect: false},
-            {name: "FIB", values: ["X", "BLANK", ""], accessor: "fib", multiselect: false},
-            {name: "Formation Family", values: ["COMPTON", "HOUSTON", "CRUNCH", "CAB", ""], accessor: "formationFamily", multiselect: false},
-            {name: "Unbalanced", values: ["BLANK", "X", ""], accessor: "unbalanced", multiselect: false},
-        ],
-    },
+    initialState: initialState,
     reducers: {
         addField: (state, action) => {
             state.fields.push({
@@ -56,6 +62,7 @@ export const fieldsSlice = createSlice({
             }
             autoSave(state);
         },
+
     },
 });
 

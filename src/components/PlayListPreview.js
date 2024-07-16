@@ -7,22 +7,28 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
 
 
   const plays = useSelector((state) => state.plays.plays);
+  console.log(plays)
 
+  const sortedCallback = (a, b) => {
+    return a.toString().localeCompare(b.toString());
+  }
+  const filterCallBack = (a) => {
+    return a !== "practiceNo" && a !== "practiceDate";
+  }
   if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
+
+
+  const labels = Array.from(Object.keys(plays[0])).filter(filterCallBack).sort(sortedCallback)
 
   const displayedPractices = limit ? plays.slice(-limit) : practices;
 
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
-  const filterCallBack = (a) => {
-    return a !== "practiceNo" && a !== "practiceDate";
-  }
-  const sortedCallback = (a, b) => {
-    return a.toString().localeCompare(b.toString());
-  }
+
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -58,7 +64,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                   >
                     Rep
                   </th> */}
-                  {Object.keys(plays[0]).filter(filterCallBack).sort().map((name) => (
+                  {labels.filter(filterCallBack).map((name) => (
                       <th
                         scope="col"
                         className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
@@ -126,10 +132,10 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                   >
                     {
 
-                    Object.entries(practice).filter(([a])=>(filterCallBack(a))).sort(([a],[b])=>sortedCallback(a,b)).map(([_,val]) => (
+                    labels.map((name) => (
                       <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                         {
-                        typeof val == 'object' ?val.join(", "): val
+                        typeof practice[name] == 'object' ? practice[name].join(", "): practice[name]
                         }
                       </td>))}
                     {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
