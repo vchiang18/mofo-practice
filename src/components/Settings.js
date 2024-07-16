@@ -101,13 +101,9 @@ const Settings = () => {
                 {multiselect ? "Multiselect Enabled" : "Multiselect Disabled"}
               </button>
             </div>
-
-
           </div>
         ))}
-
       </div>
-
     </div>
   );
 };

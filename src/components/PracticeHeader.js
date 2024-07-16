@@ -17,35 +17,6 @@ const PracticeHeader = () => {
   const handleDropdownChange = ({target : {name, value}}) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
-  console.log("headers", headerFields)
-
-  // const handlePracticeNoChange = (e) => {
-  //   updateSettings({ practiceNo: e.target.value });
-  // };
-
-  // const handlePracticeDateChange = (e) => {
-  //   updateSettings({ practiceDate: e.target.value });
-  // };
-
-  // // useEffect(() => {
-  // //   console.log(settings.practiceNo);
-  // // }, [settings.practiceNo]);
-
-  // const handlePeriodChange = (e) => {
-  //   updateSettings({
-  //     period: e.target.value,
-  //     practiceType: "",
-  //     rep: 1,
-  //   });
-  // };
-
-  // const handlePracticeTypeChange = (e) => {
-  //   updateSettings({ practiceType: e.target.value });
-  // };
-
-  // const handleSituationChange = (e) => {
-  //   updateSettings({ situation: e.target.value });
-  // };
 
   const PracticeSettings = ({ label, options, selectedValue, onChange, name }) => {
     return (
@@ -90,8 +61,6 @@ const PracticeHeader = () => {
           />
         </div>
         {headerFields.map(({name, values, label}) => {
-          console.log(name)
-          console.log(values)
           return (
             <div className="mx-4">
               <label className="block text-xs text-white mb-1">{label}</label>

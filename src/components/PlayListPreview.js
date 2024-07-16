@@ -16,7 +16,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
-
+  console.log(plays)
 
   const labels = Array.from(Object.keys(plays[0])).filter(filterCallBack).sort(sortedCallback)
 
@@ -38,30 +38,6 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  {/* <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Period
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Practice Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Situation
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Rep
-                  </th> */}
                   {labels.filter(filterCallBack).map((name) => (
                       <th
                         scope="col"
@@ -72,54 +48,6 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
 
 
                   ))}
-                  {/* <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Offensive Personnel
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation Variation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Backfield
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Motion
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    FIB
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation Family
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Unbalanced
-                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -136,48 +64,6 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                         typeof practice[name] == 'object' ? practice[name].join(", "): practice[name]
                         }
                       </td>))}
-                    {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.period}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.practiceType}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.situation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.rep}
-                    </td>
-
-                      {Object.values(practice) ? Object.values(practice).map((val) => (
-                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                        {val.join(", ")}
-                        </td>)) : null}
-
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offPersonnel.join(", ")}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationVariation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.backfield}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.motion}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.FIB}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationFamily}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.unbalanced}
-                    </td> */}
                   </tr>
                 ))}
               </tbody>

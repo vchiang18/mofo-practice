@@ -16,45 +16,21 @@ const PlayEntry = () => {
   const selections = useSelector((state) => state.selections.selections);
   const names = fields.map((x) => x.name)
 
-  // const [selections, setSelections] = useState({
-  //   offensivePersonnel: null,
-  //   formation: null,
-  //   formationVariation: null,
-  //   backfield: null,
-  //   motion: null,
-  //   FIB: null,
-  //   formationFamily: null,
-  //   unbalanced: null,
-  // });
 
   const [priorSelections, setPriorSelections] = useState({...selections}
 
   );
 
-  // const { playSelections, savePlaySelections } = usePlaySelections();
-  // const { values } = useValues();
+
   const { settings, updateSettings } = usePractices();
 
-  // const handleSelectionChange = (fieldName, value) => {
-  //   setSelections((prevSelections) => ({
-  //     ...prevSelections,
-  //     [fieldName]: value,
-  //   }));
-  // };
 
   const handleSave = () => {
-    console.log(names)
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
-    dispatch(finalize({fields: names}))
     dispatch(addPlay(selections));
   };
 
-  // useEffect(() => {
-  //   // if (selections) {
-  //   //   setPriorSelections(selections);
-  //   // }
-  // }, [selections]);
 
   const handleReset = () => {
     dispatch(clearSelections());
@@ -80,6 +56,7 @@ const PlayEntry = () => {
     // console.log("settingsSelections: ", settingsSelections);
 
     // addPractice(selections, settingsSelections);
+    dispatch(finalize({fields: names}))
     handleSave();
     dispatch(clearSelections());
   };

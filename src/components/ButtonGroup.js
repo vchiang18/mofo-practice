@@ -5,15 +5,16 @@ import { setSelection, removeSelection, setSingleSelection } from "../redux/slic
 const ButtonGroup = ({
   fieldName,
   displayName,
-  multiselect,
+  multi,
 }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
   const field = useSelector((state) => state.fields.fields).find((obj)=>(obj.accessor === fieldName));
 
   const handleSelection = (option) => {
+    console.log(multi)
     try{
-      if (multiselect === false){
+      if (!multi){
         dispatch(setSingleSelection({field: fieldName, value: option}))
       }else if (!selections[fieldName].includes(option)) {
         dispatch(setSelection({ field: fieldName, value: option }));
