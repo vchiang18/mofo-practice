@@ -4,7 +4,7 @@ import fieldsReducer from './slices/fields';   // import the fields slice
 import selectionReducer from './slices/selections';   // import the selections slice
 import playsReducer from './slices/savedPlays';   // import the savedPlays slice
 
- export default configureStore({
+export default configureStore({
     reducer : {
         fields: fieldsReducer,   // add the fields reducer to the store
         selections: selectionReducer,   // add the selections reducer to the store

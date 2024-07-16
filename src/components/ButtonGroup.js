@@ -1,43 +1,34 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelection, removeSelection } from "../redux/slices/selections";
+import { setSelection, removeSelection, setSingleSelection } from "../redux/slices/selections";
 
 const ButtonGroup = ({
   fieldName,
   displayName,
-  multiselect,
+  multi,
 }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
   const field = useSelector((state) => state.fields.fields).find((obj)=>(obj.accessor === fieldName));
 
-  const handleSelection = (name) => {
-    if (multiselect){
-      try{
-            if (!selections[fieldName].includes(name)) {
-              dispatch(setSelection({ field: fieldName, value: name }));
-            }else{
-              dispatch(removeSelection({ field: fieldName, value: name }));
-            }
-          }catch(e){
-            if (!selections[fieldName]) {
-              dispatch(setSelection({ field: fieldName, value: name }));
-            }
-          }
-    }else{
-      try{
-        if (selections[fieldName] === name){
-        dispatch(removeSelection({ field: fieldName, value: name }));
+  const handleSelection = (option) => {
+    console.log(multi)
+    try{
+      if (!multi){
+        dispatch(setSingleSelection({field: fieldName, value: option}))
+      }else if (!selections[fieldName].includes(option)) {
+        dispatch(setSelection({ field: fieldName, value: option }));
       }else{
-      dispatch(setSelection({ field: fieldName, value: name}));
+        dispatch(removeSelection({ field: fieldName, value: option }));
       }
-    }catch (e){
-      dispatch(setSelection({ field: fieldName, value: name}));
+    }catch(e){
+      if (!selections[fieldName]) {
+        dispatch(setSelection({ field: fieldName, value: option }));
+      }
     }
-
-
-  }
-};
+    // const newValue = value === option ? null : option;
+    // onSelectionChange(fieldName, newValue);
+  };
 
   return (
     <div className="mb-2">

@@ -5,18 +5,33 @@ import { useSelector } from "react-redux";
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
 
-  const fields = useSelector((state) => state.fields.fields);
+  const {fields, headers} = useSelector((state)=> state.fields)
   const plays = useSelector((state) => state.plays.plays);
 
+  const sortedCallback = (a, b) => {
+    return a.toString().localeCompare(b.toString());
+  }
   if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
+  const createLabelsAndAccessors = (arr1, arr2) =>{
+    const labels = (arr1.map(({name}) => name).concat(arr2.map(({label}) => label))).sort(sortedCallback)
+    const accessors = (arr1.map(({accessor})=> accessor).concat(arr2.map(({name})=>name))).sort(sortedCallback)
+    labels.push('Rep')
+    accessors.push('rep')
+    return [labels, accessors]
+  }
+
+
 
   const displayedPractices = limit ? plays.slice(-limit) : practices;
 
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
+  const [labels, accessors] = createLabelsAndAccessors(fields, headers)
+
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -28,88 +43,15 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Period
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Practice Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Situation
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Rep
-                  </th>
-                  {fields.map(({ name }) => (
+                  {labels.map((name) => (
                       <th
+                      key={`th${name}`}
                         scope="col"
                         className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
                       >
                         {name}
                       </th>
-
-
                   ))}
-                  {/* <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Offensive Personnel
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation Variation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Backfield
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Motion
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    FIB
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation Family
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Unbalanced
-                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -118,56 +60,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                    {
-
-                    Object.entries(practice).filter(([a])=>(a !== "practiceNo" && a !== "practiceDate")).map(([_,val]) => (
-                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                    {accessors.map((name) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900"
+                      key={`${name}${practice.id}`}>
                         {
-                        typeof val == 'object' ?val.join(", "): val
+                        typeof practice[name] == 'object' ? practice[name].join(", "): practice[name]
                         }
                       </td>))}
-                    {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.period}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.practiceType}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.situation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.rep}
-                    </td>
-
-                      {Object.values(practice) ? Object.values(practice).map((val) => (
-                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                        {val.join(", ")}
-                        </td>)) : null}
-
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offPersonnel.join(", ")}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationVariation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.backfield}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.motion}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.FIB}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationFamily}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.unbalanced}
-                    </td> */}
                   </tr>
                 ))}
               </tbody>

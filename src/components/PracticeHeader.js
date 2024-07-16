@@ -1,14 +1,13 @@
 import React from "react";
-import { useValues } from "../context/ValuesContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelection, setSingleSelection } from "../redux/slices/selections";
 
 const PracticeHeader = () => {
   // const { settings, updateSettings } = usePractices();
-  const { values } = useValues();
   const dispatch = useDispatch();
 
   const selections = useSelector((state) => state.selections.selections);
+  const headerFields = useSelector((state) => state.fields.headers)
 
   const handleSelection = ({target:{name, value}}) => {
     dispatch(setSelection({ field: name, value: value }));
@@ -17,39 +16,14 @@ const PracticeHeader = () => {
   const handleDropdownChange = ({target : {name, value}}) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
+  console.log('select', selections)
 
-  // const handlePracticeNoChange = (e) => {
-  //   updateSettings({ practiceNo: e.target.value });
-  // };
-
-  // const handlePracticeDateChange = (e) => {
-  //   updateSettings({ practiceDate: e.target.value });
-  // };
-
-  // // useEffect(() => {
-  // //   console.log(settings.practiceNo);
-  // // }, [settings.practiceNo]);
-
-  // const handlePeriodChange = (e) => {
-  //   updateSettings({
-  //     period: e.target.value,
-  //     practiceType: "",
-  //     rep: 1,
-  //   });
-  // };
-
-  // const handlePracticeTypeChange = (e) => {
-  //   updateSettings({ practiceType: e.target.value });
-  // };
-
-  // const handleSituationChange = (e) => {
-  //   updateSettings({ situation: e.target.value });
-  // };
-
-  const PracticeSettings = ({ label, options, selectedValue, onChange, name }) => {
+  const PracticeSettings = ({options, selectedValue, onChange, name }) => {
+    if (!selectedValue){
+      dispatch(setSingleSelection({field: name, value: options[0]}))
+    }
     return (
       <div className="">
-        <label>{label}</label>
         <select value={selectedValue} onChange={onChange} name={name}>
           {options.map((option, index) => (
             <option key={index} value={option}>
@@ -59,6 +33,7 @@ const PracticeHeader = () => {
         </select>
       </div>
     );
+
   };
 
   return (
@@ -87,7 +62,20 @@ const PracticeHeader = () => {
             name="practiceDate"
           />
         </div>
-        <div className="mx-4">
+        {headerFields.map(({name, values, label}) => {
+          return (
+            <div className="mx-4" key={label}>
+              <label className="block text-xs text-white mb-1">{label}</label>
+              <PracticeSettings
+              options={values}
+              selectedValue={selections[name]}
+              onChange={handleDropdownChange}
+              name={name}
+              />
+            </div>
+          )
+        })}
+        {/* <div className="mx-4">
           <label className="block text-xs text-white mb-1">Period</label>
           <PracticeSettings
             options={values.period}
@@ -113,7 +101,7 @@ const PracticeHeader = () => {
             onChange={handleDropdownChange}
             name="situation"
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

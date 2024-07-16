@@ -6,8 +6,11 @@ export const savedPlays = createSlice({
         plays: [],
     },
     reducers: {
-        addPlay: (state, action) => {
-            state.plays.push(action.payload);
+        addPlay: (state, {payload}) => {
+            const obj = {...payload}
+            obj.id = state.plays.length + 1
+            state.plays.push(obj);
+
         },
         removePlay: (state, action) => {
             state.plays.splice(action.payload, 1);

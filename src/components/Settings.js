@@ -5,6 +5,7 @@ import {
   changeFieldName,
   removeValue,
   changeValue,
+  toggleMutliselect,
 } from "../redux/slices/fields";
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -19,11 +20,6 @@ const Settings = () => {
   const handleInputChange = (e) => {
     setInputs(e.target.value);
   };
-
-//   const handleSave = () => {
-//     localStorage.setItem("fields", JSON.stringify(fields));
-//     // setShowPopup(true);
-//   };
 
   const handleNext = (e) => {
     const next = e.currentTarget.parentElement.nextSibling;
@@ -60,7 +56,7 @@ const Settings = () => {
         />
       </div>
       <div className="flex flex-wrap mt-4">
-        {fields.map(({ name, values }, index) => (
+        {fields.map(({ name, values, multiselect }, index) => (
           <div key={index} className="flex flex-col p-4 m-4 border rounded">
             <div className="flex items-center mb-2">
               <input
@@ -99,6 +95,16 @@ const Settings = () => {
                 </button>
               </div>
             ))}
+            <div className="flex items-center mb-4">
+              <button
+                className={`${
+                  multiselect ? "bg-green-500" : "bg-gray-200"
+                } px-4 py-2 rounded text-xs font-bold`}
+                onClick={() => dispatch(toggleMutliselect({ index }))}
+              >
+                {multiselect ? "Multiselect Enabled" : "Multiselect Disabled"}
+              </button>
+            </div>
           </div>
         ))}
       </div>

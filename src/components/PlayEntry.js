@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
 import { usePractices } from "../context/PracticeContext";
-// import { useValues } from "../context/ValuesContext";
-// import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
-import { clearSelections, copyPrev } from "../redux/slices/selections";
+import { clearSelections, copyPrev, finalize } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
 import { swapIndex } from "../redux/slices/fields";
 
@@ -30,32 +28,11 @@ const PlayEntry = () => {
     let newIndex = ev.dataTransfer.getData("index");
     dispatch(swapIndex({ index: id, newIndex: newIndex }));
   }
+  const names = fields.map((x) => x.name)
 
-  // const [selections, setSelections] = useState({
-  //   offensivePersonnel: null,
-  //   formation: null,
-  //   formationVariation: null,
-  //   backfield: null,
-  //   motion: null,
-  //   FIB: null,
-  //   formationFamily: null,
-  //   unbalanced: null,
-  // });
+  const [priorSelections, setPriorSelections] = useState({...selections});
 
-  const [priorSelections, setPriorSelections] = useState({...selections}
-
-  );
-
-  // const { playSelections, savePlaySelections } = usePlaySelections();
-  // const { values } = useValues();
   const { settings, updateSettings } = usePractices();
-
-  // const handleSelectionChange = (fieldName, value) => {
-  //   setSelections((prevSelections) => ({
-  //     ...prevSelections,
-  //     [fieldName]: value,
-  //   }));
-  // };
 
   const handleSave = () => {
     updateSettings({ rep: settings.rep + 1 });
@@ -63,16 +40,9 @@ const PlayEntry = () => {
     dispatch(addPlay(selections));
   };
 
-  // useEffect(() => {
-  //   // if (selections) {
-  //   //   setPriorSelections(selections);
-  //   // }
-  // }, [selections]);
-
   const handleReset = () => {
     dispatch(clearSelections());
     dispatch(copyPrev(priorSelections));
-
   };
 
   const handleCancel = () => {
@@ -80,19 +50,7 @@ const PlayEntry = () => {
   };
 
   const handleSubmit = () => {
-    // e.preventDefault();
-    // savePlaySelections(selections);
-    // const settingsSelections = {
-    //   practiceNo: settings.practiceNo,
-    //   practiceDate: settings.practiceDate,
-    //   period: settings.period,
-    //   practiceType: settings.practiceType,
-    //   situation: settings.situation,
-    //   rep: settings.rep,
-    // };
-    // console.log("settingsSelections: ", settingsSelections);
-
-    // addPractice(selections, settingsSelections);
+    dispatch(finalize({fields: names}))
     handleSave();
     dispatch(clearSelections());
   };
@@ -123,9 +81,7 @@ const PlayEntry = () => {
                   multiselect={multiselect}
                     fieldName={accessor}
                     displayName={name}
-                    // options={values.slice(0, -1)}
-                    // onSelectionChange={handleSelectionChange}
-                    // value={selections.offensivePersonnel}
+                    multi={multiselect}
                   />
                 </div>
               );
