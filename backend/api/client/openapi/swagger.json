@@ -1,0 +1,169 @@
+{
+	"openapi": "3.0.0",
+	"paths": {
+		"/": {
+			"get": {
+				"operationId": "AppController_getHello",
+				"parameters": [],
+				"responses": { "200": { "description": "" } }
+			}
+		},
+		"/exception": {
+			"get": {
+				"operationId": "AppController_throwException",
+				"parameters": [],
+				"responses": { "200": { "description": "" } }
+			}
+		},
+		"/exception/unprocessable": {
+			"get": {
+				"operationId": "AppController_throwUnprocessableEntity",
+				"parameters": [],
+				"responses": { "200": { "description": "" } }
+			}
+		},
+		"/organizations": {
+			"post": {
+				"operationId": "OrganizationController_createOrganization",
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/CreateOrganizationDTO" }
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Organization" }
+							}
+						}
+					},
+					"401": { "description": "Unauthorized" },
+					"403": { "description": "Forbidden" },
+					"500": { "description": "Internal Server Error" }
+				}
+			},
+			"get": {
+				"operationId": "OrganizationController_getOrganizations",
+				"parameters": [
+					{
+						"name": "name",
+						"required": true,
+						"in": "query",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"401": { "description": "Unauthorized" },
+					"403": { "description": "Forbidden" },
+					"500": { "description": "Internal Server Error" },
+					"default": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/Organization" }
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/organizations/{id}": {
+			"put": {
+				"operationId": "OrganizationController_updateOrganization",
+				"parameters": [
+					{
+						"name": "id",
+						"required": true,
+						"in": "path",
+						"schema": { "type": "string" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/CreateOrganizationDTO" }
+						}
+					}
+				},
+				"responses": {
+					"401": { "description": "Unauthorized" },
+					"403": { "description": "Forbidden" },
+					"500": { "description": "Internal Server Error" },
+					"default": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/Organization" }
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"info": {
+		"title": "modern-football API documentation",
+		"description": "",
+		"version": "1.0",
+		"contact": {}
+	},
+	"tags": [{ "name": "modern-football", "description": "" }],
+	"servers": [],
+	"components": {
+		"securitySchemes": {
+			"oauth2": {
+				"type": "oauth2",
+				"flows": {
+					"authorizationCode": {
+						"authorizationUrl": "",
+						"tokenUrl": "",
+						"scopes": {
+							"email": "Email Scope",
+							"profile": "Profile Scope",
+							"openid": "OpenID Scope"
+						}
+					}
+				}
+			}
+		},
+		"schemas": {
+			"CreateOrganizationDTO": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"example": "Organization ABC",
+						"description": "Name of the organization to create"
+					}
+				},
+				"required": ["name"]
+			},
+			"Organization": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"example": "d2f9d636-dc14-4389-a494-93ad462cf44e",
+						"description": "Id of the organization (uuid)"
+					},
+					"name": {
+						"type": "string",
+						"example": "Organization ABC",
+						"description": "Name of the organization"
+					}
+				},
+				"required": ["id", "name"]
+			}
+		}
+	}
+}
