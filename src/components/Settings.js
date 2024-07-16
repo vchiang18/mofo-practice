@@ -97,17 +97,17 @@ const Settings = () => {
             ))}
             <div className="flex items-center mb-4">
               <button
-              onClick={() => dispatch(toggleMutliselect({index}))}>
+                className={`${
+                  multiselect ? "bg-green-500" : "bg-gray-200"
+                } px-4 py-2 rounded text-xs font-bold`}
+                onClick={() => dispatch(toggleMutliselect({ index }))}
+              >
                 {multiselect ? "Multiselect Enabled" : "Multiselect Disabled"}
               </button>
             </div>
-
-
           </div>
         ))}
-
       </div>
-
     </div>
   );
 };
