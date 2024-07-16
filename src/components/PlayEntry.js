@@ -6,7 +6,7 @@ import { usePractices } from "../context/PracticeContext";
 // import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
-import { clearSelections, copyPrev } from "../redux/slices/selections";
+import { clearSelections, copyPrev, finalize } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
 
 
@@ -14,6 +14,7 @@ const PlayEntry = () => {
   const dispatch = useDispatch();
   const fields = useSelector((state) => state.fields.fields);
   const selections = useSelector((state) => state.selections.selections);
+  const names = fields.map((x) => x.name)
 
   // const [selections, setSelections] = useState({
   //   offensivePersonnel: null,
@@ -44,6 +45,7 @@ const PlayEntry = () => {
   const handleSave = () => {
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
+    dispatch(finalize({fields: names}))
     dispatch(addPlay(selections));
   };
 
@@ -87,12 +89,13 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {fields.map(({ name, accessor }) => {
+            {fields.map(({ name, accessor, multiselect }) => {
               return (
                 <div className="flex-grow">
                   <ButtonGroup
                     fieldName={accessor}
                     displayName={name}
+                    multi={multiselect}
                     // options={values.slice(0, -1)}
                     // onSelectionChange={handleSelectionChange}
                     // value={selections.offensivePersonnel}

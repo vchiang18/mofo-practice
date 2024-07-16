@@ -1,25 +1,28 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelection, removeSelection } from "../redux/slices/selections";
+import { setSelection, removeSelection, setSingleSelection } from "../redux/slices/selections";
 
 const ButtonGroup = ({
   fieldName,
   displayName,
+  multiselect,
 }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
   const field = useSelector((state) => state.fields.fields).find((obj)=>(obj.accessor === fieldName));
 
-  const handleSelection = (name) => {
+  const handleSelection = (option) => {
     try{
-      if (!selections[fieldName].includes(name)) {
-        dispatch(setSelection({ field: fieldName, value: name }));
+      if (multiselect === false){
+        dispatch(setSingleSelection({field: fieldName, value: option}))
+      }else if (!selections[fieldName].includes(option)) {
+        dispatch(setSelection({ field: fieldName, value: option }));
       }else{
-        dispatch(removeSelection({ field: fieldName, value: name }));
+        dispatch(removeSelection({ field: fieldName, value: option }));
       }
     }catch(e){
       if (!selections[fieldName]) {
-        dispatch(setSelection({ field: fieldName, value: name }));
+        dispatch(setSelection({ field: fieldName, value: option }));
       }
     }
     // const newValue = value === option ? null : option;
