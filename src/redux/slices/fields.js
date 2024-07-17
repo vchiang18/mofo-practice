@@ -6,14 +6,14 @@ const autoSave = (state) => {
 };
 const initialState = localStorage.getItem("fields") ? JSON.parse(localStorage.getItem("fields")) :{
     fields: [
-        {name: "OFF Personnel", values: ["1", "11", "12", "21", "22", ""], accessor: "offPersonnel", multiselect: true},
-        {name: "Formation", values: ["SPREAD RT", "TREY", "TRIO", "TRIPS", ""], accessor: "formation", multiselect: false},
-        {name: "Formation Variation", values: ["OFF", "BLANK", "FLEX", ""], accessor: "formationVariation", multiselect: true},
-        {name: "Backfield", values: ["GUN", "PISTOL", "RIGHT", "LEFT", ""], accessor: "backfield", multiselect: false},
-        {name: "Motion", values: ["ZIP", "RIP", "LIP", "Z-JET", ""], accessor: "motion", multiselect: false},
-        {name: "FIB", values: ["X", "BLANK", ""], accessor: "fib", multiselect: false},
-        {name: "Formation Family", values: ["COMPTON", "HOUSTON", "CRUNCH", "CAB", ""], accessor: "formationFamily", multiselect: false},
-        {name: "Unbalanced", values: ["BLANK", "X", ""], accessor: "unbalanced", multiselect: false},
+        {label: "OFF Personnel", values: ["1", "11", "12", "21", "22", ""], name: "offPersonnel", multiselect: true},
+        {label: "Formation", values: ["SPREAD RT", "TREY", "TRIO", "TRIPS", ""], name: "formation", multiselect: false},
+        {label: "Formation Variation", values: ["OFF", "BLANK", "FLEX", ""], name: "formationVariation", multiselect: true},
+        {label: "Backfield", values: ["GUN", "PISTOL", "RIGHT", "LEFT", ""], name: "backfield", multiselect: false},
+        {label: "Motion", values: ["ZIP", "RIP", "LIP", "Z-JET", ""], name: "motion", multiselect: false},
+        {label: "FIB", values: ["X", "BLANK", ""], name: "fib", multiselect: false},
+        {label: "Formation Family", values: ["COMPTON", "HOUSTON", "CRUNCH", "CAB", ""], name: "formationFamily", multiselect: false},
+        {label: "Unbalanced", values: ["BLANK", "X", ""], name: "unbalanced", multiselect: false},
     ],
     headers :[
         {name: 'period',  values: [1,2,3,4,5,6,7,8], label:'Period'},

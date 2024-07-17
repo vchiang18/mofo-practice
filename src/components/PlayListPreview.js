@@ -15,8 +15,8 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
     return <div className="p-4">No practices recorded.</div>;
   }
   const createLabelsAndAccessors = (arr1, arr2) =>{
-    const labels = (arr1.map(({name}) => name).concat(arr2.map(({label}) => label))).sort(sortedCallback)
-    const accessors = (arr1.map(({accessor})=> accessor).concat(arr2.map(({name})=>name))).sort(sortedCallback)
+    const labels = (arr1.map(({label}) => label).concat(arr2.map(({label}) => label))).sort(sortedCallback)
+    const accessors = (arr1.map(({name})=> name).concat(arr2.map(({name})=>name))).sort(sortedCallback)
     labels.push('Rep')
     accessors.push('rep')
     return [labels, accessors]

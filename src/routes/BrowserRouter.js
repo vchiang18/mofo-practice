@@ -25,6 +25,10 @@ const Routes = () => {
           path: "customize-values/",
           element: <Settings />,
         },
+        {
+          path: "play-list/",
+          element: <PlayList />,
+        },
       ],
     },
   ];
@@ -33,10 +37,10 @@ const Routes = () => {
       path: "*",
       element: <ProtectedRoute />,
       children: [
-        {
-          path: "play-list/",
-          element: <PlayList />,
-        },
+        // {
+        //   path: "play-list/",
+        //   element: <PlayList />,
+        // },
         {
           path: "settings/",
           element: <Settings />,

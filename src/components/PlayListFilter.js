@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { usePractices } from "../context/PracticeContext";
+import { useSelector } from "react-redux";
 
 function PlayListFilter() {
-  const { practices } = usePractices();
+  // const { practices } = usePractices();
+  const practices = useSelector((state) => state.plays.plays)
   const [selectedFilters, setSelectedFilters] = useState(null);
 
   if (practices.length === 0) {

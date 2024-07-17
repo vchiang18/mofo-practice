@@ -9,7 +9,7 @@ const ButtonGroup = ({
 }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
-  const field = useSelector((state) => state.fields.fields).find((obj)=>(obj.accessor === fieldName));
+  const field = useSelector((state) => state.fields.fields).find((obj)=>(obj.name === fieldName));
 
   const handleSelection = (option) => {
     console.log(multi)

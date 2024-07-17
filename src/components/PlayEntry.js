@@ -61,7 +61,7 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {fields.map(({ name, accessor, multiselect }, index) => {
+            {fields.map(({ label, name, multiselect }, index) => {
               let thisDrag = (ev) => {
                 drag(ev, index);
               }
@@ -79,8 +79,8 @@ const PlayEntry = () => {
 
                   <ButtonGroup
                   multiselect={multiselect}
-                    fieldName={accessor}
-                    displayName={name}
+                    fieldName={name}
+                    displayName={label}
                     multi={multiselect}
                   />
                 </div>

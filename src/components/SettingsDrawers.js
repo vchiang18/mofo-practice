@@ -8,6 +8,8 @@ import DeleteDialog from "./DeleteDialog.js";
 import { generateFileName } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
 import Popup from "./Popup.js";
+import { useDispatch } from "react-redux";
+import { clearSelections } from "../redux/slices/selections.js";
 
 async function convertToCSV(fetchPracticesForExport, columnOrder) {
   const practices = await fetchPracticesForExport();
@@ -70,6 +72,7 @@ const SettingsDrawer = () => {
     isLoading: false,
   });
   const [showPopup, setShowPopup] = useState(false);
+  const dispatch = useDispatch()
 
   const columnOrder = [
     "id",
@@ -141,7 +144,7 @@ const SettingsDrawer = () => {
   const handleDialogConfirmation = (answer) => {
     if (answer) {
       console.log("Clear practices confirmed");
-      clearPractices();
+      dispatch(clearSelections())
       handleDialog("", false);
     } else {
       console.log("Cancel clear practices");
