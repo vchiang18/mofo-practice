@@ -3,7 +3,6 @@ import { useAuth } from "../context/AuthContext";
 import PlayEntry from "../components/PlayEntry";
 import PlayList from "../components/PlayList";
 import Login from "../components/Login";
-import ValueSettings from "../components/ValuesSettings";
 import { ProtectedRoute } from "./Protected";
 import Layout from "../components/Layout";
 import Settings from "../components/Settings";
@@ -26,10 +25,6 @@ const Routes = () => {
           path: "customize-values/",
           element: <Settings />,
         },
-        // {
-        //     path: 'settings/',
-        //     element: <Settings />,
-        // }
       ],
     },
   ];
