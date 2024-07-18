@@ -1,4 +1,10 @@
-import React, { useState, createContext, useContext, useEffect, useMemo } from "react";
+import React, {
+  useState,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
 import axios from "axios";
 //import { useGetLicenseQuery } from "../redux/api/netlify";
 
@@ -59,17 +65,13 @@ export default function AuthProvider({ children }) {
       logout,
     }),
     [isAuthenticated]
-  )
+  );
 
   return (
-    <AuthContext.Provider
-      value={ contextValue }
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }
 
 export const useAuth = () => {
   return useContext(AuthContext);
-}
+};

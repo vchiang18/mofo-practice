@@ -6,6 +6,8 @@ import Login from "../components/Login";
 import { ProtectedRoute } from "./Protected";
 import Layout from "../components/Layout";
 import Settings from "../components/Settings";
+import AmplifyLogin from "../components/AmplifyLogin";
+import Signup from "../components/Signup";
 
 const Routes = () => {
   const { isAuthenticated } = useAuth();
@@ -22,8 +24,12 @@ const Routes = () => {
       path: "dev/",
       children: [
         {
-          path: "customize-values/",
-          element: <Settings />,
+          path: "signup/",
+          element: <Signup />,
+        },
+        {
+          path: "login/",
+          element: <AmplifyLogin />,
         },
       ],
     },
