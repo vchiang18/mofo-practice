@@ -235,7 +235,9 @@ function PlayList() {
                   >
                     {columns.map(({ accessor }) => (
                       <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                        {typeof practice[accessor] === "object"
+                        {accessor === "practiceDate"
+                          ? formatDate(practice[accessor])
+                          : typeof practice[accessor] === "object"
                           ? practice[accessor].join(", ")
                           : practice[accessor]}
                       </td>
