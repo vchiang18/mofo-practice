@@ -64,15 +64,15 @@ const initialState = localStorage.getItem("fields")
         },
       ],
       headers: [
-        { name: "period", values: [1, 2, 3, 4, 5, 6, 7, 8], label: "Period" },
+        { name: "period", values: [1, 2, 3, 4, 5, 6, 7, 8, ""], label: "Period" },
         {
           name: "type",
-          values: ["None", "7x7", "Blitz", "Team"],
+          values: ["None", "7x7", "Blitz", "Team", ""],
           label: "Type",
         },
         {
           name: "situation",
-          values: ["None", "A", "B", "C"],
+          values: ["None", "A", "B", "C", ""],
           label: "Situation",
         },
       ],
@@ -139,6 +139,51 @@ export const fieldsSlice = createSlice({
       state.fields[target].multiselect = !multi;
       autoSave(state);
     },
+    addHeader: (state, action) => {
+      state.headers.push({
+        name: action.payload,
+        values: [""],
+        accessor: action.payload
+          .toLowerCase()
+          .split(" ")
+          .flatMap((x) => x.charAt(0).toUpperCase() + x.slice(1))
+          .join(""),
+      });
+      autoSave(state);
+    },
+    removeHeader: (state, action) => {
+      state.fields = state.headers.filter(
+        (headers) => headers.name !== action.payload
+      );
+      autoSave(state);
+    },
+    changeHeaderName: (state, action) => {
+      state.headers[action.payload.index].name = action.payload.name;
+      state.headers[action.payload.index].accessor = action.payload.name
+        .toLowerCase()
+        .split(" ")
+        .flatMap((x) => x.charAt(0).toUpperCase() + x.slice(1))
+        .join("");
+      autoSave(state);
+    },
+    removeHeaderValue: (state, action) => {
+      const headers = state.headers[action.payload.index];
+      headers.values.splice(action.payload.valIndex, 1);
+      if (headers.values.length === 0) {
+        headers.values.push("");
+      }
+      autoSave(state);
+    },
+    changeHeaderValue: (state, action) => {
+      const headers = state.headers[action.payload.index];
+      const valIndex = action.payload.valIndex;
+      headers.values[valIndex] = action.payload.value;
+      const lastValue = headers.values[headers.values.length - 1];
+      if (lastValue !== "") {
+        headers.values.push("");
+      }
+      autoSave(state);
+    },
   },
 });
 
@@ -150,6 +195,11 @@ export const {
   changeValue,
   swapIndex,
   toggleMutliselect,
+  addHeader,
+  removeHeader,
+  changeHeaderName,
+  removeHeaderValue,
+  changeHeaderValue,
 } = fieldsSlice.actions;
 
 export default fieldsSlice.reducer;

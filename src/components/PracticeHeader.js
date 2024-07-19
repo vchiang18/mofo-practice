@@ -67,7 +67,7 @@ const PracticeHeader = () => {
             <div className="mx-4" key={label}>
               <label className="block text-xs text-white mb-1">{label}</label>
               <PracticeSettings
-              options={values}
+              options={values.slice(0,-1)}
               selectedValue={selections[name]}
               onChange={handleDropdownChange}
               name={name}
