@@ -8,7 +8,7 @@ export const savedPlays = createSlice({
     reducers: {
         addPlay: (state, {payload}) => {
             const obj = {...payload};
-            obj.id = state.plays.length;
+            obj.id = state.plays.length +1;
             state.plays.push(obj);
         },
         removePlay: (state, action) => {
