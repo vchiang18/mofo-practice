@@ -3,7 +3,7 @@ import { storageAvailable } from "../../utils";
 
 
 const autoSave = (state) => {
-    let storage = storageAvailable
+    let storage = storageAvailable()
     if (storage){
         localStorage.setItem("fields", JSON.stringify(state));
     }else{
