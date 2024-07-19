@@ -1,6 +1,7 @@
 import React from "react";
 import { usePractices } from "../context/PracticeContext";
 import { useSelector } from "react-redux";
+import { makeLabels } from "../utils";
 
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
@@ -14,13 +15,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   if (plays.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
   }
-  const createLabelsAndAccessors = (arr1, arr2) =>{
-    const labels = (arr1.map(({label}) => label).concat(arr2.map(({label}) => label))).sort(sortedCallback)
-    const accessors = (arr1.map(({name})=> name).concat(arr2.map(({name})=>name))).sort(sortedCallback)
-    labels.push('Rep')
-    accessors.push('rep')
-    return [labels, accessors]
-  }
+  // const createLabelsAndAccessors = (arr1, arr2) =>{
+  //   const labels = (arr1.map(({label}) => label).concat(arr2.map(({label}) => label))).sort(sortedCallback)
+  //   const accessors = (arr1.map(({name})=> name).concat(arr2.map(({name})=>name))).sort(sortedCallback)
+  //   labels.push('Rep')
+  //   accessors.push('rep')
+  //   return [labels, accessors]
+  // }
 
 
 
@@ -29,7 +30,7 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const sortedPractices = [...displayedPractices].sort((a, b) =>
     sortOrder === "asc" ? a.id - b.id : b.id - a.id
   );
-  const [labels, accessors] = createLabelsAndAccessors(fields, headers)
+  const labels = makeLabels(headers, fields).slice(2)
 
 
   return (
@@ -43,13 +44,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  {labels.map((name) => (
+                  {labels.map(({label}) => (
                       <th
-                      key={`th${name}`}
+                      key={`th${label}`}
                         scope="col"
                         className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500"
                       >
-                        {name}
+                        {label}
                       </th>
                   ))}
                 </tr>
@@ -60,11 +61,13 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                    {accessors.map((name) => (
+                    {labels.map(({accessor}) => (
                       <td className="py-1.5 px-3 text-xs font-normal text-gray-900"
-                      key={`${name}${practice.id}`}>
+                      key={`${accessor}${practice.id}`}>
                         {
-                        typeof practice[name] == 'object' ? practice[name].join(", "): practice[name]
+                        typeof practice[accessor] == 'object'
+                        ? practice[accessor].join(", ")
+                        : practice[accessor]
                         }
                       </td>))}
                   </tr>
