@@ -23,7 +23,7 @@ const Nav = () => {
                 <PracticeHeader />
               </div>
               <NavLink
-                to="/dev/play-list"
+                to="/play-list"
                 className="text-gray-300 hover:text-white whitespace-nowrap"
               >
                 PLAY LIST
