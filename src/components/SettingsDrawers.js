@@ -10,6 +10,7 @@ import { useAuth } from "../context/AuthContext.js";
 import Popup from "./Popup.js";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSelections } from "../redux/slices/selections.js";
+import { clearAll } from "../redux/slices/savedPlays.js";
 
 
 function convertToCSV(practices, columnOrder) {
@@ -149,6 +150,7 @@ const SettingsDrawer = () => {
     if (answer) {
       console.log("Clear practices confirmed");
       dispatch(clearSelections())
+      dispatch(clearAll())
       handleDialog("", false);
     } else {
       console.log("Cancel clear practices");

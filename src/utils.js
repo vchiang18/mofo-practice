@@ -11,7 +11,7 @@ const labelsHelper = (arr) => {
 
 export const makeLabels = (arr1, arr2) => {
   if (arr2){
-    let labels = [{label:"Practice No", accessor:"practiceNo"},{label:"Date", accessor:"date"}]
+    let labels = [{label:"Practice No", accessor:"practiceNo"},{label:"Date", accessor:"practiceDate"}]
   const headersLables = labelsHelper(arr1)
   const fieldsLabels = labelsHelper(arr2)
   return labels.concat(headersLables).concat([{label: "Rep", accessor: 'rep'}]).concat(fieldsLabels)
