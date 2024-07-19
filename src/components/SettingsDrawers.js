@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { gapi } from "gapi-script";
-import { usePractices } from "../context/PracticeContext.js";
+// import { usePractices } from "../context/PracticeContext.js";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
-import { generateFileName } from "../utils.js";
+import { generateFileName, makeLabels } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
 import Popup from "./Popup.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearSelections } from "../redux/slices/selections.js";
 
-async function convertToCSV(fetchPracticesForExport, columnOrder) {
-  const practices = await fetchPracticesForExport();
 
+function convertToCSV(practices, columnOrder) {
   if (practices.length === 0) return "";
 
   const headers = columnOrder;
@@ -63,37 +62,42 @@ const uploadToGoogleDrive = async (token, csvContent) => {
 };
 
 const SettingsDrawer = () => {
-  const { fetchPracticesForExport } = usePractices();
+  // const { fetchPracticesForExport } = usePractices();
   const navigate = useNavigate();
-  const { clearPractices } = usePractices();
   const { logout } = useAuth();
   const [dialog, setDialog] = useState({
     message: "",
     isLoading: false,
   });
   const [showPopup, setShowPopup] = useState(false);
-  const dispatch = useDispatch()
 
-  const columnOrder = [
-    "id",
-    "practiceNo",
-    "practiceDate",
-    "period",
-    "practiceType",
-    "situation",
-    "rep",
-    "offensivePersonnel",
-    "formation",
-    "formationVariation",
-    "backfield",
-    "motion",
-    "FIB",
-    "formationFamily",
-    "unbalanced",
-  ];
+  const dispatch = useDispatch()
+  const plays = useSelector((state) => state.plays.plays)
+  const {fields, headers} = useSelector((state) => state.fields)
+
+  const labels = ["id"].concat(makeLabels(fields, headers).map((x) => x.accessor))
+
+
+  // const columnOrder = [
+  //   "id",
+  //   "practiceNo",
+  //   "practiceDate",
+  //   "period",
+  //   "practiceType",
+  //   "situation",
+  //   "rep",
+  //   "offensivePersonnel",
+  //   "formation",
+  //   "formationVariation",
+  //   "backfield",
+  //   "motion",
+  //   "FIB",
+  //   "formationFamily",
+  //   "unbalanced",
+  // ];
 
   const handleDownloadCSV = async () => {
-    const csvContent = await convertToCSV(fetchPracticesForExport, columnOrder);
+    const csvContent = await convertToCSV(plays, labels);
     const download = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;",
     });
@@ -113,8 +117,8 @@ const SettingsDrawer = () => {
     onSuccess: async (tokenResponse) => {
       try {
         const csvContent = await convertToCSV(
-          fetchPracticesForExport,
-          columnOrder
+          plays,
+          labels
         );
         await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
         setShowPopup(true);

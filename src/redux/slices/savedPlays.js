@@ -7,17 +7,21 @@ export const savedPlays = createSlice({
     },
     reducers: {
         addPlay: (state, {payload}) => {
-            const obj = {...payload}
-            obj.id = state.plays.length + 1
+            const obj = {...payload};
+            obj.id = state.plays.length;
             state.plays.push(obj);
-
         },
         removePlay: (state, action) => {
             state.plays.splice(action.payload, 1);
+        },
+        clearAll : (state) => {
+            state.plays.plays = []
+            if (localStorage.plays){
+                localStorage.removeItem('plays')
+            }
         }
-
     }
 })
 
-export const { addPlay, removePlay } = savedPlays.actions;
+export const { addPlay, removePlay, clearAll } = savedPlays.actions;
 export default savedPlays.reducer;

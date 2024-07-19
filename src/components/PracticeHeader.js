@@ -16,7 +16,7 @@ const PracticeHeader = () => {
   const handleDropdownChange = ({target : {name, value}}) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
-  console.log('select', selections)
+
 
   const PracticeSettings = ({options, selectedValue, onChange, name }) => {
     if (!selectedValue){

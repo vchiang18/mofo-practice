@@ -1,9 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { storageAvailable } from "../../utils";
+
 
 const autoSave = (state) => {
-    localStorage.setItem("fields", JSON.stringify(state));
-    return state;
+    let storage = storageAvailable
+    if (storage){
+        localStorage.setItem("fields", JSON.stringify(state));
+    }else{
+        return storage
+    }
 };
+
 const initialState = localStorage.getItem("fields") ? JSON.parse(localStorage.getItem("fields")) :{
     fields: [
         {label: "OFF Personnel", values: ["1", "11", "12", "21", "22", ""], name: "offPersonnel", multiselect: true},
@@ -72,7 +79,8 @@ export const fieldsSlice = createSlice({
             const multi = state.fields[target].multiselect
             state.fields[target].multiselect = !multi
             autoSave(state)
-        }
+        },
+
     },
 });
 

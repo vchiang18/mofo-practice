@@ -43,13 +43,11 @@ export const selectionsSlice = createSlice({
             state.selections.rep = rep;
         },
         finalize: (state, {payload: {fields}}) =>{
-            console.log(fields)
             for (let name of fields){
                 if (!state.selections[name]){
                     state.selections[name]=name
                 }
             }
-            console.log('state', state.selections)
         },
     },
 });

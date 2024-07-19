@@ -34,7 +34,7 @@ const PlayEntry = () => {
 
   const { settings, updateSettings } = usePractices();
 
-  const handleSave = () => {
+  const handleSave = async () => {
     updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
     dispatch(addPlay(selections));
