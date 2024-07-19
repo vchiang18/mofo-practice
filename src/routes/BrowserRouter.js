@@ -14,6 +14,10 @@ const Routes = () => {
       path: "/",
       element: <Login />,
     },
+    {
+      path: "play-entry/",
+      element: <PlayEntry />,
+    },
   ];
   const privateRoutes = [
     {

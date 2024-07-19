@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelection, setSingleSelection } from "../redux/slices/selections";
 
@@ -18,23 +18,26 @@ const PracticeHeader = () => {
   };
 
 
-  const PracticeSettings = ({options, selectedValue, onChange, name }) => {
-    if (!selectedValue){
-      dispatch(setSingleSelection({field: name, value: options[0]}))
-    }
-    return (
-      <div className="">
-        <select value={selectedValue} onChange={onChange} name={name}>
-          {options.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </div>
-    );
+  // const PracticeSettings = ({options, selectedValue, onChange, name }) => {
 
-  };
+  //   return (
+  //       <select value={selectedValue} onChange={onChange} name={name}>
+  //         {options.map((option, index) => (
+  //           <option key={index} value={option}>
+  //             {option}
+  //           </option>
+  //         ))}
+  //       </select>
+  //   );
+
+  // };
+  useEffect(()  =>{
+    headerFields.forEach(({name, values}) => {
+      if (!selections[name]){
+        dispatch(setSingleSelection({field: name, value: values[0]}))
+      }
+    })
+  },[headerFields, selections, dispatch])
 
   return (
     <div>
@@ -62,16 +65,19 @@ const PracticeHeader = () => {
             name="practiceDate"
           />
         </div>
-        {headerFields.map(({name, values, label}) => {
-          return (
+        {headerFields.map(({name, values, label}) =>{
+        return (
             <div className="mx-4" key={label}>
               <label className="block text-xs text-white mb-1">{label}</label>
-              <PracticeSettings
-              options={values.slice(0,-1)}
-              selectedValue={selections[name]}
-              onChange={handleDropdownChange}
-              name={name}
-              />
+              <select value={selections[name]}
+                onChange={handleDropdownChange}
+                name={name}>
+                {values.slice(0,-1).map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
             </div>
           )
         })}

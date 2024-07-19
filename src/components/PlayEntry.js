@@ -11,8 +11,17 @@ import { swapIndex } from "../redux/slices/fields";
 
 const PlayEntry = () => {
   const dispatch = useDispatch();
-  const fields = useSelector((state) => state.fields.fields);
+  const {fields} = useSelector((state) => state.fields);
   const selections = useSelector((state) => state.selections.selections);
+
+  const cleanSelections =() =>{
+    const cleanSelect = {...selections}
+    console.log("before", cleanSelect)
+    fields.forEach((x)=> {
+      cleanSelect[x.name] = priorSelections[x.name]
+    })
+    return cleanSelect
+  }
 
   const drag = (ev, index) => {
     ev.dataTransfer.setData("index",index);
@@ -42,7 +51,7 @@ const PlayEntry = () => {
 
   const handleReset = () => {
     dispatch(clearSelections());
-    dispatch(copyPrev(priorSelections));
+    dispatch(copyPrev(cleanSelections()));
   };
 
   const handleCancel = () => {
