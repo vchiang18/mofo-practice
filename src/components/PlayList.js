@@ -6,17 +6,23 @@ function PlayList() {
 
   const [sortConfig, setSortConfig] = useState([]);
 
-  const practices = useSelector((state) => state.plays.plays)
-  const { fields, headers } = useSelector((state) => state.fields)
-  const allFields = [{label:"#", name:"id"},{label:"Practice No", name:"practiceNo"},{label:"Date", name:"date"}].concat(headers).concat([{label: "Rep", name: 'rep'}]).concat(fields)
+  const practices = useSelector((state) => state.plays.plays);
+  const { fields, headers } = useSelector((state) => state.fields);
+  const allFields = [
+    { label: "#", name: "id" },
+    { label: "Practice No", name: "practiceNo" },
+    { label: "Date", name: "practiceDate" },
+  ]
+    .concat(headers)
+    .concat([{ label: "Rep", name: "rep" }])
+    .concat(fields);
 
   const columns = allFields.map((x) => {
-    return {label: x.label, accessor: x.name}
-  })
+    return { label: x.label, accessor: x.name };
+  });
 
   const handleSortChange = (key) => {
     setSortConfig((prevSortConfig) => {
-
       const existingIndex = prevSortConfig.findIndex(
         (config) => config.key === key
       );
@@ -111,14 +117,14 @@ function PlayList() {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  {columns.map(({label, accessor}) => (
+                  {columns.map(({ label, accessor }) => (
                     <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange(accessor)}
-                  >
-                    {label}
-                  </th>
+                      scope="col"
+                      className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
+                      onClick={() => handleSortChange(accessor)}
+                    >
+                      {label}
+                    </th>
                   ))}
 
                   {/* <th
@@ -227,14 +233,13 @@ function PlayList() {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                  {columns.map(({accessor}) => (
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {typeof practice[accessor] === 'object'
-                      ? practice[accessor].join(", ")
-                      : practice[accessor]}
-                    </td>
-                  ))}
-
+                    {columns.map(({ accessor }) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                        {typeof practice[accessor] === "object"
+                          ? practice[accessor].join(", ")
+                          : practice[accessor]}
+                      </td>
+                    ))}
 
                     {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.practiceNo}
