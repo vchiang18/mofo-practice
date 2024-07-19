@@ -84,9 +84,9 @@ export const fieldsSlice = createSlice({
   reducers: {
     addField: (state, action) => {
       state.fields.push({
-        name: action.payload,
+        label: action.payload,
         values: [""],
-        accessor: action.payload
+        name: action.payload
           .toLowerCase()
           .split(" ")
           .flatMap((x) => x.charAt(0).toUpperCase() + x.slice(1))
@@ -102,13 +102,14 @@ export const fieldsSlice = createSlice({
       autoSave(state);
     },
     changeFieldName: (state, action) => {
-      state.fields[action.payload.index].name = action.payload.name;
-      state.fields[action.payload.index].accessor = action.payload.name
+      state.fields[action.payload.index].label = action.payload.name;
+      state.fields[action.payload.index].name = action.payload.name
         .toLowerCase()
         .split(" ")
         .flatMap((x) => x.charAt(0).toUpperCase() + x.slice(1))
         .join("");
       autoSave(state);
+      console.log(state.fields[action.payload.index].label);
     },
     removeValue: (state, action) => {
       const field = state.fields[action.payload.index];
