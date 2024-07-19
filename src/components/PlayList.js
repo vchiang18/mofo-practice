@@ -8,7 +8,7 @@ function PlayList() {
 
   const practices = useSelector((state) => state.plays.plays)
   const { fields, headers } = useSelector((state) => state.fields)
-  const allFields = [{label:"Practice No", name:"practiceNo"},{label:"Date", name:"date"}].concat(headers).concat([{label: "Rep", name: 'rep'}]).concat(fields)
+  const allFields = [{label:"#", name:"id"},{label:"Practice No", name:"practiceNo"},{label:"Date", name:"date"}].concat(headers).concat([{label: "Rep", name: 'rep'}]).concat(fields)
 
   const columns = allFields.map((x) => {
     return {label: x.label, accessor: x.name}
@@ -229,7 +229,9 @@ function PlayList() {
                   >
                   {columns.map(({accessor}) => (
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {typeof practice[accessor] === 'object' ? practice[accessor].join(", "): practice[accessor]}
+                      {typeof practice[accessor] === 'object'
+                      ? practice[accessor].join(", ")
+                      : practice[accessor]}
                     </td>
                   ))}
 
