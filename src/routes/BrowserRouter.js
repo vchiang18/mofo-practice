@@ -14,33 +14,20 @@ const Routes = () => {
       path: "/",
       element: <Login />,
     },
-    {
-      path: "play-entry/",
-      element: <PlayEntry />,
-    },
-    {
-      path: "dev/",
-      children: [
-        {
-          path: "customize-values/",
-          element: <Settings />,
-        },
-        {
-          path: "play-list/",
-          element: <PlayList />,
-        },
-      ],
-    },
   ];
   const privateRoutes = [
     {
       path: "*",
       element: <ProtectedRoute />,
       children: [
-        // {
-        //   path: "play-list/",
-        //   element: <PlayList />,
-        // },
+        {
+          path: "play-entry/",
+          element: <PlayEntry />,
+        },
+        {
+          path: "play-list/",
+          element: <PlayList />,
+        },
         {
           path: "settings/",
           element: <Settings />,
