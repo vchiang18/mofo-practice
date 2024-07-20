@@ -11,16 +11,16 @@ import Popup from "./Popup.js";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSelections } from "../redux/slices/selections.js";
 import { clearAll } from "../redux/slices/savedPlays.js";
-
+import { PlayListColumns } from "./PlayList.js";
 
 function convertToCSV(practices, columnOrder) {
   if (practices.length === 0) return "";
 
-  const headers = columnOrder;
+  const headers = columnOrder.map((col) => col.label);
   const csvRows = [
     headers.join(","),
     ...practices.map((row) =>
-      headers.map((header) => row[header] || "").join(",")
+      columnOrder.map(({ accessor }) => row[accessor] || "").join(",")
     ),
   ];
   return csvRows.join("\n");
@@ -72,33 +72,17 @@ const SettingsDrawer = () => {
   });
   const [showPopup, setShowPopup] = useState(false);
 
-  const dispatch = useDispatch()
-  const plays = useSelector((state) => state.plays.plays)
-  const {fields, headers} = useSelector((state) => state.fields)
+  const dispatch = useDispatch();
+  const plays = useSelector((state) => state.plays.plays);
+  const { fields, headers } = useSelector((state) => state.fields);
 
-  const labels = ["id"].concat(makeLabels(fields, headers).map((x) => x.accessor))
-
-
-  // const columnOrder = [
-  //   "id",
-  //   "practiceNo",
-  //   "practiceDate",
-  //   "period",
-  //   "practiceType",
-  //   "situation",
-  //   "rep",
-  //   "offensivePersonnel",
-  //   "formation",
-  //   "formationVariation",
-  //   "backfield",
-  //   "motion",
-  //   "FIB",
-  //   "formationFamily",
-  //   "unbalanced",
-  // ];
+  // const labels = ["id"].concat(
+  //   makeLabels(fields, headers).map((x) => x.accessor)
+  // );
+  const columnOrder = PlayListColumns();
 
   const handleDownloadCSV = async () => {
-    const csvContent = await convertToCSV(plays, labels);
+    const csvContent = await convertToCSV(plays, columnOrder);
     const download = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;",
     });
@@ -117,10 +101,7 @@ const SettingsDrawer = () => {
   const handleUploadToGDrive = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        const csvContent = await convertToCSV(
-          plays,
-          labels
-        );
+        const csvContent = await convertToCSV(plays, columnOrder);
         await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
         setShowPopup(true);
       } catch (error) {
@@ -149,8 +130,8 @@ const SettingsDrawer = () => {
   const handleDialogConfirmation = (answer) => {
     if (answer) {
       console.log("Clear practices confirmed");
-      dispatch(clearSelections())
-      dispatch(clearAll())
+      dispatch(clearSelections());
+      dispatch(clearAll());
       handleDialog("", false);
     } else {
       console.log("Cancel clear practices");

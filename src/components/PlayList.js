@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-function PlayList() {
-  // const { practices } = usePractices();
-
-  const [sortConfig, setSortConfig] = useState([]);
-
-  const practices = useSelector((state) => state.plays.plays);
+export const PlayListColumns = () => {
   const { fields, headers } = useSelector((state) => state.fields);
   const allFields = [
     { label: "#", name: "id" },
@@ -17,9 +12,32 @@ function PlayList() {
     .concat([{ label: "Rep", name: "rep" }])
     .concat(fields);
 
-  const columns = allFields.map((x) => {
+  return allFields.map((x) => {
     return { label: x.label, accessor: x.name };
   });
+};
+
+function PlayList() {
+  // const { practices } = usePractices();
+
+  const [sortConfig, setSortConfig] = useState([]);
+
+  const practices = useSelector((state) => state.plays.plays);
+  const columns = PlayListColumns();
+
+  // const { fields, headers } = useSelector((state) => state.fields);
+  // const allFields = [
+  //   { label: "#", name: "id" },
+  //   { label: "Practice No", name: "practiceNo" },
+  //   { label: "Date", name: "practiceDate" },
+  // ]
+  //   .concat(headers)
+  //   .concat([{ label: "Rep", name: "rep" }])
+  //   .concat(fields);
+
+  // const columns = allFields.map((x) => {
+  //   return { label: x.label, accessor: x.name };
+  // });
 
   const handleSortChange = (key) => {
     setSortConfig((prevSortConfig) => {
@@ -126,105 +144,6 @@ function PlayList() {
                       {label}
                     </th>
                   ))}
-
-                  {/* <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("practiceNo")}
-                  >
-                    Practice No
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("practiceDate")}
-                  >
-                    Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("period")}
-                  >
-                    Period
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("practiceType")}
-                  >
-                    Practice Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("situation")}
-                  >
-                    Situation
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("rep")}
-                  >
-                    Rep
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("offensivePersonnel")}
-                  >
-                    Offensive Personnel
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("formation")}
-                  >
-                    Formation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("formationVariation")}
-                  >
-                    Formation Variation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("backfield")}
-                  >
-                    Backfield
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("motion")}
-                  >
-                    Motion
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("FIB")}
-                  >
-                    FIB
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("formationFamily")}
-                  >
-                    Formation Family
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("unbalanced")}
-                  >
-                    Unbalanced
-                  </th> */}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -242,49 +161,6 @@ function PlayList() {
                           : practice[accessor]}
                       </td>
                     ))}
-
-                    {/* <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.practiceNo}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {formatDate(practice.practiceDate)}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.period}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.practiceType}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.situation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.rep}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offensivePersonnel}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationVariation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.backfield}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.motion}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.FIB}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationFamily}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.unbalanced}
-                    </td> */}
                   </tr>
                 ))}
               </tbody>
