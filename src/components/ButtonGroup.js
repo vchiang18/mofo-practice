@@ -31,7 +31,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
 
   const columns = [];
   const len = values.length;
-  const lim = 5;
+  const lim = 10;
   const columnsNum = len > lim ? Math.ceil(len / lim) : 1;
 
   for (let i = 0; i < columnsNum; i++) {
