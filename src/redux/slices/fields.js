@@ -64,9 +64,13 @@ const initialState = localStorage.getItem("fields")
         },
       ],
       headers: [
-        { name: "period", values: [1, 2, 3, 4, 5, 6, 7, 8, ""], label: "Period" },
         {
-          name: "type",
+          name: "period",
+          values: [1, 2, 3, 4, 5, 6, 7, 8, ""],
+          label: "Period",
+        },
+        {
+          name: "practiceType",
           values: ["None", "7x7", "Blitz", "Team", ""],
           label: "Type",
         },

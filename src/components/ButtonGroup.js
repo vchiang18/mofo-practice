@@ -16,7 +16,12 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
   const handleSelection = (option) => {
     try {
       if (!multi) {
-        dispatch(setSingleSelection({ field: fieldName, value: option }));
+        //single selection
+        if (selections[fieldName] === option) {
+          dispatch(setSingleSelection({ field: fieldName, value: "" }));
+        } else {
+          dispatch(setSingleSelection({ field: fieldName, value: option }));
+        }
       } else if (!selections[fieldName].includes(option)) {
         dispatch(setSelection({ field: fieldName, value: option }));
       } else {
