@@ -8,6 +8,7 @@ import {
   clearSelections,
   copyPrev,
   finalize,
+  setPrior,
 } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
 import { swapIndex } from "../redux/slices/fields";
@@ -15,7 +16,7 @@ import { swapIndex } from "../redux/slices/fields";
 const PlayEntry = () => {
   const dispatch = useDispatch();
   const { fields, headers } = useSelector((state) => state.fields);
-  const selections = useSelector((state) => state.selections.selections);
+  const { selections, priorSelections } = useSelector((state) => state.selections);
 
   const skipHeader = () => {
     const cleanSelect = { priorSelections };
@@ -23,7 +24,7 @@ const PlayEntry = () => {
       let hName = x.name
       cleanSelect.name = selections[hName]
     }
-    setPriorSelections(cleanSelect)
+    dispatch(setPrior(cleanSelect))
   };
 
   const drag = (ev, index) => {
@@ -42,13 +43,11 @@ const PlayEntry = () => {
   };
   const names = fields.map((x) => x.name);
 
-  const [priorSelections, setPriorSelections] = useState({ ...selections });
-
   const { settings, updateSettings } = usePractices();
 
   const handleSave = async () => {
     updateSettings({ rep: settings.rep + 1 });
-    setPriorSelections(selections);
+    dispatch(setPrior(selections));
     dispatch(addPlay(selections));
   };
 

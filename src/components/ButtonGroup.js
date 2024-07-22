@@ -30,6 +30,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     } catch (e) {
       if (!selections[fieldName]) {
         dispatch(setSelection({ field: fieldName, value: option }));
+        console.error(e, "OOPS")
       }
     }
   };
@@ -50,7 +51,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
       <div className="flex flex-row justify-center mb-2 space-x-2 font-bold">
         {columns.map((col, index) => (
           <div className="flex flex-col mb-2 space-y-2 font-bold">
-            {index + 1 === columns.length
+            {(index + 1) * lim > columns.length
               ? col.slice(0, -1).map((option, ind) => (
                   <button
                     key={ind}

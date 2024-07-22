@@ -4,15 +4,14 @@ export const selectionsSlice = createSlice({
   name: "selections",
   initialState: {
     selections: { rep: 1 },
+    priorSelections: {},
   },
   reducers: {
     setSelection: (state, action) => {
-      state.selections[action.payload.field] = action.payload.value;
-
-      // if (!state.selections[action.payload.field]) {
-      //     state.selections[action.payload.field] = [];
-      // }
-      // state.selections[action.payload.field].push(action.payload.value);
+      if (!state.selections[action.payload.field]) {
+        state.selections[action.payload.field] = [];
+      }
+      state.selections[action.payload.field].push(action.payload.value);
     },
     removeSelection: (state, action) => {
       if (state.selections[action.payload.field]) {
@@ -50,9 +49,9 @@ export const selectionsSlice = createSlice({
         }
       }
     },
-    // setSelections: (state, action) => {
-    //   state.selections = action.payload;
-    // },
+    setPrior: (state, action) => {
+      state.priorSelections = { ...action.payload }
+    }
   },
 });
 
@@ -63,6 +62,7 @@ export const {
   removeSelection,
   copyPrev,
   finalize,
+  setPrior,
   //   setSelections,
 } = selectionsSlice.actions;
 export default selectionsSlice.reducer;
