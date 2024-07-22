@@ -1,99 +1,68 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
-import { usePractices } from "../context/PracticeContext";
-import { useValues } from "../context/ValuesContext";
-import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  clearSelections,
+  copyPrev,
+  finalize,
+  setPrior,
+} from "../redux/slices/selections";
+import { addPlay } from "../redux/slices/savedPlays";
+import { swapIndex } from "../redux/slices/fields";
 
 const PlayEntry = () => {
-  const [selections, setSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    FIB: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
+  const dispatch = useDispatch();
+  const { fields, headers } = useSelector((state) => state.fields);
+  const { selections, priorSelections } = useSelector(
+    (state) => state.selections
+  );
 
-  const [priorSelections, setPriorSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    FIB: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
-
-  const { playSelections, savePlaySelections } = usePlaySelections();
-  const { values } = useValues();
-  const { settings, updateSettings, addPractice } = usePractices();
-
-  const handleSelectionChange = (fieldName, value) => {
-    setSelections((prevSelections) => ({
-      ...prevSelections,
-      [fieldName]: value,
-    }));
-  };
-
-  const handleSave = () => {
-    updateSettings({ rep: settings.rep + 1 });
-  };
-
-  useEffect(() => {
-    if (playSelections) {
-      setPriorSelections(playSelections);
+  const skipHeader = () => {
+    const cleanSelect = { priorSelections };
+    for (let x of Object.keys(headers)) {
+      let hName = x.name;
+      cleanSelect.name = selections[hName];
     }
-  }, [playSelections]);
+    dispatch(setPrior(cleanSelect));
+  };
+
+  const drag = (ev, index) => {
+    ev.dataTransfer.setData("index", index);
+  };
+
+  const allowDrop = (ev) => {
+    ev.preventDefault();
+  };
+
+  const drop = (ev, index) => {
+    ev.preventDefault();
+    let id = index;
+    let newIndex = ev.dataTransfer.getData("index");
+    dispatch(swapIndex({ index: id, newIndex: newIndex }));
+  };
+  const names = fields.map((x) => x.name);
+
+  const handleSave = async () => {
+    dispatch(setPrior(selections));
+    dispatch(addPlay(selections));
+  };
 
   const handleReset = () => {
-    if (priorSelections) {
-      setSelections(priorSelections);
-    }
+    skipHeader();
+    dispatch(clearSelections());
+    dispatch(copyPrev(priorSelections));
   };
 
   const handleCancel = () => {
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      FIB: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
+    dispatch(clearSelections());
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    savePlaySelections(selections);
-    const settingsSelections = {
-      practiceNo: settings.practiceNo,
-      practiceDate: settings.practiceDate,
-      period: settings.period,
-      practiceType: settings.practiceType,
-      situation: settings.situation,
-      rep: settings.rep,
-    };
-    console.log("settingsSelections: ", settingsSelections);
-
-    addPractice(selections, settingsSelections);
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      FIB: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
+  const handleSubmit = () => {
+    dispatch(finalize({ fields: names }));
     handleSave();
+    dispatch(clearSelections());
   };
 
   return (
@@ -102,114 +71,63 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="offensivePersonnel"
-                displayName="OFF PERSONNEL"
-                options={values.offensivePersonnel}
-                onSelectionChange={handleSelectionChange}
-                value={selections.offensivePersonnel}
-              />
-            </div>
-            {/* <div className="w-[284px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="formation"
-                displayName="FORMATION"
-                options={values.formation}
-                onSelectionChange={handleSelectionChange}
-                value={selections.formation}
-              />
-            </div>
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="formationVariation"
-                displayName="FORM VAR"
-                options={values.formationVariation}
-                onSelectionChange={handleSelectionChange}
-                value={selections.formationVariation}
-              />
-            </div>
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="backfield"
-                displayName="BACKFIELD"
-                options={values.backfield}
-                onSelectionChange={handleSelectionChange}
-                value={selections.backfield}
-              />
-            </div>
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="motion"
-                displayName="MOTION"
-                options={values.motion}
-                onSelectionChange={handleSelectionChange}
-                value={selections.motion}
-              />
-            </div>
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="FIB"
-                displayName="FSL (FIB)"
-                options={values.FIB}
-                onSelectionChange={handleSelectionChange}
-                value={selections.FIB}
-              />
-            </div>
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="formationFamily"
-                displayName="FORM FAM"
-                options={values.formationFamily}
-                onSelectionChange={handleSelectionChange}
-                value={selections.formationFamily}
-              />
-            </div>
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="unbalanced"
-                displayName="UNB"
-                options={values.unbalanced}
-                onSelectionChange={handleSelectionChange}
-                value={selections.unbalanced}
-              />
-            </div>
+            {fields.map(({ label, name, multiselect }, index) => {
+              let thisDrag = (ev) => {
+                drag(ev, index);
+              };
+              let thisDrop = (ev) => {
+                drop(ev, index);
+              };
+              return (
+                <div
+                  draggable="true"
+                  key={index}
+                  onDragStart={thisDrag}
+                  onDrop={thisDrop}
+                  onDragOver={allowDrop}
+                  className="flex-grow"
+                >
+                  <ButtonGroup
+                    multiselect={multiselect}
+                    fieldName={name}
+                    displayName={label}
+                    multi={multiselect}
+                  />
+                </div>
+              );
+            })}
           </div>
+
           <div className="mt-4 flex justify-end space-x-2">
             <button
               onClick={handleCancel}
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="bg-red-500 h-10 text-white px-4 py-2 rounded"
               aria-label="Cancel"
             >
               <XMarkIcon className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={handleReset}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
+              className="bg-gray-500 h-10 text-white px-4 py-2 rounded"
               aria-label="Repeat"
             >
               <ArrowPathIcon className="w-6 h-6 text-white" />
             </button>
             <button
               onClick={handleSubmit}
-              className="bg-green-500 text-white px-4 py-2 rounded"
+              className="bg-green-500 h-10 text-white px-4 py-2 rounded"
             >
               Enter
             </button>
           </div>
         </div>
-      </div>
-      <div className="w-full mt-4">
-        <PlayListPreview
-          limit={10}
-          sortOrder="desc"
-          showAdditionalColumns={false}
-        />
+        <div className="w-full mt-4">
+          <PlayListPreview
+            limit={10}
+            sortOrder="desc"
+            showAdditionalColumns={false}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { gapi } from "gapi-script";
-import { usePractices } from "../context/PracticeContext.js";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
 import { generateFileName } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
 import Popup from "./Popup.js";
+import { useDispatch, useSelector } from "react-redux";
+import { clearSelections } from "../redux/slices/selections.js";
+import { clearAll } from "../redux/slices/savedPlays.js";
+import { PlayListColumns } from "./PlayList.js";
 
-async function convertToCSV(fetchPracticesForExport, columnOrder) {
-  const practices = await fetchPracticesForExport();
-
+function convertToCSV(practices, columnOrder) {
   if (practices.length === 0) return "";
 
-  const headers = columnOrder;
+  const headers = columnOrder.map((col) => col.label);
   const csvRows = [
     headers.join(","),
     ...practices.map((row) =>
-      headers.map((header) => row[header] || "").join(",")
+      columnOrder.map(({ accessor }) => row[accessor] || "").join(",")
     ),
   ];
   return csvRows.join("\n");
@@ -61,9 +62,8 @@ const uploadToGoogleDrive = async (token, csvContent) => {
 };
 
 const SettingsDrawer = () => {
-  const { fetchPracticesForExport } = usePractices();
+  // const { fetchPracticesForExport } = usePractices();
   const navigate = useNavigate();
-  const { clearPractices } = usePractices();
   const { logout } = useAuth();
   const [dialog, setDialog] = useState({
     message: "",
@@ -71,26 +71,17 @@ const SettingsDrawer = () => {
   });
   const [showPopup, setShowPopup] = useState(false);
 
-  const columnOrder = [
-    "id",
-    "practiceNo",
-    "practiceDate",
-    "period",
-    "practiceType",
-    "situation",
-    "rep",
-    "offensivePersonnel",
-    "formation",
-    "formationVariation",
-    "backfield",
-    "motion",
-    "FIB",
-    "formationFamily",
-    "unbalanced",
-  ];
+  const dispatch = useDispatch();
+  const plays = useSelector((state) => state.plays.plays);
+  // const { fields, headers } = useSelector((state) => state.fields);
+
+  // const labels = ["id"].concat(
+  //   makeLabels(fields, headers).map((x) => x.accessor)
+  // );
+  const columnOrder = PlayListColumns();
 
   const handleDownloadCSV = async () => {
-    const csvContent = await convertToCSV(fetchPracticesForExport, columnOrder);
+    const csvContent = await convertToCSV(plays, columnOrder);
     const download = new Blob([csvContent], {
       type: "text/csv;charset=utf-8;",
     });
@@ -109,10 +100,7 @@ const SettingsDrawer = () => {
   const handleUploadToGDrive = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        const csvContent = await convertToCSV(
-          fetchPracticesForExport,
-          columnOrder
-        );
+        const csvContent = await convertToCSV(plays, columnOrder);
         await uploadToGoogleDrive(tokenResponse.access_token, csvContent);
         setShowPopup(true);
       } catch (error) {
@@ -131,7 +119,7 @@ const SettingsDrawer = () => {
   };
 
   const handleSettings = () => {
-    navigate("/customize-values");
+    navigate("/settings");
   };
 
   const handleClearClick = (id) => {
@@ -141,7 +129,8 @@ const SettingsDrawer = () => {
   const handleDialogConfirmation = (answer) => {
     if (answer) {
       console.log("Clear practices confirmed");
-      clearPractices();
+      dispatch(clearSelections());
+      dispatch(clearAll());
       handleDialog("", false);
     } else {
       console.log("Cancel clear practices");
