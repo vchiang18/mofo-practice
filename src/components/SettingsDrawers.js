@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { gapi } from "gapi-script";
-// import { usePractices } from "../context/PracticeContext.js";
 import { useNavigate } from "react-router-dom";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import DeleteDialog from "./DeleteDialog.js";
-import { generateFileName, makeLabels } from "../utils.js";
+import { generateFileName } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
 import Popup from "./Popup.js";
 import { useDispatch, useSelector } from "react-redux";

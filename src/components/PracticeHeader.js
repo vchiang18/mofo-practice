@@ -1,35 +1,21 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelection, setSingleSelection } from "../redux/slices/selections";
+import { setSingleSelection } from "../redux/slices/selections";
 
 const PracticeHeader = () => {
-  // const { settings, updateSettings } = usePractices();
   const dispatch = useDispatch();
 
   const selections = useSelector((state) => state.selections.selections);
   const headerFields = useSelector((state) => state.fields.headers);
 
   const handleSelection = ({ target: { name, value } }) => {
-    dispatch(setSelection({ field: name, value: value }));
+    dispatch(setSingleSelection({ field: name, value: value }));
   };
 
   const handleDropdownChange = ({ target: { name, value } }) => {
     dispatch(setSingleSelection({ field: name, value: value }));
   };
 
-  // const PracticeSettings = ({options, selectedValue, onChange, name }) => {
-
-  //   return (
-  //       <select value={selectedValue} onChange={onChange} name={name}>
-  //         {options.map((option, index) => (
-  //           <option key={index} value={option}>
-  //             {option}
-  //           </option>
-  //         ))}
-  //       </select>
-  //   );
-
-  // };
   useEffect(() => {
     headerFields.forEach(({ name, values }) => {
       if (!selections[name]) {

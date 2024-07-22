@@ -7,12 +7,10 @@ export const selectionsSlice = createSlice({
   },
   reducers: {
     setSelection: (state, action) => {
-      state.selections[action.payload.field] = action.payload.value;
-
-      // if (!state.selections[action.payload.field]) {
-      //     state.selections[action.payload.field] = [];
-      // }
-      // state.selections[action.payload.field].push(action.payload.value);
+      if (!state.selections[action.payload.field]) {
+        state.selections[action.payload.field] = [];
+      }
+      state.selections[action.payload.field].push(action.payload.value);
     },
     removeSelection: (state, action) => {
       if (state.selections[action.payload.field]) {
@@ -27,7 +25,7 @@ export const selectionsSlice = createSlice({
     clearSelections: (state) => {
       var { practiceNo, practiceDate, period, practiceType, situation, rep } =
         state.selections;
-      //   rep++; // duplicative with rep incrementing on playEntry
+      rep++;
       state.selections = {
         practiceNo,
         practiceDate,
@@ -50,9 +48,6 @@ export const selectionsSlice = createSlice({
         }
       }
     },
-    // setSelections: (state, action) => {
-    //   state.selections = action.payload;
-    // },
   },
 });
 

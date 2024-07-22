@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
-import { usePractices } from "../context/PracticeContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -19,11 +18,11 @@ const PlayEntry = () => {
 
   const skipHeader = () => {
     const cleanSelect = { priorSelections };
-    for (let x of Object.keys(headers)){
-      let hName = x.name
-      cleanSelect.name = selections[hName]
+    for (let x of Object.keys(headers)) {
+      let hName = x.name;
+      cleanSelect.name = selections[hName];
     }
-    setPriorSelections(cleanSelect)
+    setPriorSelections(cleanSelect);
   };
 
   const drag = (ev, index) => {
@@ -44,16 +43,13 @@ const PlayEntry = () => {
 
   const [priorSelections, setPriorSelections] = useState({ ...selections });
 
-  const { settings, updateSettings } = usePractices();
-
   const handleSave = async () => {
-    updateSettings({ rep: settings.rep + 1 });
     setPriorSelections(selections);
     dispatch(addPlay(selections));
   };
 
   const handleReset = () => {
-    skipHeader()
+    skipHeader();
     dispatch(clearSelections());
     dispatch(copyPrev(priorSelections));
   };
