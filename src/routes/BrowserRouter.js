@@ -40,6 +40,10 @@ const Routes = () => {
       element: <ProtectedRoute />,
       children: [
         {
+          path: "play-entry/",
+          element: <PlayEntry />,
+        },
+        {
           path: "play-list/",
           element: <PlayList />,
         },

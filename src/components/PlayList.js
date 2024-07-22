@@ -1,16 +1,46 @@
 import React, { useState } from "react";
-import { usePractices } from "../context/PracticeContext";
+import { useSelector } from "react-redux";
+
+export const PlayListColumns = () => {
+  const { fields, headers } = useSelector((state) => state.fields);
+  const allFields = [
+    { label: "#", name: "id" },
+    { label: "Practice No", name: "practiceNo" },
+    { label: "Date", name: "practiceDate" },
+  ]
+    .concat(headers)
+    .concat([{ label: "Rep", name: "rep" }])
+    .concat(fields);
+
+  return allFields.map((x) => {
+    return { label: x.label, accessor: x.name };
+  });
+};
 
 function PlayList() {
-  const { practices } = usePractices();
+  // const { practices } = usePractices();
+
   const [sortConfig, setSortConfig] = useState([]);
 
-  // multiple sort
+  const practices = useSelector((state) => state.plays.plays);
+  const columns = PlayListColumns();
+
+  // const { fields, headers } = useSelector((state) => state.fields);
+  // const allFields = [
+  //   { label: "#", name: "id" },
+  //   { label: "Practice No", name: "practiceNo" },
+  //   { label: "Date", name: "practiceDate" },
+  // ]
+  //   .concat(headers)
+  //   .concat([{ label: "Rep", name: "rep" }])
+  //   .concat(fields);
+
+  // const columns = allFields.map((x) => {
+  //   return { label: x.label, accessor: x.name };
+  // });
+
   const handleSortChange = (key) => {
     setSortConfig((prevSortConfig) => {
-      // console.log("clicked: ", key);
-      // console.log("prev sort config: ", prevSortConfig);
-
       const existingIndex = prevSortConfig.findIndex(
         (config) => config.key === key
       );
@@ -105,110 +135,15 @@ function PlayList() {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                  >
-                    #
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("practiceNo")}
-                  >
-                    Practice No
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("practiceDate")}
-                  >
-                    Date
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("period")}
-                  >
-                    Period
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("practiceType")}
-                  >
-                    Practice Type
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("situation")}
-                  >
-                    Situation
-                  </th>
-                  <th
-                    scope="col"
-                    className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("rep")}
-                  >
-                    Rep
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("offensivePersonnel")}
-                  >
-                    Offensive Personnel
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("formation")}
-                  >
-                    Formation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("formationVariation")}
-                  >
-                    Formation Variation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("backfield")}
-                  >
-                    Backfield
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("motion")}
-                  >
-                    Motion
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("FIB")}
-                  >
-                    FIB
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("formationFamily")}
-                  >
-                    Formation Family
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
-                    onClick={() => handleSortChange("unbalanced")}
-                  >
-                    Unbalanced
-                  </th>
+                  {columns.map(({ label, accessor }) => (
+                    <th
+                      scope="col"
+                      className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
+                      onClick={() => handleSortChange(accessor)}
+                    >
+                      {label}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -217,51 +152,15 @@ function PlayList() {
                     key={practice.id}
                     className="even:bg-gray-50 hover:bg-gray-50"
                   >
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {index + 1}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.practiceNo}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {formatDate(practice.practiceDate)}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.period}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.practiceType}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.situation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.rep}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offensivePersonnel}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationVariation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.backfield}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.motion}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.FIB}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationFamily}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.unbalanced}
-                    </td>
+                    {columns.map(({ accessor }) => (
+                      <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
+                        {accessor === "practiceDate"
+                          ? formatDate(practice[accessor])
+                          : typeof practice[accessor] === "object"
+                          ? practice[accessor].join(", ")
+                          : practice[accessor]}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>

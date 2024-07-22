@@ -1,21 +1,32 @@
 import React, { useState } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
-import { usePractices } from "../context/PracticeContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSelector, useDispatch } from "react-redux";
-import { clearSelections, copyPrev, finalize } from "../redux/slices/selections";
+import {
+  clearSelections,
+  copyPrev,
+  finalize,
+} from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
 import { swapIndex } from "../redux/slices/fields";
 
-
 const PlayEntry = () => {
   const dispatch = useDispatch();
-  const fields = useSelector((state) => state.fields.fields);
+  const { fields, headers } = useSelector((state) => state.fields);
   const selections = useSelector((state) => state.selections.selections);
 
+  const skipHeader = () => {
+    const cleanSelect = { priorSelections };
+    for (let x of Object.keys(headers)) {
+      let hName = x.name;
+      cleanSelect.name = selections[hName];
+    }
+    setPriorSelections(cleanSelect);
+  };
+
   const drag = (ev, index) => {
-    ev.dataTransfer.setData("index",index);
+    ev.dataTransfer.setData("index", index);
   };
 
   const allowDrop = (ev) => {
@@ -27,20 +38,18 @@ const PlayEntry = () => {
     let id = index;
     let newIndex = ev.dataTransfer.getData("index");
     dispatch(swapIndex({ index: id, newIndex: newIndex }));
-  }
-  const names = fields.map((x) => x.name)
+  };
+  const names = fields.map((x) => x.name);
 
-  const [priorSelections, setPriorSelections] = useState({...selections});
+  const [priorSelections, setPriorSelections] = useState({ ...selections });
 
-  const { settings, updateSettings } = usePractices();
-
-  const handleSave = () => {
-    updateSettings({ rep: settings.rep + 1 });
+  const handleSave = async () => {
     setPriorSelections(selections);
     dispatch(addPlay(selections));
   };
 
   const handleReset = () => {
+    skipHeader();
     dispatch(clearSelections());
     dispatch(copyPrev(priorSelections));
   };
@@ -50,7 +59,7 @@ const PlayEntry = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(finalize({fields: names}))
+    dispatch(finalize({ fields: names }));
     handleSave();
     dispatch(clearSelections());
   };
@@ -61,26 +70,26 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {fields.map(({ name, accessor, multiselect }, index) => {
+            {fields.map(({ label, name, multiselect }, index) => {
               let thisDrag = (ev) => {
                 drag(ev, index);
-              }
+              };
               let thisDrop = (ev) => {
                 drop(ev, index);
-              }
+              };
               return (
                 <div
-                    draggable="true"
-                    key={index}
-                    onDragStart={thisDrag}
-                    onDrop={thisDrop}
-                    onDragOver={allowDrop}
-                    className="flex-grow">
-
+                  draggable="true"
+                  key={index}
+                  onDragStart={thisDrag}
+                  onDrop={thisDrop}
+                  onDragOver={allowDrop}
+                  className="flex-grow"
+                >
                   <ButtonGroup
-                  multiselect={multiselect}
-                    fieldName={accessor}
-                    displayName={name}
+                    multiselect={multiselect}
+                    fieldName={name}
+                    displayName={label}
                     multi={multiselect}
                   />
                 </div>
