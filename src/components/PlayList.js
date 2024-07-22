@@ -25,19 +25,6 @@ function PlayList() {
   const practices = useSelector((state) => state.plays.plays);
   const columns = PlayListColumns();
 
-  // const { fields, headers } = useSelector((state) => state.fields);
-  // const allFields = [
-  //   { label: "#", name: "id" },
-  //   { label: "Practice No", name: "practiceNo" },
-  //   { label: "Date", name: "practiceDate" },
-  // ]
-  //   .concat(headers)
-  //   .concat([{ label: "Rep", name: "rep" }])
-  //   .concat(fields);
-
-  // const columns = allFields.map((x) => {
-  //   return { label: x.label, accessor: x.name };
-  // });
 
   const handleSortChange = (key) => {
     setSortConfig((prevSortConfig) => {
