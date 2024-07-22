@@ -6,9 +6,6 @@ import {
   removeValue,
   changeValue,
   toggleMutliselect,
-  addHeader,
-  removeHeader,
-  changeHeaderName,
   removeHeaderValue,
   changeHeaderValue,
 } from "../redux/slices/fields";

@@ -73,7 +73,7 @@ const SettingsDrawer = () => {
 
   const dispatch = useDispatch();
   const plays = useSelector((state) => state.plays.plays);
-  const { fields, headers } = useSelector((state) => state.fields);
+  // const { fields, headers } = useSelector((state) => state.fields);
 
   // const labels = ["id"].concat(
   //   makeLabels(fields, headers).map((x) => x.accessor)
