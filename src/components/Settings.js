@@ -60,12 +60,12 @@ const Settings = () => {
           />
         </div>
         <div className="flex flex-wrap mt-4">
-          {fields.map(({ name, values, multiselect }, index) => (
+          {fields.map(({ name, label, values, multiselect }, index) => (
             <div key={index} className="flex flex-col p-4 m-4 border rounded">
               <div className="flex items-center mb-2">
                 <input
                   className="font-semibold text-gray-500 text-base mr-2"
-                  value={name}
+                  value={label}
                   onChange={(e) =>
                     dispatch(changeFieldName({ index, name: e.target.value }))
                   }
@@ -116,20 +116,12 @@ const Settings = () => {
           <h1 className="text-lg font-bold p-4">Header Settings</h1>
         </div>
         <div className="flex flex-wrap mt-4">
-          {headers.map(({ name, values }, index) => (
+          {headers.map(({ label, values }, index) => (
             <div key={index} className="flex flex-col p-4 m-4 border rounded">
               <div className="flex items-center mb-2">
                 <span className="font-semibold text-gray-500 text-base mr-2">
-                  {name}
+                  {label}
                 </span>
-                {/* header names should not be editable */}
-                {/* <input
-                  className="font-semibold text-gray-500 text-base mr-2"
-                  value={name}
-                  onChange={(e) =>
-                    dispatch(changeHeaderName({ index, name: e.target.value }))
-                  }
-                /> */}
               </div>
               {values.map((value, valIndex) => (
                 <div key={valIndex} className="flex items-center mb-2 text-sm">
