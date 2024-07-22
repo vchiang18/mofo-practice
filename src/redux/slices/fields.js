@@ -15,7 +15,7 @@ const initialState = localStorage.getItem("fields")
   : {
       fields: [
         {
-          label: "Player Participation",
+          label: "Player Particip",
           values: [
             "7",
             "39",
