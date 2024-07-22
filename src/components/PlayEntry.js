@@ -44,10 +44,8 @@ const PlayEntry = () => {
   };
   const names = fields.map((x) => x.name);
 
-  const [priorSelections, setPriorSelections] = useState({ ...selections });
-
   const handleSave = async () => {
-    setPriorSelections(selections);
+    dispatch(setPrior(selections));
     dispatch(addPlay(selections));
   };
 

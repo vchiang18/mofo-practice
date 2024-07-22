@@ -14,13 +14,11 @@ import {
 } from "../redux/slices/fields";
 import { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-// import Popup from "./Popup.js";
 
 const Settings = () => {
   const [inputs, setInputs] = useState(""); // [1]
   const dispatch = useDispatch();
   const { fields, headers } = useSelector((state) => state.fields);
-  //   const [showPopup, setShowPopup] = useState(false);
 
   const handleInputChange = (e) => {
     setInputs(e.target.value);
