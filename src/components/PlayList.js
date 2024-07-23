@@ -13,7 +13,11 @@ export const PlayListColumns = () => {
     .concat(fields);
 
   return allFields.map((x) => {
-    return { label: x.label, accessor: x.name };
+    return {
+      label: x.label,
+      accessor: x.name,
+      multiselect: x.multiselect || false,
+    };
   });
 };
 
@@ -24,7 +28,6 @@ function PlayList() {
 
   const practices = useSelector((state) => state.plays.plays);
   const columns = PlayListColumns();
-
 
   const handleSortChange = (key) => {
     setSortConfig((prevSortConfig) => {
@@ -122,8 +125,9 @@ function PlayList() {
             <table className="min-w-full divide-y divide-gray-300">
               <thead>
                 <tr>
-                  {columns.map(({ label, accessor }) => (
+                  {columns.map(({ label, accessor }, index) => (
                     <th
+                      key={index}
                       scope="col"
                       className="py-1.5 px-3 text-left text-xs font-semibold text-gray-500 cursor-pointer"
                       onClick={() => handleSortChange(accessor)}

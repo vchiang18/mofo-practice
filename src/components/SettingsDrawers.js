@@ -19,7 +19,15 @@ function convertToCSV(practices, columnOrder) {
   const csvRows = [
     headers.join(","),
     ...practices.map((row) =>
-      columnOrder.map(({ accessor }) => row[accessor] || "").join(",")
+      columnOrder
+        .map(({ accessor, multiselect }) => {
+          const cellValue = row[accessor] || "";
+          if (multiselect && Array.isArray(cellValue)) {
+            return `"${cellValue.join(",")}"`;
+          }
+          return cellValue;
+        })
+        .join(",")
     ),
   ];
   return csvRows.join("\n");

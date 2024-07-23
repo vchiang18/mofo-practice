@@ -66,10 +66,10 @@ const PlayEntry = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-1">
       <div className="flex flex-wrap items-center justify-center gap-24"></div>
       <div className="flex flex-wrap">
-        <div className="p-2 w-full">
+        <div className="p-1 w-full">
           <div className="flex flex-nowrap justify-between">
             {fields.map(({ label, name, multiselect }, index) => {
               let thisDrag = (ev) => {
@@ -85,7 +85,7 @@ const PlayEntry = () => {
                   onDragStart={thisDrag}
                   onDrop={thisDrop}
                   onDragOver={allowDrop}
-                  className="flex-grow"
+                  className="flex-grow p-1"
                 >
                   <ButtonGroup
                     multiselect={multiselect}
