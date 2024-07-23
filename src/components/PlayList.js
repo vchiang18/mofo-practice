@@ -13,7 +13,11 @@ export const PlayListColumns = () => {
     .concat(fields);
 
   return allFields.map((x) => {
-    return { label: x.label, accessor: x.name };
+    return {
+      label: x.label,
+      accessor: x.name,
+      multiselect: x.multiselect || false,
+    };
   });
 };
 
@@ -24,7 +28,6 @@ function PlayList() {
 
   const practices = useSelector((state) => state.plays.plays);
   const columns = PlayListColumns();
-
 
   const handleSortChange = (key) => {
     setSortConfig((prevSortConfig) => {

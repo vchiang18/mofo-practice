@@ -30,14 +30,14 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     } catch (e) {
       if (!selections[fieldName]) {
         dispatch(setSelection({ field: fieldName, value: option }));
-        console.error(e, "OOPS")
+        console.error(e, "OOPS");
       }
     }
   };
 
   const columns = [];
   const len = values.length;
-  const lim = 10;
+  const lim = 9;
   const columnsNum = len > lim ? Math.ceil(len / lim) : 1;
 
   for (let i = 0; i < columnsNum; i++) {
@@ -47,15 +47,17 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
   }
   return (
     <div className="mb-2">
-      <h2 className="text-center mb-2 pl-2 break-words">{displayName}</h2>
+      <h2 className="text-center mb-2 pl-2 break-words bg-gray-200 rounded p-2">
+        {displayName}
+      </h2>
       <div className="flex flex-row justify-center mb-2 space-x-2 font-bold">
         {columns.map((col, index) => (
-          <div className="flex flex-col mb-2 space-y-2 font-bold">
-            {(index + 1) * lim > columns.length
+          <div key={index} className="flex flex-col mb-2 space-y-2 font-bold">
+            {(index + 1) * lim > len
               ? col.slice(0, -1).map((option, ind) => (
                   <button
                     key={ind}
-                    className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px]  ${
+                    className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
                       selections[fieldName] &&
                       selections[fieldName].includes(option)
                         ? "bg-gold-gradient"
@@ -69,7 +71,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
               : col.map((option, ind) => (
                   <button
                     key={ind}
-                    className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px]  ${
+                    className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
                       selections[fieldName] &&
                       selections[fieldName].includes(option)
                         ? "bg-gold-gradient"
