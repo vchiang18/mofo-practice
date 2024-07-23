@@ -35,7 +35,3 @@ exports.handler = async (event, context) => {
     };
   }
 };
-
-// const subId = JSON.parse(localStorage.getItem("subId"));
-// const subId = "sub_1PW25FBH87WWUUeHhO4jUj8K"; //cancelled sub
-// const subId = "sub_1PVdZQBH87WWUUeHo3EclDov"; //active sub
