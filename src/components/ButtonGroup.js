@@ -22,7 +22,22 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
         } else {
           dispatch(setSingleSelection({ field: fieldName, value: option }));
         }
-      } else if (!selections[fieldName].includes(option)) {
+      } else if (typeof selections[fieldName] === "string") {
+        if (option === selections[fieldName]) {
+          dispatch(setSingleSelection({ field: fieldName, value: [] }));
+        } else {
+          dispatch(
+            setSingleSelection({
+              field: fieldName,
+              value: [selections[fieldName]],
+            })
+          );
+          dispatch(setSelection({ field: fieldName, value: option }));
+        }
+      } else if (
+        selections[fieldName] === undefined ||
+        !selections[fieldName].includes(option)
+      ) {
         dispatch(setSelection({ field: fieldName, value: option }));
       } else {
         dispatch(removeSelection({ field: fieldName, value: option }));
@@ -30,7 +45,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     } catch (e) {
       if (!selections[fieldName]) {
         dispatch(setSelection({ field: fieldName, value: option }));
-        console.error(e, "OOPS");
+        console.error(e, "Button group multiselect error");
       }
     }
   };
