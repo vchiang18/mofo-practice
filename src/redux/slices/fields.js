@@ -135,6 +135,72 @@ const initialState = localStorage.getItem("fields")
           name: "hudCall",
           multiselect: false,
         },
+
+        //   {
+        //     label: "OFF Personnel",
+        //     values: ["1", "11", "12", "21", "22", ""],
+        //     name: "offPersonnel",
+        //     multiselect: true,
+        //   },
+        //   {
+        //     label: "Formation",
+        //     values: ["SPREAD RT", "TREY", "TRIO", "TRIPS", ""],
+        //     name: "formation",
+        //     multiselect: false,
+        //   },
+        //   {
+        //     label: "Formation Variation",
+        //     values: ["OFF", "BLANK", "FLEX", ""],
+        //     name: "formationVariation",
+        //     multiselect: true,
+        //   },
+        //   {
+        //     label: "Backfield",
+        //     values: ["GUN", "PISTOL", "RIGHT", "LEFT", ""],
+        //     name: "backfield",
+        //     multiselect: false,
+        //   },
+        //   {
+        //     label: "Motion",
+        //     values: ["ZIP", "RIP", "LIP", "Z-JET", ""],
+        //     name: "motion",
+        //     multiselect: false,
+        //   },
+        //   {
+        //     label: "FIB",
+        //     values: ["X", "BLANK", ""],
+        //     name: "fib",
+        //     multiselect: false,
+        //   },
+        //   {
+        //     label: "Formation Family",
+        //     values: ["COMPTON", "HOUSTON", "CRUNCH", "CAB", ""],
+        //     name: "formationFamily",
+        //     multiselect: false,
+        //   },
+        //   {
+        //     label: "Unbalanced",
+        //     values: ["BLANK", "X", ""],
+        //     name: "unbalanced",
+        //     multiselect: false,
+        //   },
+        // ],
+        // headers: [
+        //   {
+        //     name: "period",
+        //     values: [1, 2, 3, 4, 5, 6, 7, 8, ""],
+        //     label: "Period",
+        //   },
+        //   {
+        //     name: "practiceType",
+        //     values: ["None", "7x7", "Blitz", "Team", ""],
+        //     label: "Type",
+        //   },
+        //   {
+        //     name: "situation",
+        //     values: ["None", "A", "B", "C", ""],
+        //     label: "Situation",
+        //   },
       ],
       headers: [
         {
