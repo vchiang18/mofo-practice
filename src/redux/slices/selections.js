@@ -4,6 +4,7 @@ export const selectionsSlice = createSlice({
   name: "selections",
   initialState: {
     selections: { rep: 1 },
+    priorSelections: {},
   },
   reducers: {
     setSelection: (state, action) => {
@@ -48,6 +49,9 @@ export const selectionsSlice = createSlice({
         }
       }
     },
+    setPrior: (state, action) => {
+      state.priorSelections = { ...action.payload };
+    },
   },
 });
 
@@ -58,6 +62,7 @@ export const {
   removeSelection,
   copyPrev,
   finalize,
+  setPrior,
   //   setSelections,
 } = selectionsSlice.actions;
 export default selectionsSlice.reducer;

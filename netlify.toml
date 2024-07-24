@@ -13,7 +13,7 @@
     Cross-Origin-Opener-Policy = "same-origin-allow-popups"
     Content-Security-Policy = """
       default-src 'self';
-      connect-src 'self' https://mofo-dev.netlify.app https://mofo-alpha.netlify.app https://accounts.google.com https://apis.google.com https://*.googleapis.com https://*.gstatic.com;
+      connect-src 'self' https://mofo-dev.netlify.app https://mofo-alpha.netlify.app https://def-practice.netlify.app/.netlify/functions/check-license https://accounts.google.com https://apis.google.com https://*.googleapis.com https://*.gstatic.com;
       font-src 'self' data:;
       img-src 'self' data:;
       script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://accounts.google.com/gsi/client https://apis.google.com https://*.googleapis.com https://*.gstatic.com;

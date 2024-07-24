@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -7,6 +7,7 @@ import {
   clearSelections,
   copyPrev,
   finalize,
+  setPrior,
 } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
 import { swapIndex } from "../redux/slices/fields";
@@ -14,7 +15,9 @@ import { swapIndex } from "../redux/slices/fields";
 const PlayEntry = () => {
   const dispatch = useDispatch();
   const { fields, headers } = useSelector((state) => state.fields);
-  const selections = useSelector((state) => state.selections.selections);
+  const { selections, priorSelections } = useSelector(
+    (state) => state.selections
+  );
 
   const skipHeader = () => {
     const cleanSelect = { priorSelections };
@@ -22,7 +25,7 @@ const PlayEntry = () => {
       let hName = x.name;
       cleanSelect.name = selections[hName];
     }
-    setPriorSelections(cleanSelect);
+    dispatch(setPrior(cleanSelect));
   };
 
   const drag = (ev, index) => {
@@ -41,10 +44,8 @@ const PlayEntry = () => {
   };
   const names = fields.map((x) => x.name);
 
-  const [priorSelections, setPriorSelections] = useState({ ...selections });
-
   const handleSave = async () => {
-    setPriorSelections(selections);
+    dispatch(setPrior(selections));
     dispatch(addPlay(selections));
   };
 
@@ -65,10 +66,10 @@ const PlayEntry = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-1">
       <div className="flex flex-wrap items-center justify-center gap-24"></div>
       <div className="flex flex-wrap">
-        <div className="p-2 w-full">
+        <div className="p-1 w-full">
           <div className="flex flex-nowrap justify-between">
             {fields.map(({ label, name, multiselect }, index) => {
               let thisDrag = (ev) => {
@@ -84,7 +85,7 @@ const PlayEntry = () => {
                   onDragStart={thisDrag}
                   onDrop={thisDrop}
                   onDragOver={allowDrop}
-                  className="flex-grow"
+                  className="flex-grow p-1"
                 >
                   <ButtonGroup
                     multiselect={multiselect}
