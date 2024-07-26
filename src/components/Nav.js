@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import SettingsDrawer from "./SettingsDrawers";
-import PracticeHeader from "./PracticeHeader";
+// import PracticeHeader from "./PracticeHeader";
 
 const Nav = () => {
   const location = useLocation();
@@ -10,17 +10,17 @@ const Nav = () => {
     <nav className="bg-calBlue p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="">
-          <img
+          {/* <img
             className="h-8 w-auto"
             src="/images/cal-yellow.svg"
             alt="team logo"
-          />
+          /> */}
         </div>
         <div className="flex items-center justify-between w-full ml-4">
           {location.pathname === "/play-entry" && (
             <>
               <div className="flex-grow flex justify-center">
-                <PracticeHeader />
+                {/* <PracticeHeader /> */}
               </div>
               <NavLink
                 to="/play-list"

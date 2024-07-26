@@ -6,6 +6,10 @@ import Login from "../components/Login";
 import ValueSettings from "../components/ValuesSettings";
 import { ProtectedRoute } from "./Protected";
 import Layout from "../components/Layout";
+import Counter from "../components/Counter";
+import BodyPosition from "../components/BodyPosition";
+import FieldPosition from "../components/FieldPosition";
+import QBGrid from "../components/QBGrid";
 
 const Routes = () => {
   const { isAuthenticated } = useAuth();
@@ -13,6 +17,27 @@ const Routes = () => {
     {
       path: "/",
       element: <Login />,
+    },
+    {
+      path: "dev/",
+      children: [
+        {
+          path: "counter",
+          element: <Counter />,
+        },
+        {
+          path: "bodyposition",
+          element: <BodyPosition />,
+        },
+        {
+          path: "fieldposition",
+          element: <FieldPosition />,
+        },
+        {
+          path: "qb",
+          element: <QBGrid />,
+        },
+      ],
     },
   ];
   const privateRoutes = [

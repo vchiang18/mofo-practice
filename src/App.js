@@ -8,6 +8,7 @@ import store from "./redux/store";
 import { Provider } from "react-redux";
 import Routes from "./routes/BrowserRouter";
 import AuthProvider from "./context/AuthContext";
+import { CatchProvider } from "./context/CatchContext";
 
 const GapiContext = createContext();
 
@@ -79,11 +80,13 @@ function App() {
       <Provider store={store}>
         <PracticeProvider>
           <ValuesProvider>
-            <PlayProvider>
-              <GapiContext.Provider value={gapi}>
-                <Routes />
-              </GapiContext.Provider>
-            </PlayProvider>
+            <CatchProvider>
+              <PlayProvider>
+                <GapiContext.Provider value={gapi}>
+                  <Routes />
+                </GapiContext.Provider>
+              </PlayProvider>
+            </CatchProvider>
           </ValuesProvider>
         </PracticeProvider>
       </Provider>
