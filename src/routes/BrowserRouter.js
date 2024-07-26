@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./Protected";
 import Layout from "../components/Layout";
 import Settings from "../components/Settings";
 import AmplifyLogin from "../components/AmplifyLogin";
+import Logout from "../components/AmplifyLogout";
 import Signup from "../components/Signup";
 
 const Routes = () => {
@@ -30,6 +31,10 @@ const Routes = () => {
         {
           path: "login/",
           element: <AmplifyLogin />,
+        },
+        {
+          path: "logout/",
+          element: <Logout />,
         },
       ],
     },
