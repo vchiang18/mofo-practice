@@ -17,6 +17,8 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     try {
       if (!multi) {
         //single selection
+        console.log("Current selections:", selections);
+        console.log(`Selecting option: ${option}`);
         if (selections[fieldName] === option) {
           dispatch(setSingleSelection({ field: fieldName, value: "" }));
         } else {
@@ -52,6 +54,25 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     }
   };
 
+  const renderButton = (option, ind) => {
+    const isSelected = Array.isArray(selections[fieldName])
+      ? selections[fieldName].includes(option)
+      : selections[fieldName] === option;
+
+    return (
+      <button
+        key={ind}
+        className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
+          isSelected ? "bg-gold-gradient" : "bg-blue-gradient text-white"
+        } hover:bg-gold-gradient hover:text-black`}
+        onClick={() => handleSelection(option)}
+        onTouchStart={() => handleSelection(option)}
+      >
+        {option}
+      </button>
+    );
+  };
+
   const columns = [];
   const len = values.length;
   const lim = 9;
@@ -62,6 +83,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
       values.slice(i * lim, len > lim * (i + 1) ? lim * (i + 1) : len)
     );
   }
+
   return (
     <div className="mb-2">
       <h2 className="text-center mb-2 pl-2 break-words bg-gray-200 rounded p-2">
@@ -70,37 +92,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
       <div className="flex flex-row justify-center mb-2 space-x-2 font-bold">
         {columns.map((col, index) => (
           <div key={index} className="flex flex-col mb-2 space-y-2 font-bold">
-            {(index + 1) * lim > len
-              ? col.slice(0, -1).map((option, ind) => (
-                  <button
-                    key={ind}
-                    className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
-                      selections[fieldName] &&
-                      selections[fieldName].includes(option)
-                        ? "bg-gold-gradient"
-                        : "bg-blue-gradient text-white"
-                    } hover:bg-gold-gradient hover:text-black`}
-                    onClick={() => handleSelection(option)}
-                    onTouchStart={() => handleSelection(option)}
-                  >
-                    {option}
-                  </button>
-                ))
-              : col.map((option, ind) => (
-                  <button
-                    key={ind}
-                    className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
-                      selections[fieldName] &&
-                      selections[fieldName].includes(option)
-                        ? "bg-gold-gradient"
-                        : "bg-blue-gradient text-white"
-                    } hover:bg-gold-gradient hover:text-black`}
-                    onClick={() => handleSelection(option)}
-                    onTouchStart={() => handleSelection(option)}
-                  >
-                    {option}
-                  </button>
-                ))}
+            {col.slice(0, -1).map((option, ind) => renderButton(option, ind))}
           </div>
         ))}
       </div>
