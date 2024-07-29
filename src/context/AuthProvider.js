@@ -50,10 +50,6 @@ export const AuthProvider = ({
     };
   }, []);
 
-  const loginWithGoogle = async () => {
-    await signInWithRedirect({ provider: "Google" });
-  };
-
   const setAuthDetails = async () => {
     try {
       const session = await fetchAuthSession();
@@ -91,7 +87,6 @@ export const AuthProvider = ({
         isAuthenticated,
         authCode,
         logout,
-        loginWithGoogle,
         userSub,
       }}
     >

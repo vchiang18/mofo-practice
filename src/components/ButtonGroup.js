@@ -16,39 +16,67 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
   const handleSelection = (option) => {
     try {
       if (!multi) {
-        //single selection
+        // Single selection
         if (selections[fieldName] === option) {
           dispatch(setSingleSelection({ field: fieldName, value: "" }));
         } else {
           dispatch(setSingleSelection({ field: fieldName, value: option }));
         }
-      } else if (typeof selections[fieldName] === "string") {
-        if (option === selections[fieldName]) {
-          dispatch(setSingleSelection({ field: fieldName, value: [] }));
+      } else if (Array.isArray(selections[fieldName])) {
+        // Multi-selection
+        if (selections[fieldName].includes(option)) {
+          dispatch(removeSelection({ field: fieldName, value: option }));
         } else {
-          dispatch(
-            setSingleSelection({
-              field: fieldName,
-              value: [selections[fieldName]],
-            })
-          );
           dispatch(setSelection({ field: fieldName, value: option }));
         }
-      } else if (
-        selections[fieldName] === undefined ||
-        !selections[fieldName].includes(option)
-      ) {
-        dispatch(setSelection({ field: fieldName, value: option }));
       } else {
-        dispatch(removeSelection({ field: fieldName, value: option }));
+        // Initialize multi-selection array if not already an array
+        dispatch(setSingleSelection({ field: fieldName, value: [option] }));
       }
     } catch (e) {
       if (!selections[fieldName]) {
         dispatch(setSelection({ field: fieldName, value: option }));
-        console.error(e, "Button group multiselect error");
       }
+      console.error(e, "Button group multiselect error");
     }
   };
+
+  // const handleSelection = (option) => {
+  //   try {
+  //     if (!multi) {
+  //       //single selection
+  //       if (selections[fieldName] === option) {
+  //         dispatch(setSingleSelection({ field: fieldName, value: "" }));
+  //       } else {
+  //         dispatch(setSingleSelection({ field: fieldName, value: option }));
+  //       }
+  //     } else if (typeof selections[fieldName] === "string") {
+  //       if (option === selections[fieldName]) {
+  //         dispatch(setSingleSelection({ field: fieldName, value: [] }));
+  //       } else {
+  //         dispatch(
+  //           setSingleSelection({
+  //             field: fieldName,
+  //             value: [selections[fieldName]],
+  //           })
+  //         );
+  //         dispatch(setSelection({ field: fieldName, value: option }));
+  //       }
+  //     } else if (
+  //       selections[fieldName] === undefined ||
+  //       !selections[fieldName].includes(option)
+  //     ) {
+  //       dispatch(setSelection({ field: fieldName, value: option }));
+  //     } else {
+  //       dispatch(removeSelection({ field: fieldName, value: option }));
+  //     }
+  //   } catch (e) {
+  //     if (!selections[fieldName]) {
+  //       dispatch(setSelection({ field: fieldName, value: option }));
+  //       console.error(e, "Button group multiselect error");
+  //     }
+  //   }
+  // };
 
   const columns = [];
   const len = values.length;
@@ -79,6 +107,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                         : "bg-blue-gradient text-white"
                     } hover:bg-gold-gradient hover:text-black`}
                     onClick={() => handleSelection(option)}
+                    onTouchStart={() => handleSelection(option)}
                   >
                     {option}
                   </button>
@@ -93,6 +122,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                         : "bg-blue-gradient text-white"
                     } hover:bg-gold-gradient hover:text-black`}
                     onClick={() => handleSelection(option)}
+                    onTouchStart={() => handleSelection(option)}
                   >
                     {option}
                   </button>
