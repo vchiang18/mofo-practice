@@ -23,6 +23,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
           dispatch(setSingleSelection({ field: fieldName, value: option }));
         }
       } else if (typeof selections[fieldName] === "string") {
+        // Multi-selection mode, but the current selection is a string (single selection)
         if (option === selections[fieldName]) {
           dispatch(setSingleSelection({ field: fieldName, value: [] }));
         } else {
@@ -35,6 +36,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
           dispatch(setSelection({ field: fieldName, value: option }));
         }
       } else if (
+        // Multi-selection mode and the current selection is an array
         selections[fieldName] === undefined ||
         !selections[fieldName].includes(option)
       ) {
@@ -79,6 +81,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                         : "bg-blue-gradient text-white"
                     } hover:bg-gold-gradient hover:text-black`}
                     onClick={() => handleSelection(option)}
+                    onTouchStart={() => handleSelection(option)}
                   >
                     {option}
                   </button>
@@ -93,6 +96,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                         : "bg-blue-gradient text-white"
                     } hover:bg-gold-gradient hover:text-black`}
                     onClick={() => handleSelection(option)}
+                    onTouchStart={() => handleSelection(option)}
                   >
                     {option}
                   </button>
