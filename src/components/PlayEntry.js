@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import ButtonGroup from "./ButtonGroup";
 import PlayListPreview from "./PlayListPreview";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -19,6 +19,9 @@ const PlayEntry = () => {
     (state) => state.selections
   );
 
+  const dragItem = useRef(null);
+  const dragOverIndex = useRef(null);
+
   const skipHeader = () => {
     const cleanSelect = { priorSelections };
     for (let x of Object.keys(headers)) {
@@ -30,6 +33,7 @@ const PlayEntry = () => {
 
   const drag = (ev, index) => {
     ev.dataTransfer.setData("index", index);
+    dragItem.current = index;
   };
 
   const allowDrop = (ev) => {
@@ -41,7 +45,34 @@ const PlayEntry = () => {
     let id = index;
     let newIndex = ev.dataTransfer.getData("index");
     dispatch(swapIndex({ index: id, newIndex: newIndex }));
+    dragItem.current = null;
+    dragOverIndex.current = null;
   };
+
+  const onTouchStart = (e, index) => {
+    dragItem.current = index;
+  };
+
+  const onTouchMove = (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const targetElement = document.elementFromPoint(
+      touch.clientX,
+      touch.clientY
+    );
+    if (targetElement && targetElement.dataset && targetElement.dataset.index) {
+      dragOverIndex.current = targetElement.dataset.index;
+    }
+  };
+
+  const onTouchEnd = (e) => {
+    if (dragOverIndex.current != null) {
+      drop(e, dragOverIndex.current);
+    }
+    dragItem.current = null;
+    dragOverIndex.current = null;
+  };
+
   const names = fields.map((x) => x.name);
 
   const handleSave = async () => {
@@ -82,9 +113,13 @@ const PlayEntry = () => {
                 <div
                   draggable="true"
                   key={index}
+                  data-index={index}
                   onDragStart={thisDrag}
                   onDrop={thisDrop}
                   onDragOver={allowDrop}
+                  onTouchStart={(e) => onTouchStart(e, index)}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
                   className="flex-grow p-1"
                 >
                   <ButtonGroup

@@ -40,12 +40,9 @@ function PlayList() {
         newSortConfig[existingIndex].direction =
           newSortConfig[existingIndex].direction === "asc" ? "desc" : "asc";
 
-        console.log("updated newSortConfig: ", newSortConfig);
-
         return newSortConfig;
       } else {
         const newSortConfig = [...prevSortConfig, { key, direction: "asc" }];
-        console.log("new sort config: ", newSortConfig);
         return newSortConfig;
       }
     });
@@ -56,7 +53,6 @@ function PlayList() {
   }
 
   const getSortedPractices = (practices) => {
-    console.log(sortConfig);
     if (sortConfig.length === 0) return practices;
 
     return [...practices].sort((a, b) => {

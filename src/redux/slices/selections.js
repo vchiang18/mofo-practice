@@ -21,7 +21,9 @@ export const selectionsSlice = createSlice({
       }
     },
     setSingleSelection: (state, action) => {
+      // console.log("Setting selection:", action.payload);
       state.selections[action.payload.field] = action.payload.value;
+      // console.log("Updated selections:", state.selections);
     },
     clearSelections: (state) => {
       var { practiceNo, practiceDate, period, practiceType, situation, rep } =
