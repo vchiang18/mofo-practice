@@ -9,9 +9,19 @@ import {
 const ButtonGroup = ({ fieldName, displayName, multi }) => {
   const dispatch = useDispatch();
   const selections = useSelector((state) => state.selections.selections);
-  const { values } = useSelector((state) => state.fields.fields).find(
-    (obj) => obj.name === fieldName
+  const fieldData = useSelector((state) =>
+    state.fields.fields.find((obj) => obj.name === fieldName)
   );
+
+  if (!fieldData) {
+    return null;
+  }
+
+  const { values } = fieldData;
+
+  // const { values } = useSelector((state) => state.fields.fields).find(
+  //   (obj) => obj.name === fieldName
+  // );
 
   const handleSelection = (option) => {
     try {
@@ -54,6 +64,11 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     }
   };
 
+  const handleTouchStart = (e, option) => {
+    e.preventDefault();
+    handleSelection(option);
+  };
+
   const renderButton = (option, ind) => {
     const isSelected = Array.isArray(selections[fieldName])
       ? selections[fieldName].includes(option)
@@ -66,7 +81,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
           isSelected ? "bg-gold-gradient" : "bg-blue-gradient text-white"
         } hover:bg-gold-gradient hover:text-black`}
         onClick={() => handleSelection(option)}
-        onTouchStart={() => handleSelection(option)}
+        onTouchStart={(e) => handleTouchStart(e, option)}
       >
         {option}
       </button>
