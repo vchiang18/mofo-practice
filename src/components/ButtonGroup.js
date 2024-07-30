@@ -64,10 +64,10 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     }
   };
 
-  const handleTouchStart = (e, option) => {
-    e.preventDefault();
-    handleSelection(option);
-  };
+  // const handleTouchStart = (e, option) => {
+  //   e.preventDefault();
+  //   handleSelection(option);
+  // };
 
   // const renderButton = (option, ind) => {
   //   const isSelected = Array.isArray(selections[fieldName])
@@ -118,7 +118,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                         : "bg-blue-gradient text-white"
                     } hover:bg-gold-gradient hover:text-black`}
                     onClick={() => handleSelection(option)}
-                    onTouchStart={(e) => handleTouchStart(e, option)}
+                    // onTouchStart={(e) => handleTouchStart(e, option)}
                   >
                     {option}
                   </button>
@@ -133,7 +133,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                         : "bg-blue-gradient text-white"
                     } hover:bg-gold-gradient hover:text-black`}
                     onClick={() => handleSelection(option)}
-                    onTouchStart={(e) => handleTouchStart(e, option)}
+                    // onTouchStart={(e) => handleTouchStart(e, option)}
                   >
                     {option}
                   </button>
