@@ -9,10 +9,10 @@ import { Provider } from "react-redux";
 import Routes from "./routes/BrowserRouter";
 // import AuthProvider from "./context/AuthContext"; //old auth context
 // import { Authenticator } from "@aws-amplify/ui-react";
-import { Amplify } from "aws-amplify";
 // import "@aws-amplify/ui-react/styles.css";
+import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
-import { AuthProvider } from "./context/AuthProvider";
+// import { AuthProvider } from "./context/AuthProvider";
 
 Amplify.configure(awsconfig);
 const GapiContext = createContext();
@@ -22,9 +22,6 @@ export const useGapi = () => {
 };
 
 function App() {
-  const [authCode, setAuthCode] = useState();
-  const [isAuthLoading, setIsAuthLoading] = useState(true);
-
   function handleCredentialResponse(response) {
     console.log(response);
   }
@@ -85,25 +82,17 @@ function App() {
 
   return (
     // <Authenticator>
-    //   {({ signOut, user }) => (
-    <AuthProvider
-      authCode={authCode}
-      setAuthCode={setAuthCode}
-      setIsAuthLoading={setIsAuthLoading}
-    >
-      <Provider store={store}>
-        <PracticeProvider>
-          <ValuesProvider>
-            <PlayProvider>
-              <GapiContext.Provider value={gapi}>
-                <Routes />
-              </GapiContext.Provider>
-            </PlayProvider>
-          </ValuesProvider>
-        </PracticeProvider>
-      </Provider>
-    </AuthProvider>
-    //   )}
+    <Provider store={store}>
+      <PracticeProvider>
+        <ValuesProvider>
+          <PlayProvider>
+            <GapiContext.Provider value={gapi}>
+              <Routes />
+            </GapiContext.Provider>
+          </PlayProvider>
+        </ValuesProvider>
+      </PracticeProvider>
+    </Provider>
     // </Authenticator>
   );
 }

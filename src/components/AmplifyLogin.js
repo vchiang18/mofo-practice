@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-// import { useAuth } from "../context/AuthProvider";
 import { signIn } from "aws-amplify/auth";
+// import { useAuth } from "../context/AuthProvider";
 
 const AmplifyLogin = () => {
   const [username, setUsername] = useState("");
