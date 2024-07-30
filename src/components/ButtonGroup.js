@@ -63,7 +63,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
         key={ind}
         className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
           isSelected ? "bg-gold-gradient" : "bg-blue-gradient text-white"
-        } "bg-blue-gradient text-white"`}
+        } can-hover:hover:bg-gold-gradient can-hover:hover:text-black`}
         onClick={() => handleSelection(option)}
       >
         {option}
