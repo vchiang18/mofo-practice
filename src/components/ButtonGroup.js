@@ -48,7 +48,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
     } catch (e) {
       if (!selections[fieldName]) {
         dispatch(setSelection({ field: fieldName, value: option }));
-        console.error(e, "Button group multiselect error");
+        console.error(e, " Button group multiselect error");
       }
     }
   };
