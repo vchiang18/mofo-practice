@@ -21,7 +21,12 @@ function convertToCSV(practices, columnOrder) {
     ...practices.map((row) =>
       columnOrder
         .map(({ accessor, multiselect }) => {
-          const cellValue = row[accessor] || "";
+          let cellValue;
+          if (typeof accessor === "function") {
+            cellValue = accessor(row);
+          } else {
+            cellValue = row[accessor] || "";
+          }
           if (multiselect && Array.isArray(cellValue)) {
             return `"${cellValue.join(",")}"`;
           }

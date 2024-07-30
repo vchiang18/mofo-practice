@@ -3,6 +3,16 @@ import { useSelector } from "react-redux";
 
 export const PlayListColumns = () => {
   const { fields, headers } = useSelector((state) => state.fields);
+
+  const concatField = {
+    label: "cHudl Call",
+    name: "cHudlCall",
+    accessor: (row) => {
+      const values = [row.movement, row.front, row.hudCall].filter(Boolean);
+      return values.join(" ");
+    },
+  };
+
   const allFields = [
     { label: "#", name: "id" },
     { label: "Practice No", name: "practiceNo" },
@@ -10,12 +20,13 @@ export const PlayListColumns = () => {
   ]
     .concat(headers)
     .concat([{ label: "Rep", name: "rep" }])
-    .concat(fields);
+    .concat(fields)
+    .concat(concatField);
 
   return allFields.map((x) => {
     return {
       label: x.label,
-      accessor: x.name,
+      accessor: x.accessor || x.name,
       multiselect: x.multiselect || false,
     };
   });
@@ -141,7 +152,9 @@ function PlayList() {
                   >
                     {columns.map(({ accessor }) => (
                       <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                        {accessor === "practiceDate"
+                        {typeof accessor === "function"
+                          ? accessor(practice)
+                          : accessor === "practiceDate"
                           ? formatDate(practice[accessor])
                           : typeof practice[accessor] === "object"
                           ? practice[accessor].join(", ")
