@@ -13,10 +13,17 @@ module.exports = {
           DEFAULT: "#001931",
         },
       },
+      screens: {
+        "can-hover": { raw: "(hover: hover)" },
+        "cannot-hover": { raw: "(hover: none)" },
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["hover"],
+      textColor: ["hover"],
+    },
   },
   plugins: [
     require("daisyui"),
