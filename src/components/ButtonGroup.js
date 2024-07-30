@@ -23,7 +23,7 @@ const ButtonGroup = ({
               value === option
                 ? "bg-gold-gradient"
                 : "bg-blue-gradient text-white"
-            }`}
+            } can-hover:hover:bg-gold-gradient can-hover:hover:text-black`}
             onClick={() => handleSelection(option)}
           >
             {option}
