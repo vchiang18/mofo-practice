@@ -10,7 +10,7 @@ import Routes from "./routes/BrowserRouter";
 // import AuthProvider from "./context/AuthContext"; //old auth context
 // import { Authenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
-import "@aws-amplify/ui-react/styles.css";
+// import "@aws-amplify/ui-react/styles.css";
 import awsconfig from "./aws-exports";
 import { AuthProvider } from "./context/AuthProvider";
 

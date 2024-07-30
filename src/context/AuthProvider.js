@@ -1,11 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { Hub } from "aws-amplify/utils";
-import {
-  fetchAuthSession,
-  signOut,
-  signInWithRedirect,
-  getCurrentUser,
-} from "aws-amplify/auth";
+import { fetchAuthSession, signOut, getCurrentUser } from "aws-amplify/auth";
 
 const AuthContext = createContext(null);
 
