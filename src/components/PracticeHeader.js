@@ -28,6 +28,7 @@ const PracticeHeader = () => {
       updateSettings({
         period: e.target.value,
         practiceType: "",
+        situation: "",
         rep: 1,
       })
     );
