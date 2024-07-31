@@ -35,7 +35,17 @@ export const selectionsSlice = createSlice({
         period,
         practiceType,
         situation,
-        rep: rep,
+        rep,
+      };
+    },
+    clearData: (state) => {
+      state.selections = {
+        practiceNo: null,
+        practiceDate: null,
+        period: 1,
+        practiceType: "None",
+        situation: "None",
+        rep: 1,
       };
     },
     copyPrev: (state, action) => {
@@ -54,17 +64,24 @@ export const selectionsSlice = createSlice({
     setPrior: (state, action) => {
       state.priorSelections = { ...action.payload };
     },
+    updateSettings: (state, action) => {
+      const { period, practiceType, rep } = action.payload;
+      state.selections.period = period;
+      state.selections.practiceType = practiceType;
+      state.selections.rep = rep;
+    },
   },
 });
 
 export const {
   setSelection,
   clearSelections,
+  clearData,
   setSingleSelection,
   removeSelection,
   copyPrev,
   finalize,
   setPrior,
-  //   setSelections,
+  updateSettings,
 } = selectionsSlice.actions;
 export default selectionsSlice.reducer;

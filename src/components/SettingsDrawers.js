@@ -8,7 +8,7 @@ import { generateFileName } from "../utils.js";
 import { useAuth } from "../context/AuthContext.js";
 import Popup from "./Popup.js";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelections } from "../redux/slices/selections.js";
+import { clearData } from "../redux/slices/selections.js";
 import { clearAll } from "../redux/slices/savedPlays.js";
 import { PlayListColumns } from "./PlayList.js";
 
@@ -142,7 +142,7 @@ const SettingsDrawer = () => {
   const handleDialogConfirmation = (answer) => {
     if (answer) {
       console.log("Clear practices confirmed");
-      dispatch(clearSelections());
+      dispatch(clearData());
       dispatch(clearAll());
       handleDialog("", false);
     } else {
