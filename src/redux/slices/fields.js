@@ -34,6 +34,7 @@ const initialState = localStorage.getItem("fields")
             "96",
             "98",
             "99",
+            "",
           ],
           name: "playerParticipation",
           multiselect: true,
