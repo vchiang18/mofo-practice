@@ -1,5 +1,22 @@
 import React from "react";
 import { usePractices } from "../context/PracticeContext";
+import { initialSelections } from "./PlayEntry";
+
+export const displayNames = {
+  offensivePersonnel: "Offensive Personnel",
+  formation: "Formation",
+  formationVariation: "Formation Variation",
+  backfield: "Backfield",
+  motion: "Motion",
+  FIB: "FIB",
+  formationFamily: "Formation Family",
+  unbalanced: "Unbalanced",
+  bdryCov: "Bdry Cov",
+  fieldCov: "Field Cov",
+  passResult: "Pass Result",
+  defCov: "Defensive Cov",
+  playCall: "Play Call",
+};
 
 function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
   const { practices } = usePractices();
@@ -49,54 +66,15 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                   >
                     Rep
                   </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Offensive Personnel
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation Variation
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Backfield
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Motion
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    FIB
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Formation Family
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
-                  >
-                    Unbalanced
-                  </th>
+                  {Object.keys(initialSelections).map((key) => (
+                    <th
+                      key={key}
+                      scope="col"
+                      className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500"
+                    >
+                      {displayNames[key]}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="bg-white">
@@ -117,30 +95,14 @@ function PlayListPreview({ limit = 0, sortOrder = "asc" }) {
                     <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
                       {practice.rep}
                     </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.offensivePersonnel}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationVariation}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.backfield}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.motion}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.FIB}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.formationFamily}
-                    </td>
-                    <td className="py-1.5 px-3 text-xs font-normal text-gray-900">
-                      {practice.unbalanced}
-                    </td>
+                    {Object.keys(initialSelections).map((key) => (
+                      <td
+                        key={key}
+                        className="py-1.5 px-3 text-xs font-normal text-gray-900"
+                      >
+                        {practice[key]}
+                      </td>
+                    ))}
                   </tr>
                 ))}
               </tbody>

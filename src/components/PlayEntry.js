@@ -6,28 +6,25 @@ import { useValues } from "../context/ValuesContext";
 import { usePlaySelections } from "../context/PlayContext";
 import { ArrowPathIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const PlayEntry = () => {
-  const [selections, setSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    FIB: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
+export const initialSelections = {
+  offensivePersonnel: null,
+  formation: null,
+  formationVariation: null,
+  backfield: null,
+  motion: null,
+  FIB: null,
+  formationFamily: null,
+  unbalanced: null,
+  bdryCov: null,
+  fieldCov: null,
+  passResult: null,
+  defCov: null,
+  playCall: null,
+};
 
-  const [priorSelections, setPriorSelections] = useState({
-    offensivePersonnel: null,
-    formation: null,
-    formationVariation: null,
-    backfield: null,
-    motion: null,
-    FIB: null,
-    formationFamily: null,
-    unbalanced: null,
-  });
+const PlayEntry = () => {
+  const [selections, setSelections] = useState(initialSelections);
+  const [priorSelections, setPriorSelections] = useState(initialSelections);
 
   const { playSelections, savePlaySelections } = usePlaySelections();
   const { values } = useValues();
@@ -57,16 +54,7 @@ const PlayEntry = () => {
   };
 
   const handleCancel = () => {
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      FIB: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
+    setSelections(initialSelections);
   };
 
   const handleSubmit = (e) => {
@@ -81,20 +69,64 @@ const PlayEntry = () => {
       rep: settings.rep,
     };
     console.log("settingsSelections: ", settingsSelections);
+    console.log("selections: ", selections);
 
     addPractice(selections, settingsSelections);
-    setSelections({
-      offensivePersonnel: null,
-      formation: null,
-      formationVariation: null,
-      backfield: null,
-      motion: null,
-      FIB: null,
-      formationFamily: null,
-      unbalanced: null,
-    });
+    setSelections(initialSelections);
     handleSave();
   };
+
+  const selectionFields = [
+    {
+      fieldName: "offensivePersonnel",
+      displayName: "OFF PERSONNEL",
+      options: values.offensivePersonnel,
+    },
+    {
+      fieldName: "formation",
+      displayName: "FORMATION",
+      options: values.formation,
+    },
+    {
+      fieldName: "formationVariation",
+      displayName: "FORM VAR",
+      options: values.formationVariation,
+    },
+    {
+      fieldName: "backfield",
+      displayName: "BACKFIELD",
+      options: values.backfield,
+    },
+    { fieldName: "motion", displayName: "MOTION", options: values.motion },
+    { fieldName: "FIB", displayName: "FSL (FIB)", options: values.FIB },
+    {
+      fieldName: "formationFamily",
+      displayName: "FORM FAM",
+      options: values.formationFamily,
+    },
+    {
+      fieldName: "unbalanced",
+      displayName: "UNB",
+      options: values.unbalanced,
+    },
+    { fieldName: "bdryCov", displayName: "BDRY COV", options: values.bdryCov },
+    {
+      fieldName: "fieldCov",
+      displayName: "FIELD COV",
+      options: values.fieldCov,
+    },
+    {
+      fieldName: "passResult",
+      displayName: "PASS RESULT",
+      options: values.passResult,
+    },
+    { fieldName: "defCov", displayName: "DEF COV", options: values.defCov },
+    {
+      fieldName: "playCall",
+      displayName: "PLAY CALL",
+      options: values.playCall,
+    },
+  ];
 
   return (
     <div className="p-4">
@@ -102,83 +134,17 @@ const PlayEntry = () => {
       <div className="flex flex-wrap">
         <div className="p-2 w-full">
           <div className="flex flex-nowrap justify-between">
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="offensivePersonnel"
-                displayName="OFF PERSONNEL"
-                options={values.offensivePersonnel}
-                onSelectionChange={handleSelectionChange}
-                value={selections.offensivePersonnel}
-              />
-            </div>
-            {/* <div className="w-[284px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="formation"
-                displayName="FORMATION"
-                options={values.formation}
-                onSelectionChange={handleSelectionChange}
-                value={selections.formation}
-              />
-            </div>
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="formationVariation"
-                displayName="FORM VAR"
-                options={values.formationVariation}
-                onSelectionChange={handleSelectionChange}
-                value={selections.formationVariation}
-              />
-            </div>
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="backfield"
-                displayName="BACKFIELD"
-                options={values.backfield}
-                onSelectionChange={handleSelectionChange}
-                value={selections.backfield}
-              />
-            </div>
-            {/* <div className="w-[163px]"> */}
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="motion"
-                displayName="MOTION"
-                options={values.motion}
-                onSelectionChange={handleSelectionChange}
-                value={selections.motion}
-              />
-            </div>
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="FIB"
-                displayName="FSL (FIB)"
-                options={values.FIB}
-                onSelectionChange={handleSelectionChange}
-                value={selections.FIB}
-              />
-            </div>
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="formationFamily"
-                displayName="FORM FAM"
-                options={values.formationFamily}
-                onSelectionChange={handleSelectionChange}
-                value={selections.formationFamily}
-              />
-            </div>
-            <div className="flex-grow">
-              <ButtonGroup
-                fieldName="unbalanced"
-                displayName="UNB"
-                options={values.unbalanced}
-                onSelectionChange={handleSelectionChange}
-                value={selections.unbalanced}
-              />
-            </div>
+            {selectionFields.map((field) => (
+              <div key={field.fieldName} className="flex-grow">
+                <ButtonGroup
+                  fieldName={field.fieldName}
+                  displayName={field.displayName}
+                  options={field.options}
+                  onSelectionChange={handleSelectionChange}
+                  value={selections[field.fieldName]}
+                />
+              </div>
+            ))}
           </div>
           <div className="mt-4 flex justify-end space-x-2">
             <button

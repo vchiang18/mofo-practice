@@ -1,9 +1,16 @@
 import React, { useState } from "react";
 import { usePractices } from "../context/PracticeContext";
+import { initialSelections } from "./PlayEntry";
+import { displayNames } from "./PlayListPreview";
 
 function PlayListFilter() {
   const { practices } = usePractices();
-  const [selectedFilters, setSelectedFilters] = useState(null);
+  const [selectedFilters, setSelectedFilters] = useState(
+    Object.keys(initialSelections).reduce((acc, key) => {
+      acc[key] = null;
+      return acc;
+    }, {})
+  );
 
   if (practices.length === 0) {
     return <div className="p-4">No practices recorded.</div>;
@@ -16,15 +23,15 @@ function PlayListFilter() {
     }));
   };
 
-  const getUniqueValues = (column) => {
-    return [
-      ...new Set(
-        practices
-          .map((practice) => practice[column])
-          .filter((value) => value !== null && value !== undefined)
-      ),
-    ];
-  };
+  // const getUniqueValues = (column) => {
+  //   return [
+  //     ...new Set(
+  //       practices
+  //         .map((practice) => practice[column])
+  //         .filter((value) => value !== null && value !== undefined)
+  //     ),
+  //   ];
+  // };
 
   const filteredPractices = practices.filter((practice) =>
     Object.entries(selectedFilters).every(
@@ -45,6 +52,17 @@ function PlayListFilter() {
     }
   };
 
+  const additionalColumns = [
+    "practiceNo",
+    "practiceDate",
+    "period",
+    "practiceType",
+    "situation",
+    "rep",
+  ];
+
+  const columns = additionalColumns.concat(Object.keys(initialSelections));
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -53,7 +71,17 @@ function PlayListFilter() {
           <table className="min-w-full divide-y divide-gray-300">
             <thead>
               <tr>
-                {[
+                {columns.map((column) => (
+                  <th
+                    key={column}
+                    scope="col"
+                    className="px-3 py-1.5 text-left text-xs font-semibold text-gray-500 cursor-pointer"
+                    onClick={() => handleFilterChange(column, null)}
+                  >
+                    {displayNames[column] || column}
+                  </th>
+                ))}
+                {/* {[
                   "practiceNo",
                   "practiceDate",
                   "period",
@@ -68,6 +96,11 @@ function PlayListFilter() {
                   "FIB",
                   "formationFamily",
                   "unbalanced",
+                  "bdryCov",
+                  "fieldCov",
+                  "passResult",
+                  "defCov",
+                  "playCall",
                 ].map((column) => (
                   <th
                     key={column}
@@ -77,13 +110,26 @@ function PlayListFilter() {
                   >
                     {column}
                   </th>
-                ))}
+                ))} */}
               </tr>
             </thead>
             <tbody>
               {filteredPractices.map((practice) => (
                 <tr key={practice.id}>
-                  {Object.entries(practice).map(([key, value]) => (
+                  {columns.map((column) => (
+                    <td
+                      key={column}
+                      className="px-3 py-1.5 text-left text-xs"
+                      onClick={() =>
+                        handleFilterChange(column, practice[column])
+                      }
+                    >
+                      {column === "practiceDate"
+                        ? formatDate(practice[column])
+                        : practice[column]}
+                    </td>
+                  ))}
+                  {/* {Object.entries(practice).map(([key, value]) => (
                     <td
                       key={key}
                       className="px-3 py-1.5 text-left text-xs"
@@ -91,7 +137,7 @@ function PlayListFilter() {
                     >
                       {value}
                     </td>
-                  ))}
+                  ))} */}
                 </tr>
               ))}
             </tbody>

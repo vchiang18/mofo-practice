@@ -87,6 +87,11 @@ const SettingsDrawer = () => {
     "FIB",
     "formationFamily",
     "unbalanced",
+    "bdryCov",
+    "fieldCov",
+    "passResult",
+    "defCov",
+    "playCall",
   ];
 
   const handleDownloadCSV = async () => {

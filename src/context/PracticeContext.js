@@ -58,6 +58,14 @@ export function PracticeProvider({ children }) {
     try {
       await db.practices.clear();
       setPractices([]);
+      setSettings({
+        practiceNo: "",
+        practiceDate: "",
+        period: 1,
+        type: "",
+        rep: 1,
+        situation: "",
+      });
     } catch (error) {
       console.error("Failed to clear practices: ", error);
     }

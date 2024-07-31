@@ -15,6 +15,11 @@ const defaultValues = {
   practiceType: ["NONE", "7x7", "Blitz", "Team"],
   period: [1, 2, 3, 4, 5, 6, 7, 8],
   situation: ["NONE", "A", "B", "C"],
+  bdryCov: [],
+  fieldCov: [],
+  passResult: [],
+  defCov: [],
+  playCall: [],
 };
 
 export function ValuesProvider({ children }) {
