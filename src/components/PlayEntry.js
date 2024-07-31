@@ -41,7 +41,12 @@ const PlayEntry = () => {
   };
 
   const drop = (ev, index) => {
+    console.log(ev);
     ev.preventDefault();
+    if (!ev.dataTransfer) {
+      return; // guard clause - exit if dataTransfer is not available
+    }
+
     let id = index;
     let newIndex = ev.dataTransfer.getData("index");
     dispatch(swapIndex({ index: id, newIndex: newIndex }));
