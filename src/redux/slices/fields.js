@@ -278,6 +278,14 @@ export const fieldsSlice = createSlice({
       let fields = state.fields;
       [fields[index], fields[newIndex]] = [fields[newIndex], fields[index]];
     },
+    moveField: (state, action) => {
+      const { fromIndex, toIndex } = action.payload;
+      const fields = [...state.fields];
+      const [movedField] = fields.splice(fromIndex, 1);
+      fields.splice(toIndex, 0, movedField);
+      state.fields = fields;
+      autoSave(state);
+    },
     toggleMutliselect: (state, action) => {
       const target = action.payload.index;
       const multi = state.fields[target].multiselect;
@@ -339,6 +347,7 @@ export const {
   removeValue,
   changeValue,
   swapIndex,
+  moveField,
   toggleMutliselect,
   addHeader,
   removeHeader,

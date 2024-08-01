@@ -10,7 +10,7 @@ import {
   setPrior,
 } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
-import { swapIndex } from "../redux/slices/fields";
+import { moveField, swapIndex } from "../redux/slices/fields";
 
 const PlayEntry = () => {
   const dispatch = useDispatch();
@@ -47,9 +47,21 @@ const PlayEntry = () => {
       return; // guard clause - exit if dataTransfer is not available
     }
 
-    let id = index;
-    let newIndex = ev.dataTransfer.getData("index");
-    dispatch(swapIndex({ index: id, newIndex: newIndex }));
+    // insert logic
+    const dragIndex = dragItem.current;
+    const dropIndex = index;
+
+    if (dragIndex === dropIndex) {
+      return;
+    }
+
+    dispatch(moveField({ fromIndex: dragIndex, toIndex: dropIndex }));
+
+    // swap
+    // let id = index;
+    // let newIndex = ev.dataTransfer.getData("index");
+    // dispatch(swapIndex({ index: id, newIndex: newIndex }));
+
     dragItem.current = null;
     dragOverIndex.current = null;
   };
