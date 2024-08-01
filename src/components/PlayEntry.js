@@ -10,7 +10,7 @@ import {
   setPrior,
 } from "../redux/slices/selections";
 import { addPlay } from "../redux/slices/savedPlays";
-import { moveField, swapIndex } from "../redux/slices/fields";
+import { moveField } from "../redux/slices/fields";
 
 const PlayEntry = () => {
   const dispatch = useDispatch();
