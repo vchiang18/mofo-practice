@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSingleSelection } from "../redux/slices/selections";
+import { setSingleSelection, updateSettings } from "../redux/slices/selections";
 
 const PracticeHeader = () => {
   const dispatch = useDispatch();
-
   const selections = useSelector((state) => state.selections.selections);
   const headerFields = useSelector((state) => state.fields.headers);
 
@@ -23,6 +22,17 @@ const PracticeHeader = () => {
       }
     });
   }, [headerFields, selections, dispatch]);
+
+  const handlePeriodChange = (e) => {
+    dispatch(
+      updateSettings({
+        period: e.target.value,
+        practiceType: "",
+        situation: "",
+        rep: 1,
+      })
+    );
+  };
 
   return (
     <div>
@@ -56,7 +66,9 @@ const PracticeHeader = () => {
               <label className="block text-xs text-white mb-1">{label}</label>
               <select
                 value={selections[name]}
-                onChange={handleDropdownChange}
+                onChange={
+                  name === "period" ? handlePeriodChange : handleDropdownChange
+                }
                 name={name}
               >
                 {values.slice(0, -1).map((option, index) => (

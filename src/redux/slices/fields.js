@@ -34,6 +34,7 @@ const initialState = localStorage.getItem("fields")
             "96",
             "98",
             "99",
+            "",
           ],
           name: "playerParticipation",
           multiselect: true,
@@ -277,6 +278,14 @@ export const fieldsSlice = createSlice({
       let fields = state.fields;
       [fields[index], fields[newIndex]] = [fields[newIndex], fields[index]];
     },
+    moveField: (state, action) => {
+      const { fromIndex, toIndex } = action.payload;
+      const fields = [...state.fields];
+      const [movedField] = fields.splice(fromIndex, 1);
+      fields.splice(toIndex, 0, movedField);
+      state.fields = fields;
+      autoSave(state);
+    },
     toggleMutliselect: (state, action) => {
       const target = action.payload.index;
       const multi = state.fields[target].multiselect;
@@ -328,6 +337,15 @@ export const fieldsSlice = createSlice({
       }
       autoSave(state);
     },
+    swapValues: (state, action) => {
+      const { fieldIndex, valIndex1, valIndex2 } = action.payload;
+      const values = state.fields[fieldIndex].values;
+      [values[valIndex1], values[valIndex2]] = [
+        values[valIndex2],
+        values[valIndex1],
+      ];
+      autoSave(state);
+    },
   },
 });
 
@@ -338,12 +356,14 @@ export const {
   removeValue,
   changeValue,
   swapIndex,
+  moveField,
   toggleMutliselect,
   addHeader,
   removeHeader,
   changeHeaderName,
   removeHeaderValue,
   changeHeaderValue,
+  swapValues,
 } = fieldsSlice.actions;
 
 export default fieldsSlice.reducer;
