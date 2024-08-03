@@ -78,8 +78,12 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                 <button
                   key={ind}
                   className={`align-center py-2 px-4 rounded mx-2 min-h-[73.72px] ${
-                    selections[fieldName] &&
-                    selections[fieldName].includes(option)
+                    multi
+                      ? selections[fieldName] &&
+                        selections[fieldName].includes(option)
+                        ? "bg-gold-gradient"
+                        : "bg-blue-gradient text-white"
+                      : selections[fieldName] === option
                       ? "bg-gold-gradient"
                       : "bg-blue-gradient text-white"
                   } hover:bg-gold-gradient hover:text-black`}

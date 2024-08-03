@@ -337,6 +337,11 @@ export const fieldsSlice = createSlice({
       }
       autoSave(state);
     },
+    reorderValues: (state, action) => {
+      const { fieldIndex, newOrder } = action.payload;
+      state.fields[fieldIndex].values = newOrder;
+      autoSave(state);
+    },
   },
 });
 
@@ -354,6 +359,7 @@ export const {
   changeHeaderName,
   removeHeaderValue,
   changeHeaderValue,
+  reorderValues,
 } = fieldsSlice.actions;
 
 export default fieldsSlice.reducer;
