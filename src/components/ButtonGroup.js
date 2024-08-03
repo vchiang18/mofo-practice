@@ -86,7 +86,7 @@ const ButtonGroup = ({ fieldName, displayName, multi }) => {
                       : selections[fieldName] === option
                       ? "bg-gold-gradient"
                       : "bg-blue-gradient text-white"
-                  } hover:bg-gold-gradient hover:text-black`}
+                  }`}
                   onClick={() => handleSelection(option)}
                 >
                   {option}
