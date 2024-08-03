@@ -8,9 +8,14 @@ import {
   toggleMutliselect,
   removeHeaderValue,
   changeHeaderValue,
+  swapValues,
 } from "../redux/slices/fields";
 import { useState } from "react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
+} from "@heroicons/react/24/outline";
 
 const Settings = () => {
   const [inputs, setInputs] = useState(""); // [1]
@@ -27,6 +32,14 @@ const Settings = () => {
     if (e.key === "Enter" && next !== null) {
       next.childNodes[0].focus();
     }
+  };
+
+  const handleMoveValue = (fieldIndex, valIndex, direction) => {
+    const newIndex = valIndex + direction;
+    if (newIndex < 0 || newIndex >= fields[fieldIndex].values.length) return;
+    dispatch(
+      swapValues({ fieldIndex, valIndex1: valIndex, valIndex2: newIndex })
+    );
   };
 
   return (
@@ -77,6 +90,20 @@ const Settings = () => {
               </div>
               {values.map((value, valIndex) => (
                 <div key={valIndex} className="flex items-center mb-2 text-sm">
+                  <button
+                    className="text-gray-500 mr-2"
+                    onClick={() => handleMoveValue(index, valIndex, -1)}
+                    disabled={valIndex === 0}
+                  >
+                    <ArrowUpIcon className="w-4 h-4" />
+                  </button>
+                  <button
+                    className="text-gray-500 mr-2"
+                    onClick={() => handleMoveValue(index, valIndex, 1)}
+                    disabled={valIndex === values.length - 2}
+                  >
+                    <ArrowDownIcon className="w-4 h-4" />
+                  </button>
                   <input
                     type="text"
                     value={value}
